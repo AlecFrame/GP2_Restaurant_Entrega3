@@ -116,12 +116,12 @@ public class VReservas extends javax.swing.JInternalFrame {
         setFont(new java.awt.Font("Calibri", 1, 10)); // NOI18N
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Logo5.png"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
         jLabel1.setText("Busca por:");
         jLabel1.setAlignmentY(0.0F);
 
         jbBuscar.setBackground(new java.awt.Color(162, 108, 72));
-        jbBuscar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbBuscar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbBuscar.setForeground(new java.awt.Color(255, 255, 204));
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(null);
@@ -166,7 +166,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable);
 
         jbCargar.setBackground(new java.awt.Color(162, 108, 72));
-        jbCargar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbCargar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbCargar.setForeground(new java.awt.Color(255, 255, 204));
         jbCargar.setText("Cargar");
         jbCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -176,7 +176,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         });
 
         jbActualizar.setBackground(new java.awt.Color(162, 108, 72));
-        jbActualizar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbActualizar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbActualizar.setForeground(new java.awt.Color(255, 255, 204));
         jbActualizar.setText("Actualizar");
         jbActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +185,7 @@ public class VReservas extends javax.swing.JInternalFrame {
             }
         });
 
-        jbEliminar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbEliminar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbEliminar.setForeground(new java.awt.Color(204, 0, 0));
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -195,7 +195,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         });
 
         jbGuardar.setBackground(new java.awt.Color(162, 108, 72));
-        jbGuardar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbGuardar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbGuardar.setForeground(new java.awt.Color(255, 255, 204));
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +205,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         });
 
         jbSalir.setBackground(new java.awt.Color(204, 0, 0));
-        jbSalir.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbSalir.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbSalir.setForeground(new java.awt.Color(255, 255, 204));
         jbSalir.setText("Cerrar");
         jbSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -219,7 +219,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         jLfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/reserva2.png"))); // NOI18N
 
         jcbFecha.setBackground(new java.awt.Color(204, 187, 165));
-        jcbFecha.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+        jcbFecha.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jcbFecha.setText("Fecha Reservada");
         jcbFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,7 +228,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         });
 
         jcbHora.setBackground(new java.awt.Color(204, 187, 165));
-        jcbHora.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+        jcbHora.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jcbHora.setText("Hora Reservada");
         jcbHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,7 +238,7 @@ public class VReservas extends javax.swing.JInternalFrame {
 
         jrVigencia.setBackground(new java.awt.Color(204, 187, 165));
         GrupoBotVigencia.add(jrVigencia);
-        jrVigencia.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+        jrVigencia.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jrVigencia.setText("Vigencia");
         jrVigencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,7 +248,7 @@ public class VReservas extends javax.swing.JInternalFrame {
 
         jrNoVigencia.setBackground(new java.awt.Color(204, 187, 165));
         GrupoBotVigencia.add(jrNoVigencia);
-        jrNoVigencia.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+        jrNoVigencia.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jrNoVigencia.setText("No Vigencia");
         jrNoVigencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,7 +257,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         });
 
         jcbBuscar.setBackground(new java.awt.Color(204, 187, 165));
-        jcbBuscar.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
+        jcbBuscar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jcbBuscar.setText("ID / Apellido:");
         jcbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,25 +301,31 @@ public class VReservas extends javax.swing.JInternalFrame {
                             .addGap(18, 18, 18)
                             .addComponent(jbEliminar))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jcbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(51, 51, 51)
-                                        .addComponent(jcbBuscar))
-                                    .addComponent(jcbFecha, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jtfBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                                .addComponent(jtfHora))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jrNoVigencia)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
                                     .addComponent(jrVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(42, 42, 42)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jcbHora)
+                                                .addComponent(jcbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(45, 45, 45)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jtfBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                                .addComponent(jtfHora)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jcbFecha)
+                                            .addGap(45, 45, 45)
+                                            .addComponent(jFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jrNoVigencia))))
+                            .addGap(1, 1, 1))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -335,17 +341,23 @@ public class VReservas extends javax.swing.JInternalFrame {
                     .addComponent(jcbBuscar)
                     .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jcbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jcbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jrVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jrNoVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jcbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jrNoVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

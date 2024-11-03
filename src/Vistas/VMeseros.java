@@ -70,6 +70,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         jSalir = new javax.swing.JButton();
         jLfondo = new javax.swing.JLabel();
         jbBuscaPor = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 187, 165));
         setBorder(null);
@@ -80,7 +81,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(575, 418));
 
         jbBuscar.setBackground(new java.awt.Color(153, 102, 0));
-        jbBuscar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbBuscar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbBuscar.setForeground(new java.awt.Color(255, 255, 204));
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(null);
@@ -125,7 +126,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable);
 
         jbCargar.setBackground(new java.awt.Color(153, 102, 0));
-        jbCargar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbCargar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbCargar.setForeground(new java.awt.Color(255, 255, 204));
         jbCargar.setText("Cargar");
         jbCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -135,7 +136,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         });
 
         jbActualizar.setBackground(new java.awt.Color(153, 102, 0));
-        jbActualizar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbActualizar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbActualizar.setForeground(new java.awt.Color(255, 255, 204));
         jbActualizar.setText("Actualizar");
         jbActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +145,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
             }
         });
 
-        jbEliminar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbEliminar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbEliminar.setForeground(new java.awt.Color(204, 0, 0));
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +155,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         });
 
         jbGuardar.setBackground(new java.awt.Color(153, 102, 0));
-        jbGuardar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbGuardar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbGuardar.setForeground(new java.awt.Color(255, 255, 204));
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +165,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         });
 
         jSalir.setBackground(new java.awt.Color(204, 0, 0));
-        jSalir.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jSalir.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jSalir.setForeground(new java.awt.Color(255, 255, 204));
         jSalir.setText("Cerrar");
         jSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -177,8 +178,11 @@ public class VMeseros extends javax.swing.JInternalFrame {
         jLfondo.setBackground(new java.awt.Color(255, 204, 153));
         jLfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Mesero00.png"))); // NOI18N
 
-        jbBuscaPor.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
-        jbBuscaPor.setText("Buscar por DNI/Apellido:");
+        jbBuscaPor.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
+        jbBuscaPor.setText("Buscar por:");
+
+        jLabel1.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jLabel1.setText(" DNI/Apellido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,13 +194,15 @@ public class VMeseros extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jbBuscaPor)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
                         .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,9 +226,10 @@ public class VMeseros extends javax.swing.JInternalFrame {
                     .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBuscaPor))
+                    .addComponent(jbBuscaPor)
+                    .addComponent(jLabel1))
                 .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGuardar)
@@ -575,6 +582,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLfondo;
     private javax.swing.JButton jSalir;
     private javax.swing.JScrollPane jScrollPane1;

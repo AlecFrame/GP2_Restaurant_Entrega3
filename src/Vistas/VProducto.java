@@ -97,12 +97,12 @@ public class VProducto extends javax.swing.JInternalFrame {
         setFont(new java.awt.Font("Calibri", 1, 10)); // NOI18N
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Logo5.png"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
         jLabel1.setText("Busca por:  ");
         jLabel1.setAlignmentY(0.0F);
 
         jbBuscar.setBackground(new java.awt.Color(162, 108, 72));
-        jbBuscar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbBuscar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbBuscar.setForeground(new java.awt.Color(255, 255, 204));
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(null);
@@ -121,8 +121,8 @@ public class VProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
-        jLabel2.setText("Categorias:");
+        jLabel2.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jLabel2.setText("Categorias");
 
         jTable.setBackground(new java.awt.Color(255, 255, 204));
         jTable.setBorder(new javax.swing.border.MatteBorder(null));
@@ -158,7 +158,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable);
 
         jbCargar.setBackground(new java.awt.Color(162, 108, 72));
-        jbCargar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbCargar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbCargar.setForeground(new java.awt.Color(255, 255, 204));
         jbCargar.setText("Cargar");
         jbCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +168,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         });
 
         jbActualizar.setBackground(new java.awt.Color(162, 108, 72));
-        jbActualizar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbActualizar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbActualizar.setForeground(new java.awt.Color(255, 255, 204));
         jbActualizar.setText("Actualizar");
         jbActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -177,7 +177,7 @@ public class VProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        jbEliminar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbEliminar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbEliminar.setForeground(new java.awt.Color(204, 0, 0));
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +187,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         });
 
         jbGuardar.setBackground(new java.awt.Color(162, 108, 72));
-        jbGuardar.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbGuardar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbGuardar.setForeground(new java.awt.Color(255, 255, 204));
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -197,7 +197,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         });
 
         jbSalir.setBackground(new java.awt.Color(204, 0, 0));
-        jbSalir.setFont(new java.awt.Font("Monotype Corsiva", 1, 14)); // NOI18N
+        jbSalir.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jbSalir.setForeground(new java.awt.Color(255, 255, 204));
         jbSalir.setText("Cerrar");
         jbSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -210,8 +210,8 @@ public class VProducto extends javax.swing.JInternalFrame {
         jLfondo.setBackground(new java.awt.Color(255, 204, 153));
         jLfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/empanadas.jpg"))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Monotype Corsiva", 0, 18)); // NOI18N
-        jLabel3.setText("código/nombre");
+        jLabel3.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jLabel3.setText("Código/nombre");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -232,15 +232,13 @@ public class VProducto extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jbEliminar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(1, 1, 1)))
-                        .addComponent(jLabel3)
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel3))
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -267,7 +265,7 @@ public class VProducto extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel3))
                 .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)

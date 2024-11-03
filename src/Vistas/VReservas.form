@@ -77,31 +77,40 @@
                           <Component id="jbEliminar" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" alignment="0" min="-2" pref="517" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jcbHora" min="-2" pref="165" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                                      <Component id="jcbBuscar" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jcbFecha" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jFecha" max="32767" attributes="0"/>
-                              <Component id="jtfBuscar" pref="133" max="32767" attributes="0"/>
-                              <Component id="jtfHora" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jrNoVigencia" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="jrVigencia" min="-2" pref="119" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jbBuscar" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jcbHora" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jcbBuscar" min="-2" pref="123" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="jtfBuscar" pref="133" max="32767" attributes="0"/>
+                                              <Component id="jtfHora" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jcbFecha" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                          <Component id="jFecha" pref="133" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jbBuscar" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
+                                      <Component id="jrNoVigencia" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -124,19 +133,29 @@
                   <Component id="jtfBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbBuscar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jcbFecha" min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="jFecha" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jrVigencia" min="-2" pref="20" max="-2" attributes="0"/>
+              </Group>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jcbFecha" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="jFecha" min="-2" max="-2" attributes="0"/>
-                  <Component id="jrVigencia" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jcbHora" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jtfHora" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jrNoVigencia" min="-2" pref="19" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jcbHora" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="jrNoVigencia" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                  <Component id="jtfHora" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="103" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -154,7 +173,7 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="18" style="1"/>
+          <Font name="Calibri" size="18" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Busca por:"/>
         <Property name="alignmentY" type="float" value="0.0"/>
@@ -166,7 +185,7 @@
           <Color blue="48" green="6c" red="a2" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="14" style="1"/>
+          <Font name="Calibri" size="14" style="2"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="ff" red="ff" type="rgb"/>
@@ -276,7 +295,7 @@
           <Color blue="48" green="6c" red="a2" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="14" style="1"/>
+          <Font name="Calibri" size="14" style="2"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="ff" red="ff" type="rgb"/>
@@ -293,7 +312,7 @@
           <Color blue="48" green="6c" red="a2" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="14" style="1"/>
+          <Font name="Calibri" size="14" style="2"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="ff" red="ff" type="rgb"/>
@@ -307,7 +326,7 @@
     <Component class="javax.swing.JButton" name="jbEliminar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="14" style="1"/>
+          <Font name="Calibri" size="14" style="2"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="cc" type="rgb"/>
@@ -326,7 +345,7 @@
           <Color blue="48" green="6c" red="a2" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="14" style="1"/>
+          <Font name="Calibri" size="14" style="2"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="ff" red="ff" type="rgb"/>
@@ -343,7 +362,7 @@
           <Color blue="0" green="0" red="cc" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="14" style="1"/>
+          <Font name="Calibri" size="14" style="2"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="ff" red="ff" type="rgb"/>
@@ -375,7 +394,7 @@
           <Color blue="a5" green="bb" red="cc" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="18" style="0"/>
+          <Font name="Calibri" size="14" style="2"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Fecha Reservada"/>
       </Properties>
@@ -389,7 +408,7 @@
           <Color blue="a5" green="bb" red="cc" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="18" style="0"/>
+          <Font name="Calibri" size="14" style="2"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Hora Reservada"/>
       </Properties>
@@ -406,7 +425,7 @@
           <ComponentRef name="GrupoBotVigencia"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="18" style="0"/>
+          <Font name="Calibri" size="14" style="2"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Vigencia"/>
       </Properties>
@@ -423,7 +442,7 @@
           <ComponentRef name="GrupoBotVigencia"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="18" style="0"/>
+          <Font name="Calibri" size="14" style="2"/>
         </Property>
         <Property name="text" type="java.lang.String" value="No Vigencia"/>
       </Properties>
@@ -437,7 +456,7 @@
           <Color blue="a5" green="bb" red="cc" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monotype Corsiva" size="18" style="0"/>
+          <Font name="Calibri" size="14" style="2"/>
         </Property>
         <Property name="text" type="java.lang.String" value="ID / Apellido:"/>
       </Properties>
