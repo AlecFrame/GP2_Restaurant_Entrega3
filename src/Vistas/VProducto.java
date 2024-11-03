@@ -102,7 +102,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         jLabel1.setAlignmentY(0.0F);
 
         jbBuscar.setBackground(new java.awt.Color(162, 108, 72));
-        jbBuscar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jbBuscar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jbBuscar.setForeground(new java.awt.Color(255, 255, 204));
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(null);
@@ -158,7 +158,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable);
 
         jbCargar.setBackground(new java.awt.Color(162, 108, 72));
-        jbCargar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jbCargar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jbCargar.setForeground(new java.awt.Color(255, 255, 204));
         jbCargar.setText("Cargar");
         jbCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +168,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         });
 
         jbActualizar.setBackground(new java.awt.Color(162, 108, 72));
-        jbActualizar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jbActualizar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jbActualizar.setForeground(new java.awt.Color(255, 255, 204));
         jbActualizar.setText("Actualizar");
         jbActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -177,7 +177,7 @@ public class VProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        jbEliminar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jbEliminar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jbEliminar.setForeground(new java.awt.Color(204, 0, 0));
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +187,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         });
 
         jbGuardar.setBackground(new java.awt.Color(162, 108, 72));
-        jbGuardar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jbGuardar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jbGuardar.setForeground(new java.awt.Color(255, 255, 204));
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -197,7 +197,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         });
 
         jbSalir.setBackground(new java.awt.Color(204, 0, 0));
-        jbSalir.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jbSalir.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jbSalir.setForeground(new java.awt.Color(255, 255, 204));
         jbSalir.setText("Cerrar");
         jbSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));

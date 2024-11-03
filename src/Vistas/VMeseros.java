@@ -70,7 +70,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         jSalir = new javax.swing.JButton();
         jLfondo = new javax.swing.JLabel();
         jbBuscaPor = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLdni = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 187, 165));
         setBorder(null);
@@ -81,7 +81,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(575, 418));
 
         jbBuscar.setBackground(new java.awt.Color(153, 102, 0));
-        jbBuscar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jbBuscar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jbBuscar.setForeground(new java.awt.Color(255, 255, 204));
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(null);
@@ -126,7 +126,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable);
 
         jbCargar.setBackground(new java.awt.Color(153, 102, 0));
-        jbCargar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jbCargar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jbCargar.setForeground(new java.awt.Color(255, 255, 204));
         jbCargar.setText("Cargar");
         jbCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +136,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         });
 
         jbActualizar.setBackground(new java.awt.Color(153, 102, 0));
-        jbActualizar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jbActualizar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jbActualizar.setForeground(new java.awt.Color(255, 255, 204));
         jbActualizar.setText("Actualizar");
         jbActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +145,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
             }
         });
 
-        jbEliminar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jbEliminar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jbEliminar.setForeground(new java.awt.Color(204, 0, 0));
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -155,7 +155,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         });
 
         jbGuardar.setBackground(new java.awt.Color(153, 102, 0));
-        jbGuardar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jbGuardar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jbGuardar.setForeground(new java.awt.Color(255, 255, 204));
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +165,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         });
 
         jSalir.setBackground(new java.awt.Color(204, 0, 0));
-        jSalir.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jSalir.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
         jSalir.setForeground(new java.awt.Color(255, 255, 204));
         jSalir.setText("Cerrar");
         jSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -181,8 +181,8 @@ public class VMeseros extends javax.swing.JInternalFrame {
         jbBuscaPor.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
         jbBuscaPor.setText("Buscar por:");
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
-        jLabel1.setText(" DNI/Apellido");
+        jLdni.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jLdni.setText(" DNI/Apellido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,32 +190,28 @@ public class VMeseros extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLfondo, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jbBuscaPor)
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1)
+                        .addGap(4, 4, 4)
+                        .addComponent(jLdni)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
                         .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbActualizar)
                         .addGap(18, 18, 18)
-                        .addComponent(jbEliminar)
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())))
+                        .addComponent(jbEliminar)))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +223,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
                     .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscaPor)
-                    .addComponent(jLabel1))
+                    .addComponent(jLdni))
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addGap(36, 36, 36)
@@ -582,7 +578,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLdni;
     private javax.swing.JLabel jLfondo;
     private javax.swing.JButton jSalir;
     private javax.swing.JScrollPane jScrollPane1;
