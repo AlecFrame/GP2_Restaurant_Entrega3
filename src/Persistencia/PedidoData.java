@@ -3,10 +3,13 @@ package Persistencia;
 
 import Modelo.Conexion;
 import Modelo.Pedido;
+import Modelo.Reserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -76,23 +79,42 @@ public class PedidoData {
         }
     }
 
-    public Pedido buscarPedido(int idPedido) throws SQLException {
+    public Pedido buscarPedido(int numero) throws SQLException {
         Pedido pedido = null;
         String sql = "SELECT * FROM pedido WHERE idPedido = ?";
         
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, idPedido);
+        ps.setInt(1, numero);
         
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             pedido = new Pedido(rs.getInt("idPedido"),
                                 mesero.buscar(rs.getString("dni_mesero")),
-                                mesa.buscar(rs.getInt("numeroMesa")),
+                                mesa.buscar(rs.getInt("numero_mesa")),
                                 rs.getDouble("importe"),
                                 rs.getDate("fecha").toLocalDate(),
                                 rs.getTime("hora").toLocalTime(),
                                 rs.getBoolean("cobrado"),
                                 rs.getBoolean("estado"));
+        }
+        
+        if (pedido==null) {
+            sql = "SELECT * FROM pedido WHERE dni_mesero = ?";
+
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, numero);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                pedido = new Pedido(rs.getInt("idPedido"),
+                                    mesero.buscar(rs.getString("dni_mesero")),
+                                    mesa.buscar(rs.getInt("numero_mesa")),
+                                    rs.getDouble("importe"),
+                                    rs.getDate("fecha").toLocalDate(),
+                                    rs.getTime("hora").toLocalTime(),
+                                    rs.getBoolean("cobrado"),
+                                    rs.getBoolean("estado"));
+            }
         }
         
         return pedido;
@@ -142,7 +164,23 @@ public class PedidoData {
             }
         }
     }
-
+    
+    public void cambiarEstado(boolean estado, int idPedido) throws SQLException {
+        String sql = "UPDATE pedido SET estado = ? WHERE idPedido = ?";
+        
+        PreparedStatement s = con.prepareStatement(sql);
+        s.setBoolean(1, estado);
+        s.setInt(2, idPedido);
+        
+        int filas = s.executeUpdate();
+        if (filas > 0) {
+            System.out.println("El pedido " + idPedido + " fue eliminado con éxito");
+            JOptionPane.showMessageDialog(null, "El estado del pedido fue actualizado con éxito");
+        } else {
+            System.out.println("Error al cambiar el estado de pedido");
+        }
+    }
+    
     public ArrayList<Pedido> listarPedidos() throws SQLException {
         ArrayList<Pedido> pedidos = new ArrayList<>();
         String sql = "SELECT * FROM pedido";
@@ -153,7 +191,7 @@ public class PedidoData {
         while (rs.next()) {
             Pedido pedido = new Pedido(rs.getInt("idPedido"),
                                 mesero.buscar(rs.getString("dni_mesero")),
-                                mesa.buscar(rs.getInt("numeroMesa")),
+                                mesa.buscar(rs.getInt("numero_mesa")),
                                 rs.getDouble("importe"),
                                 rs.getDate("fecha").toLocalDate(),
                                 rs.getTime("hora").toLocalTime(),
@@ -174,7 +212,7 @@ public class PedidoData {
         while (rs.next()) {
             Pedido pedido = new Pedido(rs.getInt("idPedido"),
                                 mesero.buscar(rs.getString("dni_mesero")),
-                                mesa.buscar(rs.getInt("numeroMesa")),
+                                mesa.buscar(rs.getInt("numero_mesa")),
                                 rs.getDouble("importe"),
                                 rs.getDate("fecha").toLocalDate(),
                                 rs.getTime("hora").toLocalTime(),
@@ -184,4 +222,47 @@ public class PedidoData {
         }
         return pedidos;
     }
+
+    public ArrayList<Pedido> buscarPedidosPorFechayHorayCobro(LocalDate fecha, LocalTime hora, String cobrado) throws SQLException {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM pedido WHERE 1=1");
+
+        ArrayList<Object> parameters = new ArrayList<>();
+
+        if (fecha != null) {
+            sql.append(" AND fecha = ?");
+            parameters.add(java.sql.Date.valueOf(fecha));
+        }
+        if (hora != null) {
+            sql.append(" AND hora = ?");
+            parameters.add(hora);
+        }
+        if (cobrado != null && !"null".equals(cobrado)) {
+            boolean cobro = (cobrado.equalsIgnoreCase("cobrado"));
+            sql.append(" AND cobrado = ?");
+            parameters.add(cobro);
+        }
+
+        PreparedStatement ps = con.prepareStatement(sql.toString());
+
+        for (int i = 0; i < parameters.size(); i++) {
+            ps.setObject(i + 1, parameters.get(i));
+        }
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Pedido pedido = new Pedido(rs.getInt("idPedido"),
+                                mesero.buscar(rs.getString("dni_mesero")),
+                                mesa.buscar(rs.getInt("numero_mesa")),
+                                rs.getDouble("importe"),
+                                rs.getDate("fecha").toLocalDate(),
+                                rs.getTime("hora").toLocalTime(),
+                                rs.getBoolean("cobrado"),
+                                rs.getBoolean("estado"));
+            pedidos.add(pedido);
+        }
+        return pedidos;
+    }
+
 }

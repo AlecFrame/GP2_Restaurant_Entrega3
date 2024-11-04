@@ -93,8 +93,8 @@
                               <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jrVigencia" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
-                                      <Component id="jrNoVigencia" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jrCobrado" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
+                                      <Component id="jrNoCobrado" min="-2" max="-2" attributes="0"/>
                                       <Component id="jbSalir" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
@@ -135,13 +135,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jcbFecha" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jFecha" min="-2" max="-2" attributes="0"/>
-                  <Component id="jrVigencia" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="jrCobrado" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jcbHora" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jtfHora" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jrNoVigencia" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
+                  <Component id="jrNoCobrado" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="8" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="103" max="-2" attributes="0"/>
@@ -410,7 +410,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbHoraActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jrVigencia">
+    <Component class="javax.swing.JRadioButton" name="jrCobrado">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="a5" green="bb" red="cc" type="rgb"/>
@@ -424,10 +424,10 @@
         <Property name="text" type="java.lang.String" value="Cobrado"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrVigenciaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrCobradoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jrNoVigencia">
+    <Component class="javax.swing.JRadioButton" name="jrNoCobrado">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="a5" green="bb" red="cc" type="rgb"/>
@@ -441,7 +441,7 @@
         <Property name="text" type="java.lang.String" value="No cobrado"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrNoVigenciaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrNoCobradoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jcbBuscar">
@@ -452,7 +452,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="14" style="2"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="ID / Apellido:"/>
+        <Property name="text" type="java.lang.String" value="N&#xb0;Mesa / DNIMesero:"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbBuscarActionPerformed"/>

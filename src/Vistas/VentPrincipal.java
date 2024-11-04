@@ -215,7 +215,12 @@ public class VentPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPedidoActionPerformed
-        JOptionPane.showMessageDialog(this, "Este apartado es para la proxima entrega", "Profes los queremos <3", JOptionPane.INFORMATION_MESSAGE);
+        escritorio.removeAll();
+        escritorio.repaint();
+        VPedido v = new VPedido();
+        v.setVisible(true);
+        escritorio.add(v);
+        escritorio.moveToFront(v);
     }//GEN-LAST:event_jPedidoActionPerformed
 
     private void jCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCategoriaActionPerformed
