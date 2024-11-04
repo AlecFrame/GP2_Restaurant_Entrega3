@@ -56,60 +56,63 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Component id="jLfondo" min="-2" pref="575" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="343" max="32767" attributes="0"/>
-          </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jbCargar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jbGuardar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jbActualizar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                          <Component id="jbEliminar" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jScrollPane1" min="-2" pref="524" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jScrollPane1" min="-2" pref="823" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
+                      <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jcbHora" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jcbBuscar" min="-2" pref="123" max="-2" attributes="0"/>
-                                  <Component id="jcbFecha" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jcbFecha" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jcbBuscar" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jcbHora" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jtfBuscar" min="-2" pref="201" max="-2" attributes="0"/>
+                                          <Component id="jFecha" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
+                                          <Component id="jtfHora" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jbBuscar" min="-2" pref="93" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jbCargar" min="-2" pref="104" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jbGuardar" min="-2" pref="98" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jtfBuscar" alignment="1" pref="133" max="32767" attributes="0"/>
-                                  <Component id="jtfHora" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jFecha" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jrVigencia" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
+                                      <Component id="jrNoVigencia" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jbSalir" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jbActualizar" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jbEliminar" min="-2" pref="101" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jrNoVigencia" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jrVigencia" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
-                                  <Component id="jbSalir" min="-2" pref="58" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jbBuscar" min="-2" pref="71" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                   </Group>
               </Group>
-              <EmptySpace min="12" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jLfondo" min="-2" pref="874" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -119,37 +122,30 @@
               <Component id="jLfondo" min="-2" pref="107" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jbSalir" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jcbBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jtfBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jbBuscar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jcbFecha" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="jFecha" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jcbHora" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="jtfHora" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jrVigencia" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jrNoVigencia" min="-2" pref="19" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jbSalir" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="13" max="32767" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="103" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jcbBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtfBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbBuscar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jcbFecha" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="jFecha" min="-2" max="-2" attributes="0"/>
+                  <Component id="jrVigencia" min="-2" pref="20" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jcbHora" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="jtfHora" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jrNoVigencia" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="8" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="103" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbCargar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -216,20 +212,26 @@
               <Color blue="30" green="5a" red="99" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="1">
+              <Table columnCount="8" rowCount="1">
                 <Column editable="true" title="ID" type="java.lang.Integer">
                   <Data value="1"/>
                 </Column>
                 <Column editable="true" title="N&#xb0; de Mesa" type="java.lang.Integer"/>
-                <Column editable="true" title="DNI Cliente" type="java.lang.String"/>
-                <Column editable="true" title="Apellido" type="java.lang.String"/>
+                <Column editable="true" title="DNI Mesero" type="java.lang.String"/>
+                <Column editable="true" title="Importe" type="java.lang.Double"/>
                 <Column editable="true" title="Fecha Reser." type="java.lang.Object"/>
                 <Column editable="true" title="Hora Reser." type="java.lang.Object"/>
-                <Column editable="true" title="Vigencia" type="java.lang.String"/>
+                <Column editable="true" title="Cobrado" type="java.lang.Boolean"/>
+                <Column editable="true" title="Estado" type="java.lang.Boolean"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -376,7 +378,7 @@
           <Color blue="99" green="cc" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Recursos/reserva2.png"/>
+          <Image iconType="3" name="/Recursos/pedido1.jpg"/>
         </Property>
       </Properties>
     </Component>
@@ -388,7 +390,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="14" style="2"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Fecha Reservada"/>
+        <Property name="text" type="java.lang.String" value="Fecha "/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbFechaActionPerformed"/>
@@ -402,7 +404,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="14" style="2"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Hora Reservada"/>
+        <Property name="text" type="java.lang.String" value="Hora "/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbHoraActionPerformed"/>
@@ -419,7 +421,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="14" style="2"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Vigencia"/>
+        <Property name="text" type="java.lang.String" value="Cobrado"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrVigenciaActionPerformed"/>
@@ -436,7 +438,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="14" style="2"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="No Vigencia"/>
+        <Property name="text" type="java.lang.String" value="No cobrado"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrNoVigenciaActionPerformed"/>
