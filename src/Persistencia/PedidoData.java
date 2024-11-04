@@ -20,14 +20,16 @@ public class PedidoData {
     
     public void guardarPedido(Pedido p) throws SQLException {
         if (p.getIdPedido()==0) {
-            String sql = "INSERT INTO pedido(dni_mesero, numero_mesa, importe, cobrado, estado) VALUES(?,?,?,?,?)";
-
+            String sql = "INSERT INTO pedido(dni_mesero, numero_mesa, importe, fecha, hora, cobrado, estado) VALUES(?,?,?,?,?,?,?)";
+            
             PreparedStatement s = con.prepareStatement(sql);
             s.setString(1, String.valueOf((int)p.getMesero().getDniMesero()));
             s.setInt(2, p.getMesa().getNumeroMesa());
             s.setDouble(3, p.getImporte());
-            s.setBoolean(4, p.isCobrado());
-            s.setBoolean(5, p.isEstado());
+            s.setDate(4, java.sql.Date.valueOf(p.getFecha()));
+            s.setTime(5, java.sql.Time.valueOf( p.getHora()));
+            s.setBoolean(6, p.isCobrado());
+            s.setBoolean(7, p.isEstado());
 
             int filas = s.executeUpdate();
             if (filas > 0) {
@@ -37,15 +39,17 @@ public class PedidoData {
                 System.out.println("Error al registrar el pedido");
             }
         }else {
-            String sql = "INSERT INTO pedido(idPedido, dni_mesero, numero_mesa, importe, cobrado, estado) VALUES(?,?,?,?,?,?)";
-
+            String sql = "INSERT INTO pedido(idPedido, dni_mesero, numero_mesa, importe, fecha, hora, cobrado, estado) VALUES(?,?,?,?,?,?,?,?)";
+            
             PreparedStatement s = con.prepareStatement(sql);
             s.setInt(1, p.getIdPedido());
             s.setString(2, String.valueOf((int)p.getMesero().getDniMesero()));
             s.setInt(3, p.getMesa().getNumeroMesa());
             s.setDouble(4, p.getImporte());
-            s.setBoolean(5, p.isCobrado());
-            s.setBoolean(6, p.isEstado());
+            s.setDate(5, java.sql.Date.valueOf(p.getFecha()));
+            s.setTime(6, java.sql.Time.valueOf( p.getHora()));
+            s.setBoolean(7, p.isCobrado());
+            s.setBoolean(8, p.isEstado());
 
             int filas = s.executeUpdate();
             if (filas > 0) {
@@ -96,15 +100,17 @@ public class PedidoData {
 
     public void actualizarPedido(Pedido p, int id) throws SQLException {
         if (p.getIdPedido()==0) {
-            String sql = "UPDATE pedido SET dni_mesero = ?, numero_mesa = ?, importe = ?, cobrado = ?, estado = ? WHERE idPedido = ?";
+            String sql = "UPDATE pedido SET dni_mesero = ?, numero_mesa = ?, importe = ?, fecha = ?, hora = ?, cobrado = ?, estado = ? WHERE idPedido = ?";
 
             PreparedStatement s = con.prepareStatement(sql);
             s.setString(1, String.valueOf((int)p.getMesero().getDniMesero()));
             s.setInt(2, p.getMesa().getNumeroMesa());
             s.setDouble(3, p.getImporte());
-            s.setBoolean(4, p.isCobrado());
-            s.setBoolean(5, p.isEstado());
-            s.setInt(6, id);
+            s.setDate(4, java.sql.Date.valueOf(p.getFecha()));
+            s.setTime(5, java.sql.Time.valueOf( p.getHora()));
+            s.setBoolean(6, p.isCobrado());
+            s.setBoolean(7, p.isEstado());
+            s.setInt(8, id);
 
             int filas = s.executeUpdate();
             if (filas > 0) {
@@ -114,16 +120,18 @@ public class PedidoData {
                 System.out.println("Error al actualizar el pedido");
             }
         }else {
-            String sql = "UPDATE pedido SET idPedido = ?, dni_mesero = ?, numero_mesa = ?, importe = ?, cobrado = ?, estado = ? WHERE idPedido = ?";
+            String sql = "UPDATE pedido SET idPedido = ?, dni_mesero = ?, numero_mesa = ?, importe = ?, fecha = ?, hora = ?, cobrado = ?, estado = ? WHERE idPedido = ?";
 
             PreparedStatement s = con.prepareStatement(sql);
             s.setInt(1, p.getIdPedido());
             s.setString(2, String.valueOf((int)p.getMesero().getDniMesero()));
             s.setInt(3, p.getMesa().getNumeroMesa());
             s.setDouble(4, p.getImporte());
-            s.setBoolean(5, p.isCobrado());
-            s.setBoolean(6, p.isEstado());
-            s.setInt(7, id);
+            s.setDate(5, java.sql.Date.valueOf(p.getFecha()));
+            s.setTime(6, java.sql.Time.valueOf( p.getHora()));
+            s.setBoolean(7, p.isCobrado());
+            s.setBoolean(8, p.isEstado());
+            s.setInt(9, id);
 
             int filas = s.executeUpdate();
             if (filas > 0) {
