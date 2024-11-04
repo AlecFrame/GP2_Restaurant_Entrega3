@@ -41,7 +41,6 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(204, 187, 165));
-        setForeground([255,255,204]);
         setResizable(true);
 
         jTable.setBackground(new java.awt.Color(255, 255, 204));
@@ -226,410 +225,30 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
-        rowSelected = jTable.getSelectedRow();
-        if (jTable.getModel()==modelo_editable) {
-            if (jTable.isEditing()) {
-                jTable.getCellEditor().stopCellEditing();
-            }
-            rowSelecteda = jTable.getSelectedRow();
-            //System.out.println("srow:"+rowSelecteda);
-        }
-        if (!cambiando) {
-            jbEliminar.setEnabled(true);
-            if (cargando==false) {
-                jTable.setModel(modelo_editable);
-            }
-        }
+
+      
     }//GEN-LAST:event_jTableMouseClicked
 
     private void jTablePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTablePropertyChange
-        boolean cambiovalido = true;
-
-        if (jTable.isEditing()) {
-            jTable.getCellEditor().stopCellEditing();
-        }
-
-        if (jTable.getModel() == modelo_editable) {
-
-            rowSelecteda = rowSelected;
-
-            if (rowSelecteda == rowSelectedg) {
-                if (rowSelectedg!=-1) {
-                    String mid = modelo_editable.getValueAt(rowSelectedg, 0).toString();
-                    String mmesa = modelo_editable.getValueAt(rowSelectedg, 1).toString();
-                    String mdni = modelo_editable.getValueAt(rowSelectedg, 2).toString();
-                    String mapellido = modelo_editable.getValueAt(rowSelectedg, 3).toString();
-                    String mfecha = modelo_editable.getValueAt(rowSelectedg, 4).toString();
-                    String mhora_desde = modelo_editable.getValueAt(rowSelectedg, 5).toString();
-                    String mhora_hasta = modelo_editable.getValueAt(rowSelectedg, 6).toString();
-                    String mvigencia = modelo_editable.getValueAt(rowSelectedg, 7).toString();
-
-                    if (mid.equals(idg)&mmesa.equals(mesag)&
-                        mdni.equals(dnig)&mapellido.equals(apellidog)&
-                        mfecha.equals(fechag)&mhora_desde.equals(hora_desdeg)&mhora_hasta.equals(hora_hastag)&
-                        mvigencia.equals(vigenciag)) {
-                        cambiovalido = false;
-                    }
-                }
-                if (rowSelecteda!=-1&cambiovalido) {
-                    cambiando = true;
-                    jbActualizar.setEnabled(true);
-                    //System.out.println("("+rowSelecteda+") cambiando: "+cambiando);
-                }
-            } else {
-                if (rowSelectedg!=-1) {
-                    modelo_editable.setValueAt(idg, rowSelectedg, 0);
-                    modelo_editable.setValueAt(mesag, rowSelectedg, 1);
-                    modelo_editable.setValueAt(dnig, rowSelectedg, 2);
-                    modelo_editable.setValueAt(apellidog, rowSelectedg, 3);
-                    modelo_editable.setValueAt(fechag, rowSelectedg, 4);
-                    modelo_editable.setValueAt(hora_desdeg, rowSelectedg, 5);
-                    modelo_editable.setValueAt(hora_hastag, rowSelectedg, 6);
-                    modelo_editable.setValueAt(vigenciag, rowSelectedg, 7);
-                }
-                rowSelectedg = rowSelecteda;
-                idg = modelo.getValueAt(rowSelectedg, 0).toString();
-                mesag = modelo.getValueAt(rowSelectedg, 1).toString();
-                dnig = modelo.getValueAt(rowSelectedg, 2).toString();
-                apellidog = modelo.getValueAt(rowSelectedg, 3).toString();
-                fechag = modelo.getValueAt(rowSelectedg, 4).toString();
-                hora_desdeg = modelo.getValueAt(rowSelectedg, 5).toString();
-                hora_hastag = modelo.getValueAt(rowSelectedg, 6).toString();
-                vigenciag = modelo.getValueAt(rowSelectedg, 7).toString();
-                if (rowSelecteda!=-1) {
-                    cambiando = false;
-                    jbActualizar.setEnabled(false);
-                    //System.out.println("("+rowSelecteda+") cambiando: "+cambiando);
-                }
-            }
-        }
+        
     }//GEN-LAST:event_jTablePropertyChange
 
     private void jbCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarActionPerformed
-        if (!cargando) {
-            cargando = true;
-            jbActualizar.setEnabled(false);
-            jbCargar.setEnabled(false);
-            jbGuardar.setEnabled(true);
-            try {
-                modelo_cargar.addRow(new Object[] {
-                    Enumerar(),
-                    "",
-                    "",
-                    "",
-                    fecha,
-                    hora,
-                    "",
-                    (!"null".equals(vigencia))? vigencia:"",
-                });
-                jTable.setModel(modelo_cargar);
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error de SQL al cargar el producto: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+       
     }//GEN-LAST:event_jbCargarActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        String mid = modelo_editable.getValueAt(rowSelecteda, 0).toString();
-        String mmesa = modelo_editable.getValueAt(rowSelecteda, 1).toString();
-        String mdni = modelo_editable.getValueAt(rowSelecteda, 2).toString();
-        String mapellido = modelo_editable.getValueAt(rowSelecteda, 3).toString();
-        String mfecha = "";
-        if (modelo_editable.getValueAt(rowSelecteda, 4)!=null) {
-            mfecha = modelo_editable.getValueAt(rowSelecteda, 4).toString();
-        }
-        String mhora_desde = "";
-        if (modelo_editable.getValueAt(rowSelecteda, 5)!=null) {
-            mhora_desde = modelo_editable.getValueAt(rowSelecteda, 5).toString();
-        }
-        String mhora_hasta = modelo_editable.getValueAt(rowSelecteda, 6).toString();
-        String mvigencia = modelo_editable.getValueAt(rowSelecteda, 7).toString();
-        Reserva r = new Reserva();
-
-        try {
-            int id = Integer.parseInt(mid);
-            if (id<1) {
-                JOptionPane.showMessageDialog(this, "Error el ID no puede ser menor a uno", "Error de tipo ID", JOptionPane.WARNING_MESSAGE);
-                return;
-            }else
-            if (rdata.buscarInt(id)==null) {
-                r.setIdReserva(id);
-            }else{
-                if (mid.equals(idg)) {
-                    r.setIdReserva(id);
-                }else {
-                    JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-            }
-        }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            int mesa = Integer.parseInt(mmesa);
-            if (mesa<1) {
-                JOptionPane.showMessageDialog(this, "Error el Numero de mesa no puede ser menor a uno", "Error de numero de mesa", JOptionPane.WARNING_MESSAGE);
-                return;
-            }else
-            if (mdata.buscar(mesa)!=null) {
-                r.setMesa(mdata.buscar(mesa));
-            }else{
-                JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no existe", "Error mesa inexistente", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-        }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        if (!mdni.trim().equalsIgnoreCase("")) {
-            if (mdni.length()>8) {
-                JOptionPane.showMessageDialog(this, "Error el DNI ha superado el maximo de 8 caracteres", "Error DNI supero 8 caracteres", JOptionPane.WARNING_MESSAGE);
-                return;
-            }else
-            r.setDni_cliente(mdni);
-        }else{
-            JOptionPane.showMessageDialog(this, "Error el DNI del cliente esta vacío", "Error DNI vacío", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        if (!mapellido.trim().equalsIgnoreCase("")) {
-            r.setApellido(mapellido);
-        }else{
-            JOptionPane.showMessageDialog(this, "Error el Apellido del cliente esta vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            LocalDate fech = LocalDate.parse(mfecha);
-            r.setFecha(fech);
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Error formato de fecha incorrecto, el formato es el siguiente (yyyy-MM-dd)", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm");
-        try {
-            r.setHora_desde(LocalTime.parse(mhora_desde, formato));
-        } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Error formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            if (LocalTime.parse(mhora_hasta, formato).isAfter(LocalTime.parse(mhora_desde, formato))) {
-                r.setHora_hasta(LocalTime.parse(mhora_hasta, formato));
-            }else {
-                JOptionPane.showMessageDialog(this, "Hora hasta no puede ser anterior a hora desde", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-        } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Error formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        switch (mvigencia) {
-            case ("vigente") : {
-                r.setVigencia(mvigencia);
-                r.setEstado(true);
-                break;
-            }
-            case ("no_vigente") : {
-                r.setVigencia(mvigencia);
-                r.setEstado(false);
-                break;
-            }
-            default : {
-                JOptionPane.showMessageDialog(this, "Error vigencia invalida, debe ser (vigente o no_vigente)", "Error vigencia incorrecta", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-        }
-
-        try {
-            LocalDate vfecha = LocalDate.parse(mfecha);
-            LocalTime vhora_desde = LocalTime.parse(mhora_desde);
-            LocalTime vhora_hasta = LocalTime.parse(mhora_hasta);
-            int vnumero = Integer.parseInt(mmesa);
-            int vidReserva = Integer.parseInt(mid);
-
-            if (rdata.validarReservaConflicto( vfecha, vhora_desde, vhora_hasta, vnumero, vidReserva)) {
-                JOptionPane.showMessageDialog(this, "La reserva entra en conflicto con las horas de otra reserva que fue hecha para el mismo dia y misma mesa", "Error de conflicto de reservas", JOptionPane.WARNING_MESSAGE);
-            }else{
-                rdata.actualizarReserva(r,Integer.parseInt(idg));
-                cargando = false;
-                jbCargar.setEnabled(true);
-                jbGuardar.setEnabled(false);
-                jTable.setModel(modelo);
-                cargarFiltro();
-            }
-        } catch(SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+e, "Error SQL", JOptionPane.ERROR_MESSAGE);
-        }
+        
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        try {
-            if (cargando) {
-                cargarFiltro();
-            }else{
-                int codigo = Integer.parseInt(jTable.getValueAt(rowSelected, 0).toString());
-                rdata.cambiarVigencia("no_vigente", codigo);
-                cargarFiltro();
-            }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error de numeracion: "+ex, "Error entero", JOptionPane.ERROR_MESSAGE);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
-        }
+      
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        int row = modelo_cargar.getRowCount()-1;
-        String mid = modelo_cargar.getValueAt(row, 0).toString();
-        String mmesa = modelo_cargar.getValueAt(row, 1).toString();
-        String mdni = modelo_cargar.getValueAt(row, 2).toString();
-        String mapellido = modelo_cargar.getValueAt(row, 3).toString();
-        String mfecha = "";
-        if (modelo_cargar.getValueAt(row, 4)!=null) {
-            mfecha = modelo_cargar.getValueAt(row, 4).toString();
-        }
-        String mhora_desde = "";
-        if (modelo_cargar.getValueAt(row, 5)!=null) {
-            mhora_desde = modelo_cargar.getValueAt(row, 5).toString();
-        }
-        String mhora_hasta = modelo_cargar.getValueAt(row, 6).toString();
-        String mvigencia = modelo_cargar.getValueAt(row, 7).toString();
-        Reserva r = new Reserva();
-
-        try {
-            int id = Integer.parseInt(mid);
-            if (id<1) {
-                JOptionPane.showMessageDialog(this, "Error el ID no puede ser menor a uno", "Error de tipo ID", JOptionPane.WARNING_MESSAGE);
-                return;
-            }else
-            if (rdata.buscarInt(id)==null) {
-                r.setIdReserva(id);
-            }else{
-                JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-        }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            int mesa = Integer.parseInt(mmesa);
-            if (mesa<1) {
-                JOptionPane.showMessageDialog(this, "Error el Numero de mesa no puede ser menor a uno", "Error de numero de mesa", JOptionPane.WARNING_MESSAGE);
-                return;
-            }else
-            if (mdata.buscar(mesa)!=null) {
-                r.setMesa(mdata.buscar(mesa));
-            }else{
-                JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no existe", "Error mesa inexistente", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-        }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        if (!mdni.trim().equalsIgnoreCase("")) {
-            try {
-                int dni = Integer.parseInt(mdni);
-
-                if (mdni.length()>8) {
-                    JOptionPane.showMessageDialog(this, "Error el DNI ha superado el maximo de 8 caracteres", "Error DNI supero 8 caracteres", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }else
-                r.setDni_cliente(mdni);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Error el DNI ingresado no es un número entero: "+e, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "Error el DNI del cliente esta vacío", "Error DNI vacío", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        if (!mapellido.trim().equalsIgnoreCase("")) {
-            r.setApellido(mapellido);
-        }else{
-            JOptionPane.showMessageDialog(this, "Error el Apellido del cliente esta vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            LocalDate fech = LocalDate.parse(mfecha);
-            r.setFecha(fech);
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Error formato de fecha incorrecto, el formato es el siguiente (yyyy-MM-dd)", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm");
-        try {
-            r.setHora_desde(LocalTime.parse(mhora_desde, formato));
-        } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Error formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            if (LocalTime.parse(mhora_hasta, formato).isAfter(LocalTime.parse(mhora_desde, formato))) {
-                r.setHora_hasta(LocalTime.parse(mhora_hasta, formato));
-            }else {
-                JOptionPane.showMessageDialog(this, "Hora hasta no puede ser anterior a hora desde", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-        } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Error formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        switch (mvigencia) {
-            case ("vigente") : {
-                r.setVigencia(mvigencia);
-                r.setEstado(true);
-                break;
-            }
-            case ("no_vigente") : {
-                r.setVigencia(mvigencia);
-                r.setEstado(false);
-                break;
-            }
-            default : {
-                JOptionPane.showMessageDialog(this, "Error vigencia invalida, debe ser (vigente o no_vigente)", "Error vigencia incorrecta", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-        }
-
-        try {
-            LocalDate vfecha = LocalDate.parse(mfecha);
-            LocalTime vhora_desde = LocalTime.parse(mhora_desde);
-            LocalTime vhora_hasta = LocalTime.parse(mhora_hasta);
-            int vnumero = Integer.parseInt(mmesa);
-            int vidReserva = Integer.parseInt(mid);
-
-            if (rdata.validarReservaConflicto( vfecha, vhora_desde, vhora_hasta, vnumero, vidReserva)) {
-                JOptionPane.showMessageDialog(this, "La reserva entra en conflicto con las horas de otra reserva que fue hecha para el mismo dia y misma mesa", "Error de conflicto de reservas", JOptionPane.WARNING_MESSAGE);
-            }else{
-                rdata.guardarReserva(r);
-                cargando = false;
-                jbCargar.setEnabled(true);
-                jbGuardar.setEnabled(false);
-                jtfBuscar.setText("");
-                quitarFiltros();
-                jTable.setModel(modelo);
-                lista = rdata.listarReservas();
-                cargarTabla();
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error de SQL al guardar la reserva: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
-        }
+    
+         
+        
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -637,30 +256,8 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        String texto = jtfBuscar.getText();
-        try {
-            if (!"".equals(texto)) {
-                try {
-                    int id = Integer.parseInt(texto);
-                    if (rdata.buscarInt(id)!=null) {
-                        lista.clear();
-                        lista.add(rdata.buscarInt(id));
-                    }else {
-                        JOptionPane.showMessageDialog(this, "La ID ingresada no existe","ID inexistente",JOptionPane.WARNING_MESSAGE);
-                        lista = rdata.listarReservas();
-                        cargarTabla();
-                    }
-                } catch(NumberFormatException e) {
-                    lista = rdata.buscarString(texto);
-                }
-                cargarTabla();
-            }else{
-                lista = rdata.listarReservas();
-                cargarTabla();
-            }
-        } catch(SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error SQL: "+e,"Error SQL",JOptionPane.ERROR_MESSAGE);
-        }
+
+        
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
