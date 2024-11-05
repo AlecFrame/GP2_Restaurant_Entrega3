@@ -138,7 +138,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="3"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Busca por:  "/>
+        <Property name="text" type="java.lang.String" value="Buscar por:  "/>
         <Property name="alignmentY" type="float" value="0.0"/>
       </Properties>
     </Component>

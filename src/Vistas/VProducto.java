@@ -98,7 +98,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Logo5.png"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
-        jLabel1.setText("Busca por:  ");
+        jLabel1.setText("Buscar por:  ");
         jLabel1.setAlignmentY(0.0F);
 
         jbBuscar.setBackground(new java.awt.Color(162, 108, 72));
