@@ -88,14 +88,14 @@
                       </Group>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jFecha" alignment="0" pref="200" max="32767" attributes="0"/>
-                              <Component id="jtfBuscar" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jFecha" alignment="1" min="-2" pref="166" max="-2" attributes="0"/>
+                              <Component id="jtfBuscar" min="-2" pref="166" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jtfHora" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="jtfHora" alignment="1" min="-2" pref="166" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jbBuscar" min="-2" pref="74" max="-2" attributes="0"/>
+                      <Component id="jbBuscar" min="-2" pref="79" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="38" max="32767" attributes="0"/>
@@ -154,7 +154,7 @@
                   <Component id="jbActualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -384,7 +384,7 @@
           <Color blue="a5" green="bb" red="cc" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="2"/>
+          <Font name="Calibri" size="18" style="2"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Fecha Reservada"/>
       </Properties>
@@ -398,7 +398,7 @@
           <Color blue="a5" green="bb" red="cc" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="2"/>
+          <Font name="Calibri" size="18" style="2"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Hora Reservada"/>
       </Properties>
@@ -446,7 +446,7 @@
           <Color blue="a5" green="bb" red="cc" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Calibri" size="14" style="2"/>
+          <Font name="Calibri" size="18" style="2"/>
         </Property>
         <Property name="text" type="java.lang.String" value="ID / Apellido:"/>
       </Properties>

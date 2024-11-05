@@ -220,7 +220,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         jLfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/pedido1.jpg"))); // NOI18N
 
         jcbFecha.setBackground(new java.awt.Color(204, 187, 165));
-        jcbFecha.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jcbFecha.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         jcbFecha.setText("Fecha ");
         jcbFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,7 +229,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         });
 
         jcbHora.setBackground(new java.awt.Color(204, 187, 165));
-        jcbHora.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jcbHora.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         jcbHora.setText("Hora ");
         jcbHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,8 +258,8 @@ public class VPedido extends javax.swing.JInternalFrame {
         });
 
         jcbBuscar.setBackground(new java.awt.Color(204, 187, 165));
-        jcbBuscar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
-        jcbBuscar.setText("N°Mesa / DNIMesero:");
+        jcbBuscar.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        jcbBuscar.setText("N°Mesa / DNI Mesero:");
         jcbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbBuscarActionPerformed(evt);
@@ -290,31 +290,31 @@ public class VPedido extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jcbHora)
                                     .addComponent(jcbFecha))
-                                .addGap(96, 96, 96)
+                                .addGap(126, 126, 126)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                    .addComponent(jFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                                     .addComponent(jtfHora)))
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jcbBuscar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jtfBuscar)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 80, Short.MAX_VALUE)
+                                .addGap(0, 70, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jrCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jbSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jrNoCobrado, javax.swing.GroupLayout.Alignment.TRAILING))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -361,7 +361,7 @@ public class VPedido extends javax.swing.JInternalFrame {
                     .addComponent(jbActualizar)
                     .addComponent(jbGuardar)
                     .addComponent(jbCargar))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();

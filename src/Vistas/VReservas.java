@@ -218,7 +218,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         jLfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/reserva2.png"))); // NOI18N
 
         jcbFecha.setBackground(new java.awt.Color(204, 187, 165));
-        jcbFecha.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jcbFecha.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         jcbFecha.setText("Fecha Reservada");
         jcbFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,7 +227,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         });
 
         jcbHora.setBackground(new java.awt.Color(204, 187, 165));
-        jcbHora.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jcbHora.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         jcbHora.setText("Hora Reservada");
         jcbHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,7 +256,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         });
 
         jcbBuscar.setBackground(new java.awt.Color(204, 187, 165));
-        jcbBuscar.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jcbBuscar.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         jcbBuscar.setText("ID / Apellido:");
         jcbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -310,12 +310,12 @@ public class VReservas extends javax.swing.JInternalFrame {
                             .addComponent(jcbFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                .addComponent(jtfBuscar, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jtfHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtfHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -358,7 +358,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                     .addComponent(jbGuardar)
                     .addComponent(jbActualizar)
                     .addComponent(jbEliminar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
