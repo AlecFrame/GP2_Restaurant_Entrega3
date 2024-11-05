@@ -97,6 +97,8 @@ public class VentPrincipal extends javax.swing.JFrame {
         });
         jDetPedido.add(jPedido);
 
+        jDetallePed.setBackground(new java.awt.Color(204, 153, 0));
+        jDetallePed.setForeground(new java.awt.Color(255, 255, 255));
         jDetallePed.setText("Detalle del Pedido");
         jDetallePed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
