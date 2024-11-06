@@ -87,6 +87,7 @@ public class VMesa extends javax.swing.JInternalFrame {
         jBotonMesa = new javax.swing.JRadioButton();
         jBotonCapacidad = new javax.swing.JRadioButton();
         jbBuscaPor = new javax.swing.JLabel();
+        jBotonMesero = new javax.swing.JRadioButton();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -245,31 +246,30 @@ public class VMesa extends javax.swing.JInternalFrame {
         jbBuscaPor.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
         jbBuscaPor.setText("Buscar por:");
 
+        jBotonMesero.setBackground(new java.awt.Color(204, 187, 161));
+        GrupoBotMesa.add(jBotonMesero);
+        jBotonMesero.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        jBotonMesero.setText("DNI Mesero");
+        jBotonMesero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBotonMeseroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLfondo, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLfondo, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jbCargar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbActualizar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbEliminar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(103, 103, 103)
+                                    .addGap(102, 102, 102)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(24, 24, 24)
@@ -282,13 +282,23 @@ public class VMesa extends javax.swing.JInternalFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jBotonMesero))
                                     .addGap(0, 0, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jbBuscaPor)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(30, 30, 30))
+                                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbCargar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbActualizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbEliminar)
+                        .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,20 +318,21 @@ public class VMesa extends javax.swing.JInternalFrame {
                         .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBotonCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBotonMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jcCategoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbCondicion)))
+                    .addComponent(jbCondicion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGuardar)
                     .addComponent(jbCargar)
                     .addComponent(jbActualizar)
                     .addComponent(jbEliminar))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
 
         pack();
@@ -341,13 +352,17 @@ public class VMesa extends javax.swing.JInternalFrame {
             try {
                 switch (boton_buscar) {
                     case "numero":
+                        jcCategoria.setSelectedIndex(0);
                         lista.clear();
                         lista.add(mdata.buscar(numero));
-                        jcCategoria.setSelectedIndex(0);
                         condicion_filtro = "todas";
                         capacidad_filtro = 0;
                         break;
                     case "capacidad":
+                        capacidad_filtro = numero;
+                        cargarFiltro();
+                        break;
+                    case "dni":
                         capacidad_filtro = numero;
                         cargarFiltro();
                         break;
@@ -722,6 +737,15 @@ public class VMesa extends javax.swing.JInternalFrame {
             jcCategoria.setEnabled(true);
         }
     }//GEN-LAST:event_jBotonCapacidadActionPerformed
+
+    private void jBotonMeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonMeseroActionPerformed
+        if (jBotonMesero.isSelected()) {
+            jtfBuscar.setEnabled(true);
+            jbBuscar.setEnabled(true);
+            boton_buscar = "dni";
+            jcCategoria.setEnabled(true);
+        }
+    }//GEN-LAST:event_jBotonMeseroActionPerformed
     
     public void limpiarAcciones() {
         jTable.setModel(modelo);
@@ -833,13 +857,7 @@ public class VMesa extends javax.swing.JInternalFrame {
         }
         
         try {
-            if (!jBotonCapacidad.isSelected()) {
-                capacidad_filtro=0;
-            }
-            if ("".equals(jtfBuscar.getText())) {
-                capacidad_filtro=0;
-            }
-            lista = mdata.filtrarMesasCondicionCapacidad(condicion_filtro,capacidad_filtro);
+            lista = mdata.filtrarCondicionNumeroMesero(condicion_filtro,boton_buscar,capacidad_filtro);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla con filtro: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -850,6 +868,7 @@ public class VMesa extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup GrupoBotMesa;
     private javax.swing.JRadioButton jBotonCapacidad;
     private javax.swing.JRadioButton jBotonMesa;
+    private javax.swing.JRadioButton jBotonMesero;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLfondo;
     private javax.swing.JScrollPane jScrollPane1;

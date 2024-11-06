@@ -174,81 +174,6 @@ public class MesaData {
         return lista;
     }
     
-    
-    public ArrayList<Mesa> filtrarMesasCondicionCapacidad(String filtro, int numero) throws SQLException {
-        MeseroData mdata = new MeseroData();
-        ArrayList<Mesa> lista = new ArrayList<>();
-        if ("todas".equals(filtro)) {
-            filtro = "";
-        }
-        
-        if (!"".equals(filtro)&&numero>0) {
-            String sql = "SELECT * FROM mesa WHERE ocupada = ? AND capacidad = ?";
-        
-            PreparedStatement s = con.prepareStatement(sql);
-            s.setString(1, filtro);
-            s.setInt(2, numero);
-            ResultSet r = s.executeQuery();
-
-            while (r.next()) {
-                lista.add(new Mesa(r.getInt("numero_mesa"),
-                        r.getInt("capacidad"),
-                        r.getBoolean("estado"),
-                        r.getString("ocupada"),
-                        mdata.buscar(r.getString("dni_mesero"))));
-            }
-            return lista;
-        }else
-        if (numero>0) {
-            String sql = "SELECT * FROM mesa WHERE capacidad = ?";
-
-            PreparedStatement s = con.prepareStatement(sql);
-            s.setInt(1, numero);
-            ResultSet r = s.executeQuery();
-
-            while (r.next()) {
-                lista.add(new Mesa(r.getInt("numero_mesa"),
-                        r.getInt("capacidad"),
-                        r.getBoolean("estado"),
-                        r.getString("ocupada"),
-                        mdata.buscar(r.getString("dni_mesero"))));
-            }
-            return lista;
-        }else
-        if (!"".equals(filtro)) {
-            String sql = "SELECT * FROM mesa WHERE ocupada = ?";
-
-            PreparedStatement s = con.prepareStatement(sql);
-            s.setString(1, filtro);
-            ResultSet r = s.executeQuery();
-
-            while (r.next()) {
-                lista.add(new Mesa(r.getInt("numero_mesa"),
-                        r.getInt("capacidad"),
-                        r.getBoolean("estado"),
-                        r.getString("ocupada"),
-                        mdata.buscar(r.getString("dni_mesero"))));
-            }
-            return lista;
-        }else
-        if ("".equals(filtro)) {
-            String sql = "SELECT * FROM mesa";
-
-            PreparedStatement s = con.prepareStatement(sql);
-            ResultSet r = s.executeQuery();
-
-            while (r.next()) {
-                lista.add(new Mesa(r.getInt("numero_mesa"),
-                        r.getInt("capacidad"),
-                        r.getBoolean("estado"),
-                        r.getString("ocupada"),
-                        mdata.buscar(r.getString("dni_mesero"))));
-            }
-            return lista;
-        }
-        return lista;
-    }
-    
     public ArrayList<Mesa> filtrarMesasCapacidad(int filtro) throws SQLException {
         MeseroData mdata = new MeseroData();
         ArrayList<Mesa> lista = new ArrayList<>();
@@ -287,6 +212,52 @@ public class MesaData {
                     mdata.buscar(r.getString("dni_mesero"))));
         }
         
+        return lista;
+    }
+    
+    public ArrayList<Mesa> filtrarCondicionNumeroMesero(String condicion, String filtro, int numero) throws SQLException { 
+        ArrayList<Mesa> lista = new ArrayList<>();
+        MeseroData mdata = new MeseroData();
+        StringBuilder sql = new StringBuilder("SELECT * FROM mesa WHERE 1=1");
+
+        ArrayList<Object> parameters = new ArrayList<>();
+        
+        if (!condicion.equals("")&!condicion.equals("todas")) {
+            sql.append(" AND ocupada = ?");
+            parameters.add(condicion);
+        }
+        
+        if (filtro.equals("numero")) {
+            sql.append(" AND numero_mesa = ?");
+            parameters.add(numero);
+        }
+        
+        if (filtro.equals("capacidad")) {
+            sql.append(" AND capacidad = ?");
+            parameters.add(numero);
+        }
+
+        if (filtro.equals("dni")) {
+            sql.append(" AND dni_mesero = ?");
+            parameters.add(numero);
+        }
+        
+        PreparedStatement ps = con.prepareStatement(sql.toString());
+
+        for (int i = 0; i < parameters.size(); i++) {
+            ps.setObject(i + 1, parameters.get(i));
+        }
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            lista.add(new Mesa(rs.getInt("numero_mesa"),
+                    rs.getInt("capacidad"),
+                    rs.getBoolean("estado"),
+                    rs.getString("ocupada"),
+                    mdata.buscar(rs.getString("dni_mesero")))
+            );
+        }
         return lista;
     }
 }
