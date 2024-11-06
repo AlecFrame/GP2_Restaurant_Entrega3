@@ -2,6 +2,7 @@
 package Vistas;
 
 import Modelo.Pedido;
+import Persistencia.DetallePedidoData;
 import java.sql.*;
 import Persistencia.MesaData;
 import Persistencia.MeseroData;
@@ -11,6 +12,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,8 +21,10 @@ public class VPedido extends javax.swing.JInternalFrame {
     
     private ArrayList<Pedido> lista = new ArrayList<>();
     private PedidoData pdata = new PedidoData();
+    private DetallePedidoData ddata = new DetallePedidoData();
     private MesaData mdata = new MesaData();
     private MeseroData msdata = new MeseroData();
+    private JDesktopPane escritorio = null;
     private int rowSelected = -1;
     private int rowSelecteda = -1;
     private int rowSelectedg = -1;
@@ -46,17 +51,18 @@ public class VPedido extends javax.swing.JInternalFrame {
     
     private DefaultTableModel modelo_cargar = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int col) { 
-            return fila == modelo_cargar.getRowCount() - 1;
+            return fila == modelo_cargar.getRowCount() - 1 & col!=3;
         }
     };
     
     private DefaultTableModel modelo_editable = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int col) { 
-            return true;
+            return col!=3;
         }
     };
     
-    public VPedido() {
+    public VPedido(JDesktopPane escritorio) {
+        this.escritorio = escritorio;
         initComponents();
         try {
             lista = pdata.listarPedidos();
@@ -98,6 +104,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         jcbBuscar = new javax.swing.JCheckBox();
         jFecha = new com.toedter.calendar.JDateChooser();
         jtfHora = new javax.swing.JTextField();
+        jbDetalle = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -113,7 +120,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         setBackground(new java.awt.Color(204, 187, 165));
         setBorder(null);
         setForeground(new java.awt.Color(255, 255, 204));
-        setTitle("Reservas");
+        setTitle("Pedidos");
         setFont(new java.awt.Font("Calibri", 1, 10)); // NOI18N
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Logo5.png"))); // NOI18N
 
@@ -280,6 +287,16 @@ public class VPedido extends javax.swing.JInternalFrame {
             }
         });
 
+        jbDetalle.setBackground(new java.awt.Color(153, 102, 0));
+        jbDetalle.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
+        jbDetalle.setForeground(new java.awt.Color(255, 255, 204));
+        jbDetalle.setText("Dar Detalle");
+        jbDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDetalleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -288,7 +305,7 @@ public class VPedido extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -320,6 +337,8 @@ public class VPedido extends javax.swing.JInternalFrame {
                         .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -360,7 +379,8 @@ public class VPedido extends javax.swing.JInternalFrame {
                     .addComponent(jbEliminar)
                     .addComponent(jbActualizar)
                     .addComponent(jbGuardar)
-                    .addComponent(jbCargar))
+                    .addComponent(jbCargar)
+                    .addComponent(jbDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -407,11 +427,11 @@ public class VPedido extends javax.swing.JInternalFrame {
                     Enumerar(),
                     "",
                     "",
-                    "",
+                    "Automático",
                     fecha,
                     hora,
                     (!"null".equals(cobrado))? cobrado:"",
-                    ""
+                    "true"
                 });
                 jTable.setModel(modelo_cargar);
             } catch (SQLException ex) {
@@ -560,6 +580,11 @@ public class VPedido extends javax.swing.JInternalFrame {
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
         rowSelected = jTable.getSelectedRow();
+        System.out.println("rSelected: "+rowSelected);
+        
+        if (rowSelected!=-1) {
+            jbDetalle.setEnabled(true);
+        }
         if (jTable.getModel()==modelo_editable) {
             if (jTable.isEditing()) {
                 jTable.getCellEditor().stopCellEditing();
@@ -778,6 +803,10 @@ public class VPedido extends javax.swing.JInternalFrame {
         
         try {
             pdata.actualizarPedido(p,Integer.parseInt(idPedidog));
+            if (!p.isEstado()) {
+                ddata.ConsistenciaDeDatos();
+            }
+            
             cargando = false;
             jbCargar.setEnabled(true);
             jbGuardar.setEnabled(false);
@@ -850,6 +879,21 @@ public class VPedido extends javax.swing.JInternalFrame {
             cargarFiltro();
         }
     }//GEN-LAST:event_jcbBuscarActionPerformed
+
+    private void jbDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDetalleActionPerformed
+        int buscar = (int) jTable.getValueAt(rowSelectedg, 0);
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VDetallePedido) {
+                frame.dispose();
+                break;
+            }
+        }
+        
+        VDetallePedido v = new VDetallePedido(buscar,this);
+        v.setVisible(true);
+        escritorio.add(v);
+        escritorio.moveToFront(v);
+    }//GEN-LAST:event_jbDetalleActionPerformed
     
     public void quitarFiltros() {
         jcbHora.setSelected(false);
@@ -901,8 +945,9 @@ public class VPedido extends javax.swing.JInternalFrame {
         jTable.setModel(modelo);
     }
     
-    private void cargarTabla() {
+    public void cargarTabla() {
         limpiarAcciones();
+        jbDetalle.setEnabled(false);
         cargando = false;
         modelo.setRowCount(0);
         modelo_cargar.setRowCount(0);
@@ -962,7 +1007,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         return numero;
     }
     
-    private void cargarFiltro() {
+    public void cargarFiltro() {
         try {
             if (hora!=null|fecha!=null|!"null".equals(cobrado)) {
                 lista = pdata.buscarPedidosPorFechayHorayCobro(fecha, hora, cobrado);
@@ -986,6 +1031,7 @@ public class VPedido extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbActualizar;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbCargar;
+    private javax.swing.JButton jbDetalle;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;

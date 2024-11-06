@@ -470,7 +470,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
                 if (msdata.buscar(mdni)==null) {
                     ms.setDniMesero(dni);
                 }else{
-                    JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error el DNI ingresado ya existe en la base de datos", "Error DNI existente", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             }catch(NumberFormatException | SQLException ex) {

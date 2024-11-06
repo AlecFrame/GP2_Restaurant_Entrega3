@@ -6,8 +6,8 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.YES_NO_OPTION;
 
 
 public class VentPrincipal extends javax.swing.JFrame {
@@ -17,7 +17,7 @@ public class VentPrincipal extends javax.swing.JFrame {
     public VentPrincipal() {
         initComponents();
         
-        escritorio= new VentPrincipal.EscritorioPersonalizado();
+        escritorio = new VentPrincipal.EscritorioPersonalizado();
         this.setContentPane(escritorio);
         this.setLocationRelativeTo(this);
         
@@ -226,17 +226,27 @@ public class VentPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPedidoActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
-        VPedido v = new VPedido();
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VPedido) {
+                frame.dispose();
+                break;
+            }
+        }
+        
+        VPedido v = new VPedido(escritorio);
         v.setVisible(true);
         escritorio.add(v);
         escritorio.moveToFront(v);
     }//GEN-LAST:event_jPedidoActionPerformed
 
     private void jCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCategoriaActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VProducto) {
+                frame.dispose();
+                break;
+            }
+        }
+        
         VProducto v = new VProducto();
         v.setVisible(true);
         escritorio.add(v);
@@ -244,8 +254,13 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jCategoriaActionPerformed
 
     private void jReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jReservaMouseClicked
-        escritorio.removeAll();
-        escritorio.repaint();
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VReservas) {
+                frame.dispose();
+                break;
+            }
+        }
+        
         VReservas v = new VReservas();
         v.setVisible(true);
         escritorio.add(v);
@@ -253,8 +268,13 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jReservaMouseClicked
 
     private void jMesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMesaMouseClicked
-        escritorio.removeAll();
-        escritorio.repaint();
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VMesa) {
+                frame.dispose();
+                break;
+            }
+        }
+        
         VMesa v = new VMesa();
         v.setVisible(true);
         escritorio.add(v);
@@ -321,8 +341,13 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMeseroActionPerformed
 
     private void jMeseroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMeseroMouseClicked
-        escritorio.removeAll();
-        escritorio.repaint();
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VMeseros) {
+                frame.dispose();
+                break;
+            }
+        }
+        
         VMeseros v = new VMeseros();
         v.setVisible(true);
         escritorio.add(v);
@@ -330,9 +355,14 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMeseroMouseClicked
 
     private void jDetallePedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDetallePedActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
-        VDetallePedido v = new VDetallePedido();
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VDetallePedido) {
+                frame.dispose();
+                break;
+            }
+        }
+        
+        VDetallePedido v = new VDetallePedido(0,null);
         v.setVisible(true);
         escritorio.add(v);
         escritorio.moveToFront(v);

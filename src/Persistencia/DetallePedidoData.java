@@ -3,6 +3,8 @@ package Persistencia;
 
 import Modelo.Conexion;
 import Modelo.DetallePedido;
+import Modelo.Pedido;
+import Modelo.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -113,6 +115,20 @@ public class DetallePedidoData {
         return detalle;
     }
     
+    public void CambiarEstado(boolean estado, int numero) throws SQLException {
+        String sql = "Update detalle_pedido set estado = ? where idDetalle = ?";
+        
+        PreparedStatement s = con.prepareStatement(sql);
+        s.setBoolean(1, estado);
+        s.setInt(2, numero);
+        
+        int filas = s.executeUpdate();
+        if (filas>0) {
+            String palabra = (estado)? "habilitado":"inhabilitado";
+            System.out.println("\nEl estado del detalle_pedido "+numero+" fue actualizado a "+palabra+"\n");
+        }
+    }
+    
     public void actualizar(DetallePedido p, int id) throws SQLException {
         if (p.getIdDetalle()==0) {
             String sql = "UPDATE detalle_pedido SET codigo = ?, idPedido = ?, cantidad = ?, total = ?, estado = ? WHERE idDetalle = ?";
@@ -154,6 +170,36 @@ public class DetallePedidoData {
         }
     }
     
+    public void ConsistenciaDeDatos() throws SQLException {
+        PedidoData ppdata = new PedidoData();
+        ProductosData pdata = new ProductosData();
+        String sql = "SELECT idDetalle, idPedido, codigo, estado FROM detalle_pedido";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int idDetalle = rs.getInt("idDetalle");
+            int idPedido = rs.getInt("idPedido");
+            int codigo = rs.getInt("codigo");
+            Pedido pedido = ppdata.buscarPedido(idPedido);
+            Producto producto = pdata.buscar(codigo);
+            
+            boolean estadoDetalle = rs.getBoolean("estado");
+
+            boolean estadoPedido = pedido.isEstado();
+
+            boolean estadoProducto = producto.isEstado();
+
+            if (!estadoPedido || !estadoProducto) {
+                if (estadoDetalle) {
+                    CambiarEstado(false, idDetalle);
+                }
+            }
+        }
+
+        ps.close();
+    }
+    
     public ArrayList<DetallePedido> listar() throws SQLException {
         PedidoData pedido = new PedidoData();
         ProductosData productos = new ProductosData();
@@ -175,4 +221,54 @@ public class DetallePedidoData {
         return detallespedidos;
     }
     
+    public ArrayList<DetallePedido> filtrarCategoriayPedido(int idPedido, String categoria) throws SQLException { 
+        ArrayList<DetallePedido> listaDetalle = new ArrayList<>();
+        ProductosData pdata = new ProductosData();
+        PedidoData ppdata = new PedidoData();
+        StringBuilder sql = new StringBuilder("SELECT * FROM detalle_pedido WHERE 1=1");
+
+        ArrayList<Object> parameters = new ArrayList<>();
+
+        if (idPedido != 0) {
+            sql.append(" AND idPedido = ?");
+            parameters.add(idPedido);
+        }
+
+        if (categoria != null && !categoria.isEmpty()) {
+            ArrayList<Producto> lista = pdata.filtrarCategoria(categoria);
+
+            if (lista != null && !lista.isEmpty()) {
+                sql.append(" AND codigo IN (");
+                for (int i = 0; i < lista.size(); i++) {
+                    sql.append("?");
+                    if (i < lista.size() - 1) {
+                        sql.append(", ");
+                    }
+                    parameters.add(lista.get(i).getCodigo());
+                }
+                sql.append(")");
+            }
+        }
+
+        PreparedStatement ps = con.prepareStatement(sql.toString());
+
+        for (int i = 0; i < parameters.size(); i++) {
+            ps.setObject(i + 1, parameters.get(i));
+        }
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            DetallePedido dpedido = new DetallePedido(
+                rs.getInt("idDetalle"),
+                pdata.buscar(rs.getInt("codigo")),
+                ppdata.buscarPedido(rs.getInt("idPedido")),
+                rs.getInt("cantidad"),
+                rs.getDouble("total"),
+                rs.getBoolean("estado")
+            );
+            listaDetalle.add(dpedido);
+        }
+        return listaDetalle;
+    }
 }

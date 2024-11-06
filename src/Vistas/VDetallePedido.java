@@ -2,6 +2,7 @@
 package Vistas;
 
 import Modelo.DetallePedido;
+import Modelo.Pedido;
 import Persistencia.DetallePedidoData;
 import Persistencia.PedidoData;
 import Persistencia.ProductosData;
@@ -16,6 +17,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     private ProductosData pdata = new ProductosData();
     private DetallePedidoData ddata = new DetallePedidoData();
     private PedidoData ppdata = new PedidoData();
+    private VPedido venPedido = null;
     private int rowSelected = -1;
     private int rowSelecteda = -1;
     private int rowSelectedg = -1;
@@ -26,7 +28,6 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     private String productog = null;
     private String pedidog = null;
     private String cantidadg = null;
-    private String totalg = null;
     private String estadog = null;
     
     private DefaultTableModel modelo = new DefaultTableModel() {
@@ -47,18 +48,44 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         }
     };
     
-    public VDetallePedido() {
+    public VDetallePedido(int buscar, VPedido venPedido) {
+        this.venPedido = venPedido;
         initComponents();
-        try {
-            lista = ddata.listar();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
-        }
         
         jbGuardar.setEnabled(false);
         Botones(false);
         cargarCabecera();
-        cargarTabla();
+        
+        if (buscar!=0) {
+            jtfBuscar.setText(String.valueOf(buscar));
+            if (!cargando) {
+                try {
+                    cargando = true;
+                    jbActualizar.setEnabled(false);
+                    jbCargar.setEnabled(false);
+                    jbGuardar.setEnabled(true);
+                    modelo_cargar.addRow(new Object[] {
+                        Enumerar(),
+                        jtfBuscar.getText(),
+                        "",
+                        "Automático",
+                        0,
+                        "Automático",
+                        "true"
+                    });
+                    jTable.setModel(modelo_cargar);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Error SQL: "+ex,"Error SQL",JOptionPane.ERROR_MESSAGE);
+                }
+             }
+        }else{
+            try {
+                lista = ddata.listar();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
+            }
+            cargarTabla();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -188,9 +215,9 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         jLproductos.setAlignmentY(0.0F);
 
         jProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0-todos", "1-pizzas", "2-hamburguesas", "3-lomos", "4-tacos", "5-bebidas/a", "6-bebidasc/a", "7-gaseosas" }));
-        jProductos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jProductosActionPerformed(evt);
+        jProductos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jProductosItemStateChanged(evt);
             }
         });
 
@@ -267,29 +294,347 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
-        
+        rowSelected = jTable.getSelectedRow();
+        if (jTable.getModel()==modelo_editable) {
+            if (jTable.isEditing()) {
+                jTable.getCellEditor().stopCellEditing();
+            }
+            rowSelecteda = jTable.getSelectedRow();
+            //System.out.println("srow:"+rowSelecteda);
+        }
+        if (!cambiando) {
+            jbEliminar.setEnabled(true);
+            if (cargando==false) {
+                jTable.setModel(modelo_editable);
+            }
+        }
     }//GEN-LAST:event_jTableMouseClicked
 
     private void jTablePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTablePropertyChange
+        boolean cambiovalido = true;
         
+        if (jTable.isEditing()) {
+            jTable.getCellEditor().stopCellEditing();
+        }
+        
+        if (jTable.getModel() == modelo_editable) {
+            
+            rowSelecteda = rowSelected;
+            
+            if (rowSelecteda == rowSelectedg) {
+                if (rowSelectedg!=-1) {
+                    String mid = modelo_editable.getValueAt(rowSelectedg, 0).toString();
+                    String mpedido = modelo_editable.getValueAt(rowSelectedg, 1).toString();
+                    String mproducto = modelo_editable.getValueAt(rowSelectedg, 2).toString();
+                    String mcantidad = modelo_editable.getValueAt(rowSelectedg, 4).toString();
+                    String mestado = modelo_editable.getValueAt(rowSelectedg, 6).toString();
+                    
+                    if (mid.equals(idg)&mpedido.equals(pedidog)&
+                        mproducto.equals(productog)&mcantidad.equals(cantidadg)&
+                        mestado.equals(estadog)) {
+                        cambiovalido = false;
+                    }
+                }
+                if (rowSelecteda!=-1&cambiovalido) {
+                    cambiando = true;
+                    jbActualizar.setEnabled(true);
+                    //System.out.println("("+rowSelecteda+") cambiando: "+cambiando);
+                }
+            } else {
+                if (rowSelectedg!=-1) {
+                    modelo_editable.setValueAt(idg, rowSelectedg, 0);
+                    modelo_editable.setValueAt(pedidog, rowSelectedg, 1);
+                    modelo_editable.setValueAt(productog, rowSelectedg, 2);
+                    modelo_editable.setValueAt(cantidadg, rowSelectedg, 4);
+                    modelo_editable.setValueAt(estadog, rowSelectedg, 6);
+                }
+                rowSelectedg = rowSelecteda;
+                idg = modelo.getValueAt(rowSelectedg, 0).toString();
+                pedidog = modelo.getValueAt(rowSelectedg, 1).toString();
+                productog = modelo.getValueAt(rowSelectedg, 2).toString();
+                cantidadg = modelo.getValueAt(rowSelectedg, 4).toString();
+                estadog = modelo.getValueAt(rowSelectedg, 6).toString();
+                if (rowSelecteda!=-1) {
+                    cambiando = false;
+                    jbActualizar.setEnabled(false);
+                    //System.out.println("("+rowSelecteda+") cambiando: "+cambiando);
+                }
+            }
+        }
     }//GEN-LAST:event_jTablePropertyChange
 
     private void jbCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarActionPerformed
-       
+        if (!cargando) {
+           try {
+               cargando = true;
+               jbActualizar.setEnabled(false);
+               jbCargar.setEnabled(false);
+               jbGuardar.setEnabled(true);
+               modelo_cargar.addRow(new Object[] {
+                   Enumerar(),
+                   jtfBuscar.getText(),
+                   "",
+                   "Automático",
+                   0,
+                   "Automático",
+                   "true"
+               });
+               jTable.setModel(modelo_cargar);
+           } catch (SQLException ex) {
+               JOptionPane.showMessageDialog(this, "Error SQL: "+ex,"Error SQL",JOptionPane.ERROR_MESSAGE);
+           }
+        }
     }//GEN-LAST:event_jbCargarActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+        String mid = modelo_editable.getValueAt(rowSelecteda, 0).toString();
+        String mpedido = modelo_editable.getValueAt(rowSelecteda, 1).toString();
+        String mproducto = modelo_editable.getValueAt(rowSelecteda, 2).toString();
+        String mcantidad = modelo_editable.getValueAt(rowSelecteda, 4).toString();
+        String mestado = modelo_editable.getValueAt(rowSelecteda, 6).toString();
+        DetallePedido dt = new DetallePedido();
         
+        if (!mid.trim().equalsIgnoreCase("")) {
+            try {
+                int id = Integer.parseInt(mid);
+                if (id<1) {
+                    JOptionPane.showMessageDialog(this, "Invalido el ID no puede ser menor a uno", "Error ID menor a 1", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }else
+                if (ddata.buscar(id)==null) {
+                    dt.setIdDetalle(id);
+                }else{
+                    if (mid.equals(idg)) {
+                        dt.setIdDetalle(id);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                }
+            }catch(NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Error el ID del detalle_pedido esta vacío", "Error ID vacío", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!mpedido.trim().equalsIgnoreCase("")) {
+            try {
+                int idpedido = Integer.parseInt(mpedido);
+                
+                if (ppdata.buscarPedido(idpedido)!=null) {
+                    dt.setPedido(ppdata.buscarPedido(idpedido));
+                }else{
+                    JOptionPane.showMessageDialog(this, "Error el ID del Pedido ingresado no existe en la base de datos", "Error ID Pedido inexistente", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }catch(NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error el ID del pedido ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Error el ID del pedido esta vacío", "Error ID Pedido vacío", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!mproducto.trim().equalsIgnoreCase("")) {
+            try {
+                int codigo = Integer.parseInt(mproducto);
+                
+                if (pdata.buscar(codigo)!=null) {
+                    dt.setProducto(pdata.buscar(codigo));
+                }else{
+                    JOptionPane.showMessageDialog(this, "Error el Codigo del Producto ingresado no existe en la base de datos", "Error Codigo Producto inexistente", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }catch(NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error el Codigo del producto ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Error el Codigo del producto esta vacío", "Error Codigo Producto vacío", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!mcantidad.trim().equalsIgnoreCase("")) {
+            try {
+                int cantidad = Integer.parseInt(mcantidad);
+                if (cantidad<1) {
+                    JOptionPane.showMessageDialog(this, "La Cantidad de productos no debe ser inferior a 1", "Error cantidad inferior a 1", JOptionPane.WARNING_MESSAGE);
+                }else
+                    dt.setCantidad(cantidad);
+            }catch(NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Error la Cantidad ingresada no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Error la Cantidad esta vacía", "Error Cantidad vacía", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (mestado.equalsIgnoreCase("true")|mestado.equalsIgnoreCase("false")) {
+            dt.setEstado(mestado.equalsIgnoreCase("true"));
+        }else{
+            JOptionPane.showMessageDialog(this, "Error el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        try {
+            ddata.actualizar(dt, Integer.parseInt(idg));
+            if (!mproducto.equals(productog)|!mcantidad.equals(cantidadg)) {
+                ppdata.actualizarPedido(dt.getPedido(), dt.getPedido().getIdPedido());
+            }
+            ddata.ConsistenciaDeDatos();
+            if (venPedido!=null) {
+                venPedido.quitarFiltros();
+                venPedido.limpiarAcciones();
+                venPedido.cargarFiltro();
+            }
+            
+            cargando = false;
+            jbCargar.setEnabled(true);
+            jbGuardar.setEnabled(false);
+            jTable.setModel(modelo);
+            jProductos.setSelectedIndex(0);
+            lista = ddata.listar();
+            cargarTabla();
+        } catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+e, "Error SQL", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-      
+      try {
+            if (cargando) {
+                cargarFiltro();
+            }else{
+                int idDetalle = Integer.parseInt(jTable.getValueAt(rowSelected, 0).toString());
+                ddata.CambiarEstado(false,idDetalle);
+                cargarFiltro();
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Error de numeracion: "+ex, "Error entero", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-    
-         
+        int row = modelo_cargar.getRowCount()-1;
+        System.out.println(row);
+        String mid = modelo_cargar.getValueAt(row, 0).toString();
+        String mpedido = modelo_cargar.getValueAt(row, 1).toString();
+        String mproducto = modelo_cargar.getValueAt(row, 2).toString();
+        String mcantidad = modelo_cargar.getValueAt(row, 4).toString();
+        String mestado = modelo_cargar.getValueAt(row, 6).toString();
+        DetallePedido dt = new DetallePedido();
         
+        if (!mid.trim().equalsIgnoreCase("")) {
+            try {
+                int id = Integer.parseInt(mid);
+                if (id<1) {
+                    JOptionPane.showMessageDialog(this, "Invalido el ID no puede ser menor a uno", "Error ID menor a 1", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }else
+                if (ddata.buscar(id)==null) {
+                    dt.setIdDetalle(id);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }catch(NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Error el ID del detalle_pedido esta vacío", "Error ID vacío", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!mpedido.trim().equalsIgnoreCase("")) {
+            try {
+                int idpedido = Integer.parseInt(mpedido);
+                
+                if (ppdata.buscarPedido(idpedido)!=null) {
+                    dt.setPedido(ppdata.buscarPedido(idpedido));
+                }else{
+                    JOptionPane.showMessageDialog(this, "Error el ID del Pedido ingresado no existe en la base de datos", "Error ID Pedido inexistente", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }catch(NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error el ID del pedido ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Error el ID del pedido esta vacío", "Error ID Pedido vacío", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!mproducto.trim().equalsIgnoreCase("")) {
+            try {
+                int codigo = Integer.parseInt(mproducto);
+                
+                if (pdata.buscar(codigo)!=null) {
+                    dt.setProducto(pdata.buscar(codigo));
+                }else{
+                    JOptionPane.showMessageDialog(this, "Error el Codigo del Producto ingresado no existe en la base de datos", "Error Codigo Producto inexistente", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }catch(NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error el Codigo del producto ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Error el Codigo del producto esta vacío", "Error Codigo Producto vacío", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!mcantidad.trim().equalsIgnoreCase("")) {
+            try {
+                int cantidad = Integer.parseInt(mcantidad);
+                if (cantidad<1) {
+                    JOptionPane.showMessageDialog(this, "La Cantidad de productos no debe ser inferior a 1", "Error cantidad inferior a 1", JOptionPane.WARNING_MESSAGE);
+                }else
+                    dt.setCantidad(cantidad);
+            }catch(NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Error la Cantidad ingresada no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Error la Cantidad esta vacía", "Error Cantidad vacía", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (mestado.equalsIgnoreCase("true")|mestado.equalsIgnoreCase("false")) {
+            dt.setEstado(mestado.equalsIgnoreCase("true"));
+        }else{
+            JOptionPane.showMessageDialog(this, "Error el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        try {
+            ddata.guardar(dt);
+            ppdata.actualizarPedido(dt.getPedido(), dt.getPedido().getIdPedido());
+            ddata.ConsistenciaDeDatos();
+            if (venPedido!=null) {
+                venPedido.quitarFiltros();
+                venPedido.limpiarAcciones();
+                venPedido.cargarFiltro();
+            }
+            
+            cargando = false;
+            jbCargar.setEnabled(true);
+            jbGuardar.setEnabled(false);
+            jtfBuscar.setText("");
+            jTable.setModel(modelo);
+            jProductos.setSelectedIndex(0);
+            lista = ddata.listar();
+            cargarTabla();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error de SQL al guardar el DetallePedido: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -297,13 +642,33 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-
-        
+        String texto = jtfBuscar.getText();
+        try {
+            if (!"".equals(texto)) {
+                try {
+                    int idPedido = Integer.parseInt(texto);
+                    
+                    if (ppdata.buscarPedido(idPedido)!=null) {
+                        cargarFiltro();
+                    }else {
+                        JOptionPane.showMessageDialog(this, "El ID del pedido ingresado no existe","ID inexistente",JOptionPane.WARNING_MESSAGE);
+                        cargarFiltro();
+                    }
+                } catch(NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "El ID de los pedidos solo pueden ser numeros","Error tipos de datos",JOptionPane.WARNING_MESSAGE);
+                }
+                cargarTabla();
+            }else{
+                cargarFiltro();
+            }
+        } catch(SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error SQL: "+e,"Error SQL",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
-    private void jProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProductosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jProductosActionPerformed
+    private void jProductosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jProductosItemStateChanged
+        cargarFiltro();
+    }//GEN-LAST:event_jProductosItemStateChanged
     
     public void limpiarAcciones() {
         jTable.setModel(modelo);
@@ -323,8 +688,8 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     
     public void cargarModelo(DefaultTableModel modelos) {
         modelos.addColumn("ID");
-        modelos.addColumn("ID del Pedido");
-        modelos.addColumn("codigo del Producto");
+        modelos.addColumn("ID_Pedido");
+        modelos.addColumn("Codigo_Producto");
         modelos.addColumn("Descripción");
         modelos.addColumn("Cántidad");
         modelos.addColumn("Total");
@@ -398,7 +763,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     
     private void cargarFiltro() {
         String filtro;
-        String nombre = jtfBuscar.getText();
+        String idPedido = jtfBuscar.getText();
         switch (jProductos.getSelectedItem().toString()) {
             case ("0-todos") : {filtro="todos";break;}
             case ("1-pizzas") : {filtro="pizzas";break;}
@@ -412,16 +777,22 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         }
         
         try {
-            if (nombre.trim().isEmpty()) {
+            try {
+                int numero = Integer.parseInt(idPedido);
+                Pedido p = ppdata.buscarPedido(numero);
+
+                if ("todos".equals(filtro)) {
+                    lista = ddata.listar();
+                }else if (p==null) {
+                    lista = ddata.filtrarCategoriayPedido(0, filtro);
+                }else{
+                    lista = ddata.filtrarCategoriayPedido(p.getIdPedido(), filtro);
+                }
+            }catch(NumberFormatException e) {
                 if ("todos".equals(filtro)) {
                     lista = ddata.listar();
                 }else
-                    lista = ddata.listar();
-            }else{
-                if ("todos".equals(filtro)) {
-                    lista = ddata.listar();
-                }else
-                    lista = ddata.listar();
+                    lista = ddata.filtrarCategoriayPedido(0, filtro);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla con filtro: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);

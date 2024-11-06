@@ -3,10 +3,13 @@ package Vistas;
 
 import java.sql.*;
 import Modelo.Producto;
+import Persistencia.DetallePedidoData;
 import Persistencia.ProductosData;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,6 +17,7 @@ public class VProducto extends javax.swing.JInternalFrame {
     
     private ArrayList<Producto> lista = new ArrayList<>();
     private ProductosData pdata = new ProductosData();
+    private DetallePedidoData ddata = new DetallePedidoData();
     private int rowSelected = -1;
     private int rowSelecteda = -1;
     private int rowSelectedg = -1;
@@ -662,6 +666,13 @@ public class VProducto extends javax.swing.JInternalFrame {
         }
         
         pdata.actualizar(p,cambios,Integer.parseInt(codigog));
+        if (!p.isEstado()) {
+            try {
+                ddata.ConsistenciaDeDatos();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error SQL: "+ex,"Error SQL",JOptionPane.ERROR_MESSAGE);
+            }
+        }
         cargando = false;
         jbCargar.setEnabled(true);
         jbGuardar.setEnabled(false);
