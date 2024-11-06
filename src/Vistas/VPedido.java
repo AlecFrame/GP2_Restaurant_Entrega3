@@ -12,6 +12,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -392,12 +394,12 @@ public class VPedido extends javax.swing.JInternalFrame {
         try {
             if (!"".equals(texto)) {
                 try {
-                    int id = Integer.parseInt(texto);
-                    if (pdata.buscarPedido(id)!=null) {
-                        lista.clear();
-                        lista.add(pdata.buscarPedido(id));
+                    int numero = Integer.parseInt(texto);
+                    
+                    if (!pdata.buscarPorMesayDNI(numero).isEmpty()) {
+                        lista = pdata.buscarPorMesayDNI(numero);
                     }else {
-                        JOptionPane.showMessageDialog(this, "La ID o DNI ingresados no existen","ID/DNI inexistente",JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "El Numero de mesa o DNI de mesero ingresados no existen","ID/DNI inexistente",JOptionPane.WARNING_MESSAGE);
                         lista = pdata.listarPedidos();
                         cargarTabla();
                     }
@@ -421,6 +423,7 @@ public class VPedido extends javax.swing.JInternalFrame {
             cargando = true;
             jbActualizar.setEnabled(false);
             jbCargar.setEnabled(false);
+            jbDetalle.setEnabled(false);
             jbGuardar.setEnabled(true);
             try {
                 modelo_cargar.addRow(new Object[] {
@@ -499,25 +502,18 @@ public class VPedido extends javax.swing.JInternalFrame {
                 return;
             }else
             if (mdata.buscar(mesa)!=null) {
-                p.setMesa(mdata.buscar(mesa));
+                if (Integer.parseInt(cdni_mesero)==mdata.buscar(mesa).getMesero().getDniMesero()) {
+                    p.setMesa(mdata.buscar(mesa));
+                }else{
+                    JOptionPane.showMessageDialog(this, "Esa mesa no le pertenece a ese mesero", "Error mesa incorrecta con mesero", JOptionPane.WARNING_MESSAGE);
+                    return; 
+                }
             }else{
                 JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no existe", "Error mesa inexistente", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }catch(NumberFormatException | SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        try {
-            double importe = Double.parseDouble(cimporte);
-            if (importe<1) {
-                JOptionPane.showMessageDialog(this, "Error el Importe puede ser menor a uno", "Error de valor menor a 1", JOptionPane.WARNING_MESSAGE);
-                return;
-            }else
-                p.setImporte(importe);
-        }catch(NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error el Importe ingresado no es un double: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -567,6 +563,7 @@ public class VPedido extends javax.swing.JInternalFrame {
             jtfBuscar.setText("");
             quitarFiltros();
             jTable.setModel(modelo);
+            pdata.MantenerConsistenciaDatos();
             lista = pdata.listarPedidos();
             cargarTabla();
         } catch (SQLException ex) {
@@ -582,9 +579,6 @@ public class VPedido extends javax.swing.JInternalFrame {
         rowSelected = jTable.getSelectedRow();
         System.out.println("rSelected: "+rowSelected);
         
-        if (rowSelected!=-1) {
-            jbDetalle.setEnabled(true);
-        }
         if (jTable.getModel()==modelo_editable) {
             if (jTable.isEditing()) {
                 jTable.getCellEditor().stopCellEditing();
@@ -594,9 +588,13 @@ public class VPedido extends javax.swing.JInternalFrame {
         }
         if (!cambiando) {
             jbEliminar.setEnabled(true);
-            if (cargando==false) {
+            jbDetalle.setEnabled(true);
+            if (!cargando) {
                 jTable.setModel(modelo_editable);
             }
+        }
+        if (cargando) {
+            jbDetalle.setEnabled(false);
         }
     }//GEN-LAST:event_jTableMouseClicked
 
@@ -680,20 +678,20 @@ public class VPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTablePropertyChange
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        String cidPedido = modelo_cargar.getValueAt(rowSelecteda, 0).toString();
-        String cdni_mesero = modelo_cargar.getValueAt(rowSelecteda, 1).toString();
-        String cnumero_mesa = modelo_cargar.getValueAt(rowSelecteda, 2).toString();
-        String cimporte = modelo_cargar.getValueAt(rowSelecteda, 3).toString();
+        String cidPedido = modelo_editable.getValueAt(rowSelecteda, 0).toString();
+        String cdni_mesero = modelo_editable.getValueAt(rowSelecteda, 1).toString();
+        String cnumero_mesa = modelo_editable.getValueAt(rowSelecteda, 2).toString();
+        String cimporte = modelo_editable.getValueAt(rowSelecteda, 3).toString();
         String cfecha = "";
-        if (modelo_cargar.getValueAt(rowSelecteda, 4)!=null) {
-            cfecha = modelo_cargar.getValueAt(rowSelecteda, 4).toString();
+        if (modelo_editable.getValueAt(rowSelecteda, 4)!=null) {
+            cfecha = modelo_editable.getValueAt(rowSelecteda, 4).toString();
         }
         String chora = "";
-        if (modelo_cargar.getValueAt(rowSelecteda, 5)!=null) {
-            chora = modelo_cargar.getValueAt(rowSelecteda, 5).toString();
+        if (modelo_editable.getValueAt(rowSelecteda, 5)!=null) {
+            chora = modelo_editable.getValueAt(rowSelecteda, 5).toString();
         }
-        String ccobrado = modelo_cargar.getValueAt(rowSelecteda, 6).toString();
-        String cestado = modelo_cargar.getValueAt(rowSelecteda, 7).toString();
+        String ccobrado = modelo_editable.getValueAt(rowSelecteda, 6).toString();
+        String cestado = modelo_editable.getValueAt(rowSelecteda, 7).toString();
         Pedido p = new Pedido();
         
         try {
@@ -741,7 +739,12 @@ public class VPedido extends javax.swing.JInternalFrame {
                 return;
             }else
             if (mdata.buscar(mesa)!=null) {
-                p.setMesa(mdata.buscar(mesa));
+                if (Integer.parseInt(cdni_mesero)==mdata.buscar(mesa).getMesero().getDniMesero()) {
+                    p.setMesa(mdata.buscar(mesa));
+                }else{
+                    JOptionPane.showMessageDialog(this, "Esa mesa no le pertenece a ese mesero", "Error mesa incorrecta con mesero", JOptionPane.WARNING_MESSAGE);
+                    return; 
+                }
             }else{
                 JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no existe", "Error mesa inexistente", JOptionPane.WARNING_MESSAGE);
                 return;
@@ -806,7 +809,6 @@ public class VPedido extends javax.swing.JInternalFrame {
             if (!p.isEstado()) {
                 ddata.ConsistenciaDeDatos();
             }
-            
             cargando = false;
             jbCargar.setEnabled(true);
             jbGuardar.setEnabled(false);
@@ -881,7 +883,7 @@ public class VPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbBuscarActionPerformed
 
     private void jbDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDetalleActionPerformed
-        int buscar = (int) jTable.getValueAt(rowSelectedg, 0);
+        int buscar = (int) jTable.getValueAt(rowSelected, 0);
         for (JInternalFrame frame : escritorio.getAllFrames()) {
             if (frame instanceof VDetallePedido) {
                 frame.dispose();
@@ -965,7 +967,7 @@ public class VPedido extends javax.swing.JInternalFrame {
             p.getImporte(),
             p.getFecha(),
             p.getHora(),
-            p.isCobrado(),
+            (p.isCobrado())? "cobrado":"no_cobrado",
             p.isEstado()
         });
         modelo_cargar.addRow(new Object[] {
@@ -975,7 +977,7 @@ public class VPedido extends javax.swing.JInternalFrame {
             p.getImporte(),
             p.getFecha(),
             p.getHora(),
-            (p.isCobrado()),
+            (p.isCobrado())? "cobrado":"no_cobrado",
             p.isEstado()
         });
         modelo_editable.addRow(new Object[] {
@@ -985,7 +987,7 @@ public class VPedido extends javax.swing.JInternalFrame {
             p.getImporte(),
             p.getFecha(),
             p.getHora(),
-            p.isCobrado(),
+            (p.isCobrado())? "cobrado":"no_cobrado",
             p.isEstado()
         });
     }
@@ -1008,6 +1010,11 @@ public class VPedido extends javax.swing.JInternalFrame {
     }
     
     public void cargarFiltro() {
+        try {
+            pdata.MantenerConsistenciaDatos();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
+        }
         try {
             if (hora!=null|fecha!=null|!"null".equals(cobrado)) {
                 lista = pdata.buscarPedidosPorFechayHorayCobro(fecha, hora, cobrado);

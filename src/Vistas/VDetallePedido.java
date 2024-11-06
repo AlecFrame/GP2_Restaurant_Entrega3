@@ -8,6 +8,8 @@ import Persistencia.PedidoData;
 import Persistencia.ProductosData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -304,9 +306,23 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         }
         if (!cambiando) {
             jbEliminar.setEnabled(true);
-            if (cargando==false) {
+            if (!cargando) {
                 jTable.setModel(modelo_editable);
             }
+        }
+        if (cargando) {
+            int row = modelo_cargar.getRowCount()-1;
+            String mproducto = modelo_cargar.getValueAt(row, 2).toString();
+            try {
+                int codigo = Integer.parseInt(mproducto);
+                if (!"".equals(mproducto)) {
+                    try {
+                        modelo_cargar.setValueAt(pdata.buscar(codigo).getNombre(), row, 3);
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(this, "Error SQL: "+ex,"Error SQL",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }catch (NumberFormatException e) {}
         }
     }//GEN-LAST:event_jTableMouseClicked
 
@@ -463,6 +479,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                 int cantidad = Integer.parseInt(mcantidad);
                 if (cantidad<1) {
                     JOptionPane.showMessageDialog(this, "La Cantidad de productos no debe ser inferior a 1", "Error cantidad inferior a 1", JOptionPane.WARNING_MESSAGE);
+                    return;
                 }else
                     dt.setCantidad(cantidad);
             }catch(NumberFormatException ex) {
@@ -483,10 +500,8 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         
         try {
             ddata.actualizar(dt, Integer.parseInt(idg));
-            if (!mproducto.equals(productog)|!mcantidad.equals(cantidadg)) {
-                ppdata.actualizarPedido(dt.getPedido(), dt.getPedido().getIdPedido());
-            }
             ddata.ConsistenciaDeDatos();
+            ppdata.MantenerConsistenciaDatos();
             if (venPedido!=null) {
                 venPedido.quitarFiltros();
                 venPedido.limpiarAcciones();
@@ -523,7 +538,6 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         int row = modelo_cargar.getRowCount()-1;
-        System.out.println(row);
         String mid = modelo_cargar.getValueAt(row, 0).toString();
         String mpedido = modelo_cargar.getValueAt(row, 1).toString();
         String mproducto = modelo_cargar.getValueAt(row, 2).toString();
@@ -596,6 +610,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                 int cantidad = Integer.parseInt(mcantidad);
                 if (cantidad<1) {
                     JOptionPane.showMessageDialog(this, "La Cantidad de productos no debe ser inferior a 1", "Error cantidad inferior a 1", JOptionPane.WARNING_MESSAGE);
+                    return;
                 }else
                     dt.setCantidad(cantidad);
             }catch(NumberFormatException ex) {
@@ -616,8 +631,8 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         
         try {
             ddata.guardar(dt);
-            ppdata.actualizarPedido(dt.getPedido(), dt.getPedido().getIdPedido());
             ddata.ConsistenciaDeDatos();
+            ppdata.MantenerConsistenciaDatos();
             if (venPedido!=null) {
                 venPedido.quitarFiltros();
                 venPedido.limpiarAcciones();

@@ -17,17 +17,17 @@ public class PedidoData {
     private Connection con = Conexion.cargaConexion();
 
     public PedidoData() {}
-
+    
     public double calcularImporte(int idPedido) throws SQLException {
         DetallePedidoData ddata = new DetallePedidoData();
         double importe = 0;
-        DetallePedido idDetalle = ddata.buscarPorPedido(idPedido);
+        DetallePedido Detalle = ddata.buscarPorPedido(idPedido);
         
-        if (idDetalle!=null) {
-            String sql = "SELECT SUM(total) AS importe FROM detalle_pedido WHERE idDetalle = ?";
+        if (Detalle!=null) {
+            String sql = "SELECT SUM(total) AS importe FROM detalle_pedido WHERE idPedido = ?";
 
             try (PreparedStatement s = con.prepareStatement(sql)) {
-                s.setInt(1, idDetalle.getIdDetalle());
+                s.setInt(1, idPedido);
                 try (ResultSet rs = s.executeQuery()) {
                     if (rs.next()) {
                         importe = rs.getDouble("importe");
@@ -37,6 +37,22 @@ public class PedidoData {
         }
         
         return importe;
+    }
+    
+    public void MantenerConsistenciaDatos() throws SQLException {
+        String sql = "SELECT idPedido, importe FROM pedido;";
+        
+        PreparedStatement s = con.prepareStatement(sql);
+        ResultSet rs = s.executeQuery();
+        
+        while (rs.next()) {
+            String sql2 = "UPDATE pedido SET importe = ? WHERE idPedido = ?;";
+            
+            PreparedStatement s2 = con.prepareStatement(sql2);
+            s2.setDouble(1, calcularImporte(rs.getInt("idPedido")));
+            s2.setInt(2, rs.getInt("idPedido"));
+            s2.executeUpdate();
+        }
     }
     
     public void guardarPedido(Pedido p) throws SQLException {
@@ -118,28 +134,59 @@ public class PedidoData {
                                 rs.getBoolean("estado"));
         }
         
-        if (pedido==null) {
-            sql = "SELECT * FROM pedido WHERE dni_mesero = ?";
+        return pedido;
+    }
+    
+    
+    public ArrayList<Pedido> buscarPorMesayDNI(int numero) throws SQLException {
+        MesaData mesa = new MesaData();
+        MeseroData mesero = new MeseroData();
+        ArrayList<Pedido> lista = new ArrayList<>();
+        boolean seguir = true;
+        
+        String sql = "SELECT * FROM pedido WHERE dni_mesero = ?";
+        
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, numero);
+        
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            seguir = false;
+            lista.add(new Pedido(rs.getInt("idPedido"),
+                                mesero.buscar(rs.getString("dni_mesero")),
+                                mesa.buscar(rs.getInt("numero_mesa")),
+                                rs.getDouble("importe"),
+                                rs.getDate("fecha").toLocalDate(),
+                                rs.getTime("hora").toLocalTime(),
+                                rs.getBoolean("cobrado"),
+                                rs.getBoolean("estado"))
+            );
+        }
+        
+        if (seguir) {
+            sql = "SELECT * FROM pedido WHERE numero_mesa = ?";
 
             ps = con.prepareStatement(sql);
             ps.setInt(1, numero);
 
             rs = ps.executeQuery();
             if (rs.next()) {
-                pedido = new Pedido(rs.getInt("idPedido"),
+                lista.add(new Pedido(rs.getInt("idPedido"),
                                     mesero.buscar(rs.getString("dni_mesero")),
                                     mesa.buscar(rs.getInt("numero_mesa")),
                                     rs.getDouble("importe"),
                                     rs.getDate("fecha").toLocalDate(),
                                     rs.getTime("hora").toLocalTime(),
                                     rs.getBoolean("cobrado"),
-                                    rs.getBoolean("estado"));
+                                    rs.getBoolean("estado"))
+                );
             }
         }
         
-        return pedido;
+        return lista;
     }
 
+    
     public void actualizarPedido(Pedido p, int id) throws SQLException {
         if (p.getIdPedido()==0) {
             String sql = "UPDATE pedido SET dni_mesero = ?, numero_mesa = ?, importe = ?, fecha = ?, hora = ?, cobrado = ?, estado = ? WHERE idPedido = ?";
