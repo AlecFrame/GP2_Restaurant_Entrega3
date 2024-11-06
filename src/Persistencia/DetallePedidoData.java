@@ -12,8 +12,6 @@ import javax.swing.JOptionPane;
 
 public class DetallePedidoData {
     Connection con = Conexion.cargaConexion();
-    PedidoData pedido = new PedidoData();
-    ProductosData productos = new ProductosData();
 
     public DetallePedidoData() {}
     
@@ -72,6 +70,8 @@ public class DetallePedidoData {
     }
     
     public DetallePedido buscar(int id) throws SQLException {
+        PedidoData pedido = new PedidoData();
+        ProductosData productos = new ProductosData();
         DetallePedido detalle = null;
         String sql = "SELECT * FROM detalle_pedido WHERE idDetalle = ?";
         
@@ -92,6 +92,8 @@ public class DetallePedidoData {
     }
     
     public DetallePedido buscarPorPedido(int id) throws SQLException {
+        PedidoData pedido = new PedidoData();
+        ProductosData productos = new ProductosData();
         DetallePedido detalle = null;
         String sql = "SELECT * FROM detalle_pedido WHERE idPedido = ?";
         
@@ -153,6 +155,8 @@ public class DetallePedidoData {
     }
     
     public ArrayList<DetallePedido> listar() throws SQLException {
+        PedidoData pedido = new PedidoData();
+        ProductosData productos = new ProductosData();
         ArrayList<DetallePedido> detallespedidos = new ArrayList<>();
         String sql = "SELECT * FROM detalle_pedido";
         

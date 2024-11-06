@@ -4,7 +4,6 @@ package Persistencia;
 import Modelo.Conexion;
 import Modelo.DetallePedido;
 import Modelo.Pedido;
-import Modelo.Reserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,13 +15,11 @@ import javax.swing.JOptionPane;
 
 public class PedidoData {
     private Connection con = Conexion.cargaConexion();
-    private MesaData mesa = new MesaData();
-    private MeseroData mesero = new MeseroData();
-    private DetallePedidoData ddata = new DetallePedidoData();
 
     public PedidoData() {}
 
     public double calcularImporte(int idPedido) throws SQLException {
+        DetallePedidoData ddata = new DetallePedidoData();
         double importe = 0;
         DetallePedido idDetalle = ddata.buscarPorPedido(idPedido);
         
@@ -101,6 +98,8 @@ public class PedidoData {
     }
 
     public Pedido buscarPedido(int numero) throws SQLException {
+        MesaData mesa = new MesaData();
+        MeseroData mesero = new MeseroData();
         Pedido pedido = null;
         String sql = "SELECT * FROM pedido WHERE idPedido = ?";
         
@@ -203,6 +202,8 @@ public class PedidoData {
     }
     
     public ArrayList<Pedido> listarPedidos() throws SQLException {
+        MesaData mesa = new MesaData();
+        MeseroData mesero = new MeseroData();
         ArrayList<Pedido> pedidos = new ArrayList<>();
         String sql = "SELECT * FROM pedido";
         
@@ -224,6 +225,8 @@ public class PedidoData {
     }
 
     public ArrayList<Pedido> listarPedidosCobrados() throws SQLException {
+        MesaData mesa = new MesaData();
+        MeseroData mesero = new MeseroData();
         ArrayList<Pedido> pedidos = new ArrayList<>();
         String sql = "SELECT * FROM pedido WHERE cobrado = 1";
         
@@ -246,6 +249,8 @@ public class PedidoData {
 
     public ArrayList<Pedido> buscarPedidosPorFechayHorayCobro(LocalDate fecha, LocalTime hora, String cobrado) throws SQLException {
         ArrayList<Pedido> pedidos = new ArrayList<>();
+        MesaData mesa = new MesaData();
+        MeseroData mesero = new MeseroData();
         StringBuilder sql = new StringBuilder("SELECT * FROM pedido WHERE 1=1");
 
         ArrayList<Object> parameters = new ArrayList<>();
