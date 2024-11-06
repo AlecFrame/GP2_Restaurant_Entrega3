@@ -2,6 +2,7 @@
 package Persistencia;
 
 import Modelo.Conexion;
+import Modelo.DetallePedido;
 import Modelo.Pedido;
 import Modelo.Reserva;
 import java.sql.Connection;
@@ -17,9 +18,29 @@ public class PedidoData {
     private Connection con = Conexion.cargaConexion();
     private MesaData mesa = new MesaData();
     private MeseroData mesero = new MeseroData();
+    private DetallePedidoData ddata = new DetallePedidoData();
 
     public PedidoData() {}
 
+    public double calcularImporte(int idPedido) throws SQLException {
+        double importe = 0;
+        DetallePedido idDetalle = ddata.buscarPorPedido(idPedido);
+        
+        if (idDetalle!=null) {
+            String sql = "SELECT SUM(total) AS importe FROM detalle_pedido WHERE idDetalle = ?";
+
+            try (PreparedStatement s = con.prepareStatement(sql)) {
+                s.setInt(1, idDetalle.getIdDetalle());
+                try (ResultSet rs = s.executeQuery()) {
+                    if (rs.next()) {
+                        importe = rs.getDouble("importe");
+                    }
+                }
+            }
+        }
+        
+        return importe;
+    }
     
     public void guardarPedido(Pedido p) throws SQLException {
         if (p.getIdPedido()==0) {
@@ -28,7 +49,7 @@ public class PedidoData {
             PreparedStatement s = con.prepareStatement(sql);
             s.setString(1, String.valueOf((int)p.getMesero().getDniMesero()));
             s.setInt(2, p.getMesa().getNumeroMesa());
-            s.setDouble(3, p.getImporte());
+            s.setDouble(3, calcularImporte(p.getIdPedido()));
             s.setDate(4, java.sql.Date.valueOf(p.getFecha()));
             s.setTime(5, java.sql.Time.valueOf( p.getHora()));
             s.setBoolean(6, p.isCobrado());
@@ -48,7 +69,7 @@ public class PedidoData {
             s.setInt(1, p.getIdPedido());
             s.setString(2, String.valueOf((int)p.getMesero().getDniMesero()));
             s.setInt(3, p.getMesa().getNumeroMesa());
-            s.setDouble(4, p.getImporte());
+            s.setDouble(4, calcularImporte(p.getIdPedido()));
             s.setDate(5, java.sql.Date.valueOf(p.getFecha()));
             s.setTime(6, java.sql.Time.valueOf( p.getHora()));
             s.setBoolean(7, p.isCobrado());
@@ -127,7 +148,7 @@ public class PedidoData {
             PreparedStatement s = con.prepareStatement(sql);
             s.setString(1, String.valueOf((int)p.getMesero().getDniMesero()));
             s.setInt(2, p.getMesa().getNumeroMesa());
-            s.setDouble(3, p.getImporte());
+            s.setDouble(3, calcularImporte(p.getIdPedido()));
             s.setDate(4, java.sql.Date.valueOf(p.getFecha()));
             s.setTime(5, java.sql.Time.valueOf( p.getHora()));
             s.setBoolean(6, p.isCobrado());
@@ -148,7 +169,7 @@ public class PedidoData {
             s.setInt(1, p.getIdPedido());
             s.setString(2, String.valueOf((int)p.getMesero().getDniMesero()));
             s.setInt(3, p.getMesa().getNumeroMesa());
-            s.setDouble(4, p.getImporte());
+            s.setDouble(4, calcularImporte(p.getIdPedido()));
             s.setDate(5, java.sql.Date.valueOf(p.getFecha()));
             s.setTime(6, java.sql.Time.valueOf( p.getHora()));
             s.setBoolean(7, p.isCobrado());

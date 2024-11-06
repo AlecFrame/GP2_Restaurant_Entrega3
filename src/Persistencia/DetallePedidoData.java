@@ -25,7 +25,7 @@ public class DetallePedidoData {
             s.setInt(1, p.getProducto().getCodigo());
             s.setInt(2, p.getPedido().getIdPedido());
             s.setInt(3, p.getCantidad());
-            s.setDouble(4, p.getTotal());
+            s.setDouble(4, p.getProducto().getPrecio()*p.getCantidad());
             s.setBoolean(5, p.isEstado());
 
             int filas = s.executeUpdate();
@@ -43,7 +43,7 @@ public class DetallePedidoData {
             s.setInt(2, p.getProducto().getCodigo());
             s.setInt(3, p.getPedido().getIdPedido());
             s.setInt(4, p.getCantidad());
-            s.setDouble(5, p.getTotal());
+            s.setDouble(5, p.getProducto().getPrecio()*p.getCantidad());
             s.setBoolean(6, p.isEstado());
 
             int filas = s.executeUpdate();
@@ -91,6 +91,26 @@ public class DetallePedidoData {
         return detalle;
     }
     
+    public DetallePedido buscarPorPedido(int id) throws SQLException {
+        DetallePedido detalle = null;
+        String sql = "SELECT * FROM detalle_pedido WHERE idPedido = ?";
+        
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            detalle = new DetallePedido(rs.getInt("idDetalle"),
+                                        productos.buscar(rs.getInt("codigo")),
+                                        pedido.buscarPedido(rs.getInt("idPedido")),
+                                        rs.getInt("cantidad"),
+                                        rs.getDouble("total"),
+                                        rs.getBoolean("estado"));
+        }
+        
+        return detalle;
+    }
+    
     public void actualizar(DetallePedido p, int id) throws SQLException {
         if (p.getIdDetalle()==0) {
             String sql = "UPDATE detalle_pedido SET codigo = ?, idPedido = ?, cantidad = ?, total = ?, estado = ? WHERE idDetalle = ?";
@@ -99,7 +119,7 @@ public class DetallePedidoData {
             s.setInt(1, p.getProducto().getCodigo());
             s.setInt(2, p.getPedido().getIdPedido());
             s.setInt(3, p.getCantidad());
-            s.setDouble(4, p.getTotal());
+            s.setDouble(4, p.getProducto().getPrecio()*p.getCantidad());
             s.setBoolean(5, p.isEstado());
             s.setInt(6, id);
 
@@ -118,7 +138,7 @@ public class DetallePedidoData {
             s.setInt(2, p.getProducto().getCodigo());
             s.setInt(3, p.getPedido().getIdPedido());
             s.setInt(4, p.getCantidad());
-            s.setDouble(5, p.getTotal());
+            s.setDouble(5, p.getProducto().getPrecio()*p.getCantidad());
             s.setBoolean(6, p.isEstado());
             s.setInt(7, id);
 
