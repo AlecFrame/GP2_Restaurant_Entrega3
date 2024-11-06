@@ -1,7 +1,6 @@
 package Persistencia;
 import Modelo.Conexion;
 import Modelo.Mesero;
-import Modelo.Pedido;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class MeseroData {
 
         Statement s = con.createStatement();
         ResultSet r = s.executeQuery(sql);
-
+        
         while (r.next()) {
             Mesero mesero = new Mesero();
             mesero.setDniMesero(r.getInt("dni_mesero"));

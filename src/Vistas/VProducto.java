@@ -8,8 +8,6 @@ import Persistencia.ProductosData;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -317,14 +315,14 @@ public class VProducto extends javax.swing.JInternalFrame {
     private void jbCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarActionPerformed
         String filtro;
         switch (jcCategoria.getSelectedItem().toString()) {
-            case ("0-Todas") : {filtro="";break;}
-            case ("1-Pizzas") : {filtro="pizzas";break;}
-            case ("2-Hamburguesas") : {filtro="hamburguesas";break;}
-            case ("3-Lomos") : {filtro="lomos";break;}
-            case ("4-Tacos") : {filtro="tacos";break;}
-            case ("5-Bebida s/a") : {filtro="bebidas sin alcohol";break;}
-            case ("6-Bebida c/a") : {filtro="bebidas con alcohol";break;}
-            case ("7-Gaseosas") : {filtro="bebidas gaseosas";break;}
+            case ("0-todas") : {filtro="";break;}
+            case ("1-pizzas") : {filtro="pizzas";break;}
+            case ("2-hamburguesas") : {filtro="hamburguesas";break;}
+            case ("3-lomos") : {filtro="lomos";break;}
+            case ("4-tacos") : {filtro="tacos";break;}
+            case ("5-bebida s/a") : {filtro="bebidas sin alcohol";break;}
+            case ("6-bebida c/a") : {filtro="bebidas con alcohol";break;}
+            case ("7-gaseosas") : {filtro="bebidas gaseosas";break;}
             default : {filtro="";break;}
         }
         
@@ -340,7 +338,7 @@ public class VProducto extends javax.swing.JInternalFrame {
                     "",
                     "",
                     filtro,
-                    ""
+                    "true"
                 });
                 jTable.setModel(modelo_cargar);
             } catch (SQLException ex) {
@@ -401,7 +399,11 @@ public class VProducto extends javax.swing.JInternalFrame {
         
         try {
             double precio = Double.parseDouble(mprecio);
-            p.setPrecio(precio);
+            if (precio<=0) {
+                JOptionPane.showMessageDialog(this, "Error el precio no puede ser 0 o negativo", "Error de precio invalido", JOptionPane.ERROR_MESSAGE);
+                return;
+            }else
+                p.setPrecio(precio);
         }catch(NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error el precio ingresado no es un número: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
@@ -409,7 +411,11 @@ public class VProducto extends javax.swing.JInternalFrame {
         
         try {
             int stock = Integer.parseInt(mstock);
-            p.setStock(stock);
+            if (stock<0) {
+                JOptionPane.showMessageDialog(this, "Error el stock no puede ser inferior a 0", "Error stock inferior a 0", JOptionPane.ERROR_MESSAGE);
+                return;
+            }else
+                p.setStock(stock);
         }catch(NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error el stock ingresado no es un numero entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
@@ -468,6 +474,7 @@ public class VProducto extends javax.swing.JInternalFrame {
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
         rowSelected = jTable.getSelectedRow();
+        
         if (jTable.getModel()==modelo_editable) {
             if (jTable.isEditing()) {
                 jTable.getCellEditor().stopCellEditing();
@@ -611,8 +618,13 @@ public class VProducto extends javax.swing.JInternalFrame {
         
         try {
             double precio = Double.parseDouble(mprecio);
-            p.setPrecio(precio);
-            cambios += ",precio";
+            if (precio<=0) {
+                JOptionPane.showMessageDialog(this, "Error el precio no puede ser 0 o negativo", "Error de precio invalido", JOptionPane.ERROR_MESSAGE);
+                return;
+            }else{
+                p.setPrecio(precio);
+                cambios += ",precio";
+            }
         }catch(NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error el precio ingresado no es un número: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
@@ -620,8 +632,13 @@ public class VProducto extends javax.swing.JInternalFrame {
         
         try {
             int stock = Integer.parseInt(mstock);
-            p.setStock(stock);
-            cambios += ",stock";
+            if (stock<0) {
+                JOptionPane.showMessageDialog(this, "Error el stock no puede ser inferior a 0", "Error stock inferior a 0", JOptionPane.ERROR_MESSAGE);
+                return;
+            }else{
+                p.setStock(stock);
+                cambios += ",stock";
+            }
         }catch(NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error el stock ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
