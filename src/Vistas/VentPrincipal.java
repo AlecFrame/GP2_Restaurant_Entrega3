@@ -40,6 +40,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jMenu = new javax.swing.JMenuBar();
         jDetPedido = new javax.swing.JMenu();
         jPedido = new javax.swing.JMenuItem();
+        jDetallePed = new javax.swing.JMenuItem();
         jProductos = new javax.swing.JMenu();
         jCategoria = new javax.swing.JMenuItem();
         jReserva = new javax.swing.JMenu();
@@ -95,6 +96,16 @@ public class VentPrincipal extends javax.swing.JFrame {
             }
         });
         jDetPedido.add(jPedido);
+
+        jDetallePed.setBackground(new java.awt.Color(204, 153, 0));
+        jDetallePed.setForeground(new java.awt.Color(255, 255, 255));
+        jDetallePed.setText("Detalle del Pedido");
+        jDetallePed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDetallePedActionPerformed(evt);
+            }
+        });
+        jDetPedido.add(jDetallePed);
 
         jMenu.add(jDetPedido);
 
@@ -318,10 +329,20 @@ public class VentPrincipal extends javax.swing.JFrame {
         escritorio.moveToFront(v);   
     }//GEN-LAST:event_jMeseroMouseClicked
 
+    private void jDetallePedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDetallePedActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        VDetallePedido v = new VDetallePedido();
+        v.setVisible(true);
+        escritorio.add(v);
+        escritorio.moveToFront(v);
+    }//GEN-LAST:event_jDetallePedActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jCategoria;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jDetPedido;
+    private javax.swing.JMenuItem jDetallePed;
     private javax.swing.JMenuBar jMenu;
     private javax.swing.JMenu jMesa;
     private javax.swing.JMenu jMesero;
