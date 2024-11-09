@@ -113,7 +113,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         setForeground(new java.awt.Color(255, 255, 204));
         setTitle("Reservas");
         setFont(new java.awt.Font("Calibri", 1, 10)); // NOI18N
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Logo5.png"))); // NOI18N
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Logo_Reservas.jpg"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
         jLabel1.setText("Buscar por:");

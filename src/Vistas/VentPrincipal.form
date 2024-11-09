@@ -15,7 +15,7 @@
         </Property>
         <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
+          <Color id="Cursor Por defecto"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -89,28 +89,10 @@
             <Property name="text" type="java.lang.String" value="Productos"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jProductosMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jProductosMouseEntered"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jProductosMouseExited"/>
           </Events>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jCategoria">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="66" red="cc" type="rgb"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Categor&#xed;a"/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCategoriaActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jReserva">
           <Properties>
@@ -123,7 +105,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Reserva"/>
+            <Property name="text" type="java.lang.String" value="Reservas"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jReservaMouseClicked"/>
@@ -142,13 +124,12 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Mesero"/>
+            <Property name="text" type="java.lang.String" value="Meseros"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMeseroMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMeseroMouseEntered"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMeseroMouseExited"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMeseroActionPerformed"/>
           </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMesa">
@@ -198,7 +179,7 @@
       <Color blue="cc" green="ff" red="ff" type="rgb"/>
     </Property>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-      <Color id="Default Cursor"/>
+      <Color id="Cursor Por defecto"/>
     </Property>
   </Properties>
   <SyntheticProperties>

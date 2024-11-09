@@ -35,7 +35,7 @@
       <Font name="Calibri" size="10" style="1"/>
     </Property>
     <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-      <Image iconType="3" name="/Recursos/Logo5.png"/>
+      <Image iconType="3" name="/Recursos/Logo_Reservas.jpg"/>
     </Property>
   </Properties>
   <SyntheticProperties>

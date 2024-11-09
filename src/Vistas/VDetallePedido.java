@@ -111,7 +111,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(204, 187, 165));
         setBorder(null);
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Logo5.png"))); // NOI18N
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/LogoDetalle_pedidos.jpg"))); // NOI18N
 
         jTable.setBackground(new java.awt.Color(255, 255, 204));
         jTable.setBorder(new javax.swing.border.MatteBorder(null));

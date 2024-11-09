@@ -97,7 +97,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         setForeground(new java.awt.Color(255, 255, 204));
         setTitle("Productos");
         setFont(new java.awt.Font("Calibri", 1, 10)); // NOI18N
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Logo5.png"))); // NOI18N
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/LogoProductos.jpg"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Calibri", 3, 18)); // NOI18N
         jLabel1.setText("Buscar por:  ");
@@ -245,9 +245,7 @@ public class VProducto extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel3))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jcCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(81, 81, 81))
+                                .addComponent(jcCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)

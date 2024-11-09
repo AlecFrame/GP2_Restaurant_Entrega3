@@ -35,7 +35,7 @@
       <Font name="Calibri" size="10" style="1"/>
     </Property>
     <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-      <Image iconType="3" name="/Recursos/Logo5.png"/>
+      <Image iconType="3" name="/Recursos/Logo_mesa.jpg"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -61,35 +61,39 @@
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="514" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
-                                          <Component id="jbCondicion" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jcCategoria" min="-2" pref="171" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jbBuscaPor" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jbSalir" min="-2" pref="58" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane1" min="-2" pref="514" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jBotonCapacidad" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jBotonMesero" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jBotonMesa" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jbCondicion" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jcCategoria" min="-2" pref="121" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jtfBuscar" min="-2" pref="112" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jbBuscar" min="-2" pref="69" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
                                       </Group>
-                                      <Component id="jBotonCapacidad" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jBotonMesa" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jtfBuscar" min="-2" pref="112" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jbBuscar" min="-2" pref="69" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jBotonMesero" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jbBuscaPor" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jbSalir" min="-2" pref="58" max="-2" attributes="0"/>
-                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -117,28 +121,26 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jbBuscaPor" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jtfBuscar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="jBotonMesa" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jBotonMesa" min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jbSalir" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Component id="jbBuscar" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jtfBuscar" min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jBotonCapacidad" min="-2" pref="21" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace pref="2" max="32767" attributes="0"/>
               <Component id="jBotonMesero" min="-2" pref="23" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jcCategoria" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jbCondicion" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jcCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbCondicion" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="119" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="106" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbGuardar" alignment="3" min="-2" max="-2" attributes="0"/>

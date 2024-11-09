@@ -76,7 +76,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         setBorder(null);
         setForeground(new java.awt.Color(255, 255, 204));
         setTitle("Meseros");
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Logo5.png"))); // NOI18N
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/LogoMeseros.jpg"))); // NOI18N
         setMaximumSize(new java.awt.Dimension(575, 418));
         setPreferredSize(new java.awt.Dimension(575, 418));
 

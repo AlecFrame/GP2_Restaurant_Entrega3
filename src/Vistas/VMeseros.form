@@ -13,7 +13,7 @@
     </Property>
     <Property name="title" type="java.lang.String" value="Meseros"/>
     <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-      <Image iconType="3" name="/Recursos/Logo5.png"/>
+      <Image iconType="3" name="/Recursos/LogoMeseros.jpg"/>
     </Property>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[575, 418]"/>
