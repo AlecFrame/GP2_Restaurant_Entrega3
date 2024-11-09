@@ -502,12 +502,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             ddata.actualizar(dt, Integer.parseInt(idg));
             ddata.ConsistenciaDeDatos();
             ppdata.MantenerConsistenciaDatos();
-            if (venPedido!=null) {
-                venPedido.quitarFiltros();
-                venPedido.limpiarAcciones();
-                venPedido.cargarFiltro();
-            }
-            
+            actualizarVentanas();
             cargando = false;
             jbCargar.setEnabled(true);
             jbGuardar.setEnabled(false);
@@ -633,12 +628,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             ddata.guardar(dt);
             ddata.ConsistenciaDeDatos();
             ppdata.MantenerConsistenciaDatos();
-            if (venPedido!=null) {
-                venPedido.quitarFiltros();
-                venPedido.limpiarAcciones();
-                venPedido.cargarFiltro();
-            }
-            
+            actualizarVentanas();
             cargando = false;
             jbCargar.setEnabled(true);
             jbGuardar.setEnabled(false);
@@ -718,7 +708,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         jTable.setModel(modelo);
     }
     
-    private void cargarTabla() {
+    public void cargarTabla() {
         limpiarAcciones();
         cargando = false;
         modelo.setRowCount(0);
@@ -776,7 +766,12 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         return numero;
     }
     
-    private void cargarFiltro() {
+    public void quitarFiltros() {
+        jProductos.setSelectedIndex(0);
+        jtfBuscar.setText("");
+    }
+    
+    public void cargarFiltro() {
         String filtro;
         String idPedido = jtfBuscar.getText();
         switch (jProductos.getSelectedItem().toString()) {
@@ -789,6 +784,12 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             case ("6-bebidasc/a") : {filtro="bebidas con alcohol";break;}
             case ("7-gaseosas") : {filtro="bebidas gaseosas";break;}
             default : {filtro="ninguna";break;}
+        }
+        
+        try {
+            ddata.MantenerConsistenciaDatos();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error de SQL: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
         
         try {
@@ -813,6 +814,14 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla con filtro: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
         cargarTabla();
+    }
+    
+    private void actualizarVentanas() {
+        if (venPedido!=null) {
+            venPedido.quitarFiltros();
+            venPedido.limpiarAcciones();
+            venPedido.cargarFiltro();
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -137,7 +137,6 @@ public class PedidoData {
         return pedido;
     }
     
-    
     public ArrayList<Pedido> buscarPorMesayDNI(int numero) throws SQLException {
         MesaData mesa = new MesaData();
         MeseroData mesero = new MeseroData();
@@ -186,7 +185,6 @@ public class PedidoData {
         return lista;
     }
 
-    
     public void actualizarPedido(Pedido p, int id) throws SQLException {
         if (p.getIdPedido()==0) {
             String sql = "UPDATE pedido SET dni_mesero = ?, numero_mesa = ?, importe = ?, fecha = ?, hora = ?, cobrado = ?, estado = ? WHERE idPedido = ?";

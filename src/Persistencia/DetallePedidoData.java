@@ -17,6 +17,27 @@ public class DetallePedidoData {
 
     public DetallePedidoData() {}
     
+    public void MantenerConsistenciaDatos() throws SQLException {
+        ProductosData pdata = new ProductosData();
+        PedidoData ppdata = new PedidoData();
+        String sql = "SELECT idDetalle, codigo, cantidad, total FROM detalle_pedido;";
+        
+        PreparedStatement s = con.prepareStatement(sql);
+        ResultSet rs = s.executeQuery();
+        
+        while (rs.next()) {
+            Producto p = pdata.buscar(rs.getInt("codigo"));
+            String sql2 = "UPDATE detalle_pedido SET total = ? WHERE idDetalle = ?;";
+            
+            PreparedStatement s2 = con.prepareStatement(sql2);
+            s2.setDouble(1, p.getPrecio()*rs.getInt("cantidad"));
+            s2.setInt(2, rs.getInt("idDetalle"));
+            s2.executeUpdate();
+        }
+        
+        ppdata.MantenerConsistenciaDatos();
+    }
+    
     public void guardar(DetallePedido p) throws SQLException {
         if (p.getIdDetalle()==0) {
             String sql = "INSERT INTO detalle_pedido(codigo, idPedido, cantidad, total, estado) VALUES(?,?,?,?,?)";

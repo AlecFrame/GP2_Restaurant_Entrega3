@@ -314,14 +314,22 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMeseroMouseClicked
 
     private void jDetallePedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDetallePedActionPerformed
+        VPedido pedido = null;
+        
         for (JInternalFrame frame : escritorio.getAllFrames()) {
             if (frame instanceof VDetallePedido) {
                 frame.dispose();
                 break;
             }
         }
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VPedido) {
+                pedido = (VPedido)frame;
+                break;
+            }
+        }
         
-        VDetallePedido v = new VDetallePedido(0,null);
+        VDetallePedido v = new VDetallePedido(0,pedido);
         v.setVisible(true);
         escritorio.add(v);
         escritorio.moveToFront(v);
@@ -343,7 +351,7 @@ public class VentPrincipal extends javax.swing.JFrame {
             }
         }
 
-        VProducto v = new VProducto();
+        VProducto v = new VProducto(escritorio);
         v.setVisible(true);
         escritorio.add(v);
         escritorio.moveToFront(v);

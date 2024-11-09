@@ -12,8 +12,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -909,6 +907,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         hora = null;
         jcbFecha.setSelected(false);
         jFecha.setDate(null);
+        jFecha.setEnabled(false);
         fecha = null;
         jrCobrado.setSelected(false);
         jrNoCobrado.setSelected(false);

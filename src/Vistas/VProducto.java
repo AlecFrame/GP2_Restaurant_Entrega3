@@ -8,6 +8,10 @@ import Persistencia.ProductosData;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,6 +20,7 @@ public class VProducto extends javax.swing.JInternalFrame {
     private ArrayList<Producto> lista = new ArrayList<>();
     private ProductosData pdata = new ProductosData();
     private DetallePedidoData ddata = new DetallePedidoData();
+    private JDesktopPane escritorio = null;
     private int rowSelected = -1;
     private int rowSelecteda = -1;
     private int rowSelectedg = -1;
@@ -47,7 +52,8 @@ public class VProducto extends javax.swing.JInternalFrame {
         }
     };
     
-    public VProducto() {
+    public VProducto(JDesktopPane escritorio) {
+        this.escritorio = escritorio;
         initComponents();
         try {
             lista = pdata.listar();
@@ -458,6 +464,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         try {
             pdata.guardarProducto(p);
             cargando = false;
+            actualizarVentanas();
             jbCargar.setEnabled(true);
             jbGuardar.setEnabled(false);
             jcCategoria.setSelectedIndex(0);
@@ -688,6 +695,7 @@ public class VProducto extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Error SQL: "+ex,"Error SQL",JOptionPane.ERROR_MESSAGE);
             }
         }
+        actualizarVentanas();
         cargando = false;
         jbCargar.setEnabled(true);
         jbGuardar.setEnabled(false);
@@ -818,6 +826,42 @@ public class VProducto extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla con filtro: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
         cargarTabla();
+    }
+    
+    private void actualizarVentanas() {
+        VPedido pedido = null;
+        VDetallePedido detalle = null;
+        
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VPedido) {
+                pedido = (VPedido) frame;
+                break;
+            }
+        }
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VDetallePedido) {
+                detalle = (VDetallePedido) frame;
+                break;
+            }
+        }
+        
+        try {
+            ddata.MantenerConsistenciaDatos();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error de SQL: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if (pedido!=null) {
+            pedido.quitarFiltros();
+            pedido.limpiarAcciones();
+            pedido.cargarFiltro();
+        }
+        
+        if (detalle!=null) {
+            detalle.quitarFiltros();
+            detalle.limpiarAcciones();
+            detalle.cargarFiltro();
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
