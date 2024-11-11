@@ -138,7 +138,7 @@ public class VMesa extends javax.swing.JInternalFrame {
                 { new Integer(1), null, null, null}
             },
             new String [] {
-                "Nro de mesa", "Capacidad", "Condicion", "Estado"
+                "Nro de mesa", "Capacidad", "Condición", "Estado"
             }
         ) {
             Class[] types = new Class [] {
@@ -161,12 +161,6 @@ public class VMesa extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTable);
-        if (jTable.getColumnModel().getColumnCount() > 0) {
-            jTable.getColumnModel().getColumn(0).setHeaderValue("Nro de mesa");
-            jTable.getColumnModel().getColumn(1).setHeaderValue("Capacidad");
-            jTable.getColumnModel().getColumn(2).setHeaderValue("Condicion");
-            jTable.getColumnModel().getColumn(3).setHeaderValue("Estado");
-        }
 
         jbCargar.setBackground(new java.awt.Color(153, 102, 0));
         jbCargar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
@@ -260,7 +254,6 @@ public class VMesa extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLfondo, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,10 +293,15 @@ public class VMesa extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jbEliminar)
                         .addGap(30, 30, 30))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLfondo, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLfondo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -318,7 +316,7 @@ public class VMesa extends javax.swing.JInternalFrame {
                     .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBotonCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBotonMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -367,12 +365,12 @@ public class VMesa extends javax.swing.JInternalFrame {
                         cargarFiltro();
                         break;
                     default:
-                        JOptionPane.showMessageDialog(this, "No se encontro a ninguno", "numero inexistente", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "No se encontró a ninguno", "número inexistente", JOptionPane.INFORMATION_MESSAGE);
                         capacidad_filtro = 0;
                         break;
                 }
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error de SQL al buscar por codigo: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error de SQL al buscar por código: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
             }
         }catch(NumberFormatException e) {
             cargarFiltro();
@@ -443,29 +441,29 @@ public class VMesa extends javax.swing.JInternalFrame {
         try {
             int numero = Integer.parseInt(mnumero);
             if (numero<1) {
-                JOptionPane.showMessageDialog(this, "Error el numero no puede ser menor a uno", "Error de tipo numero", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el número no puede ser menor a uno", "Error de tipo número", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (mdata.buscar(numero)==null) {
                 m.setNumeroMesa(numero);
             }else{
-                JOptionPane.showMessageDialog(this, "Error el numero ingresado ya existe en la base de datos", "Error numero existente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el número ingresado ya existe en la base de datos", "Error número existente", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el numero ingresado no es entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el número ingresado no es entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         try {
             int capacidad = Integer.parseInt(mcapacidad);
             if (capacidad<1) {
-                JOptionPane.showMessageDialog(this, "Error la capacidad no puede ser menor a uno", "Error de tipo numero", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, la capacidad no puede ser menor a uno", "Error de tipo número", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
                 m.setCapacidad(capacidad);
         }catch(NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error la capacidad ingresada tiene que ser un numero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, la capacidad ingresada tiene que ser un número: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -482,14 +480,14 @@ public class VMesa extends javax.swing.JInternalFrame {
                 }
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error la condicion solo puede ser:(1:libre|2:ocupada|3:atendida)", "Error condicion invalida", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, la condición solo puede ser:(1:libre|2:ocupada|3:atendida)", "Error condición invalida", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         if (mestado.equalsIgnoreCase("true")|mestado.equalsIgnoreCase("false")) {
             m.setEstado(mestado.equalsIgnoreCase("true"));
         }else{
-            JOptionPane.showMessageDialog(this, "Error el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -503,12 +501,12 @@ public class VMesa extends javax.swing.JInternalFrame {
                 Mesero mesero = msdata.buscar(mmesero);
 
                 if (mesero==null) {
-                    JOptionPane.showMessageDialog(this, "Error la mesa no encuentra el DNI del mesero ingresado", "Error DNI invalido", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, la mesa no encuentra el DNI del mesero ingresado", "Error DNI inválido", JOptionPane.ERROR_MESSAGE);
                     return;
                 }else
                     m.setMesero(mesero);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Error el DNI ingresado no es un numero: "+e, "Error DNI", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el DNI ingresado no es un número: "+e, "Error DNI", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (SQLException ex) {
@@ -642,7 +640,7 @@ public class VMesa extends javax.swing.JInternalFrame {
         try {
             int numero = Integer.parseInt(mnumero);
             if (numero<1) {
-                JOptionPane.showMessageDialog(this, "Error el numero no puede ser menor a uno", "Error de tipo numero", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el número no puede ser menor a uno", "Error de tipo número", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (mdata.buscar(numero)==null) {
@@ -651,24 +649,24 @@ public class VMesa extends javax.swing.JInternalFrame {
                 if (mnumero.equals(numerog)) {
                     m.setNumeroMesa(numero);
                 }else {
-                    JOptionPane.showMessageDialog(this, "Error el numero ingresado ya existe en la base de datos", "Error numero existente", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, el número ingresado ya existe en la base de datos", "Error número existente", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el numero ingresado no es entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el número ingresado no es entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         try {
             int capacidad = Integer.parseInt(mcapacidad);
             if (capacidad<1) {
-                JOptionPane.showMessageDialog(this, "Error la capacidad no puede ser menor a uno", "Error de tipo numero", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, la capacidad no puede ser menor a uno", "Error de tipo número", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
                 m.setCapacidad(capacidad);
         }catch(NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error la capacidad ingresada tiene que ser un numero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, la capacidad ingresada tiene que ser un número: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -685,14 +683,14 @@ public class VMesa extends javax.swing.JInternalFrame {
                 }
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error la condicion solo puede ser:(1:libre|2:ocupada|3:atendida)", "Error condicion invalida", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, la condición solo puede ser:(1:libre|2:ocupada|3:atendida)", "Error condición inválida", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         if (mestado.equalsIgnoreCase("true")|mestado.equalsIgnoreCase("false")) {
             m.setEstado(mestado.equalsIgnoreCase("true"));
         }else{
-            JOptionPane.showMessageDialog(this, "Error el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -706,12 +704,12 @@ public class VMesa extends javax.swing.JInternalFrame {
                 Mesero mesero = msdata.buscar(mmesero);
 
                 if (mesero==null) {
-                    JOptionPane.showMessageDialog(this, "Error la mesa no encuentra el DNI del mesero ingresado", "Error DNI invalido", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, la mesa no encuentra el DNI del mesero ingresado", "Error DNI inválido", JOptionPane.ERROR_MESSAGE);
                     return;
                 }else
                     m.setMesero(mesero);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Error el DNI ingresado no es un numero: "+e, "Error DNI", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el DNI ingresado no es un número: "+e, "Error DNI", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (SQLException ex) {
@@ -777,7 +775,7 @@ public class VMesa extends javax.swing.JInternalFrame {
     public void cargarModelo(DefaultTableModel modelos) {
         modelos.addColumn("N° de Mesa");
         modelos.addColumn("Capacidad");
-        modelos.addColumn("Condicion");
+        modelos.addColumn("Condición");
         modelos.addColumn("Estado");
         modelos.addColumn("Mesero Asignado");
     }

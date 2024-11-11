@@ -436,34 +436,34 @@ public class VReservas extends javax.swing.JInternalFrame {
         try {
             int id = Integer.parseInt(mid);
             if (id<1) {
-                JOptionPane.showMessageDialog(this, "Error el ID no puede ser menor a uno", "Error de tipo ID", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el ID no puede ser menor a uno", "Error de tipo ID", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (rdata.buscarInt(id)==null) {
                 r.setIdReserva(id);
             }else{
-                JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
             int mesa = Integer.parseInt(mmesa);
             if (mesa<1) {
-                JOptionPane.showMessageDialog(this, "Error el Numero de mesa no puede ser menor a uno", "Error de numero de mesa", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el Número de mesa no puede ser menor a uno", "Error de número de mesa", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (mdata.buscar(mesa)!=null) {
                 r.setMesa(mdata.buscar(mesa));
             }else{
-                JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no existe", "Error mesa inexistente", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el número de mesa ingresado no existe", "Error mesa inexistente", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el número de mesa ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -472,23 +472,23 @@ public class VReservas extends javax.swing.JInternalFrame {
                 int dni = Integer.parseInt(mdni);
 
                 if (mdni.length()>8) {
-                    JOptionPane.showMessageDialog(this, "Error el DNI ha superado el maximo de 8 caracteres", "Error DNI supero 8 caracteres", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, el DNI ha superado el máximo de 8 caracteres", "Error DNI superó 8 caracteres", JOptionPane.WARNING_MESSAGE);
                     return;
                 }else
                     r.setDni_cliente(mdni);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Error el DNI ingresado no es un número entero: "+e, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el DNI ingresado no es un número entero: "+e, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error el DNI del cliente esta vacío", "Error DNI vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el DNI del cliente está vacío", "Error DNI vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if (!mapellido.trim().equalsIgnoreCase("")) {
             r.setApellido(mapellido);
         }else{
-            JOptionPane.showMessageDialog(this, "Error el Apellido del cliente esta vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el Apellido del cliente está vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -496,7 +496,7 @@ public class VReservas extends javax.swing.JInternalFrame {
             LocalDate fech = LocalDate.parse(mfecha);
             r.setFecha(fech);
         } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Error formato de fecha incorrecto, el formato es el siguiente (yyyy-MM-dd)", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, formato de fecha incorrecto, el formato es el siguiente (yyyy-MM-dd)", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -504,7 +504,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         try {
             r.setHora_desde(LocalTime.parse(mhora_desde, formato));
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Error formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -516,7 +516,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                 return;
             }
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Error formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, formato de hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -532,7 +532,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                 break;
             }
             default : {
-                JOptionPane.showMessageDialog(this, "Error vigencia invalida, debe ser (vigente o no_vigente)", "Error vigencia incorrecta", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, vigencia inválida, debe ser (vigente o no_vigente)", "Error vigencia incorrecta", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }
@@ -593,7 +593,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                 cargarFiltro();
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error de numeracion: "+ex, "Error entero", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error de numeración: "+ex, "Error entero", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -682,7 +682,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         try {
             int id = Integer.parseInt(mid);
             if (id<1) {
-                JOptionPane.showMessageDialog(this, "Error el ID no puede ser menor a uno", "Error de tipo ID", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el ID no puede ser menor a uno", "Error de tipo ID", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (rdata.buscarInt(id)==null) {
@@ -691,47 +691,47 @@ public class VReservas extends javax.swing.JInternalFrame {
                 if (mid.equals(idg)) {
                     r.setIdReserva(id);
                 }else {
-                    JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
             int mesa = Integer.parseInt(mmesa);
             if (mesa<1) {
-                JOptionPane.showMessageDialog(this, "Error el Numero de mesa no puede ser menor a uno", "Error de numero de mesa", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el Número de mesa no puede ser menor a uno", "Error de numero de mesa", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (mdata.buscar(mesa)!=null) {
                 r.setMesa(mdata.buscar(mesa));
             }else{
-                JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no existe", "Error mesa inexistente", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el número de mesa ingresado no existe", "Error mesa inexistente", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el numero de mesa ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if (!mdni.trim().equalsIgnoreCase("")) {
             if (mdni.length()>8) {
-                JOptionPane.showMessageDialog(this, "Error el DNI ha superado el maximo de 8 caracteres", "Error DNI supero 8 caracteres", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el DNI ha superado el máximo de 8 caracteres", "Error DNI superó 8 caracteres", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
                 r.setDni_cliente(mdni);
         }else{
-            JOptionPane.showMessageDialog(this, "Error el DNI del cliente esta vacío", "Error DNI vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el DNI del cliente está vacío", "Error DNI vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if (!mapellido.trim().equalsIgnoreCase("")) {
             r.setApellido(mapellido);
         }else{
-            JOptionPane.showMessageDialog(this, "Error el Apellido del cliente esta vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el Apellido del cliente está vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -739,7 +739,7 @@ public class VReservas extends javax.swing.JInternalFrame {
             LocalDate fech = LocalDate.parse(mfecha);
             r.setFecha(fech);
         } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Error formato de fecha incorrecto, el formato es el siguiente (yyyy-MM-dd)", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, formato de fecha incorrecto, el formato es el siguiente (yyyy-MM-dd)", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -747,7 +747,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         try {
             r.setHora_desde(LocalTime.parse(mhora_desde, formato));
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Error formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -759,7 +759,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                 return;
             }
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Error formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -775,7 +775,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                 break;
             }
             default : {
-                JOptionPane.showMessageDialog(this, "Error vigencia invalida, debe ser (vigente o no_vigente)", "Error vigencia incorrecta", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, vigencia inválida, debe ser (vigente o no_vigente)", "Error vigencia incorrecta", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }

@@ -194,7 +194,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Calibri" size="18" style="2"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Categorias"/>
+        <Property name="text" type="java.lang.String" value="Categor&#xed;as"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -234,7 +234,7 @@
                 <Column editable="true" title="Stock" type="java.lang.Integer">
                   <Data value="10"/>
                 </Column>
-                <Column editable="true" title="Categoria" type="java.lang.String">
+                <Column editable="true" title="Categor&#xed;a" type="java.lang.String">
                   <Data value="pizzas"/>
                 </Column>
                 <Column editable="true" title="Estado" type="java.lang.Boolean">

@@ -130,7 +130,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
-        jLabel2.setText("Categorias");
+        jLabel2.setText("Categorías");
 
         jTable.setBackground(new java.awt.Color(255, 255, 204));
         jTable.setBorder(new javax.swing.border.MatteBorder(null));
@@ -141,7 +141,7 @@ public class VProducto extends javax.swing.JInternalFrame {
                 { new Integer(1), "Hola", "50",  new Integer(10), "pizzas",  new Boolean(true)}
             },
             new String [] {
-                "Código", "Nombre", "Precio", "Stock", "Categoria", "Estado"
+                "Código", "Nombre", "Precio", "Stock", "Categoría", "Estado"
             }
         ) {
             Class[] types = new Class [] {
@@ -304,7 +304,7 @@ public class VProducto extends javax.swing.JInternalFrame {
             try {
                 lista.add(pdata.buscar(codigo));
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error de SQL al buscar por codigo: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error de SQL al buscar por código: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
             }
         }catch(NumberFormatException e) {
             try {
@@ -380,48 +380,48 @@ public class VProducto extends javax.swing.JInternalFrame {
         try {
             int codigo = Integer.parseInt(mcodigo);
             if (codigo<1) {
-                JOptionPane.showMessageDialog(this, "Error el codigo no puede ser menor a uno", "Error de tipo codigo", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el código no puede ser menor a uno", "Error de tipo codigo", JOptionPane.ERROR_MESSAGE);
                 return;
             }else
             if (pdata.buscar(codigo)==null) {
                 p.setCodigo(codigo);
             }else{
-                JOptionPane.showMessageDialog(this, "Error el código ingresado ya existe en la base de datos", "Error código existente", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el código ingresado ya existe en la base de datos", "Error código existente", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el código ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el código ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         if (!mnombre.trim().equalsIgnoreCase("")) {
             p.setNombre(mnombre);
         }else{
-            JOptionPane.showMessageDialog(this, "Error el nombre esta vacío", "Error nombre vacío", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el nombre está vacío", "Error nombre vacío", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         try {
             double precio = Double.parseDouble(mprecio);
             if (precio<=0) {
-                JOptionPane.showMessageDialog(this, "Error el precio no puede ser 0 o negativo", "Error de precio invalido", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el precio no puede ser 0 o negativo", "Error de precio inválido", JOptionPane.ERROR_MESSAGE);
                 return;
             }else
                 p.setPrecio(precio);
         }catch(NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error el precio ingresado no es un número: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el precio ingresado no es un número: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         try {
             int stock = Integer.parseInt(mstock);
             if (stock<0) {
-                JOptionPane.showMessageDialog(this, "Error el stock no puede ser inferior a 0", "Error stock inferior a 0", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el stock no puede ser inferior a 0", "Error stock inferior a 0", JOptionPane.ERROR_MESSAGE);
                 return;
             }else
                 p.setStock(stock);
         }catch(NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error el stock ingresado no es un numero entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el stock ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -450,14 +450,14 @@ public class VProducto extends javax.swing.JInternalFrame {
                 }
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error la categoria solo puede ser:(1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas)", "Error nombre vacio", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, la categoría solo puede ser:(1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas)", "Error nombre vacío", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         if (mestado.equalsIgnoreCase("true")|mestado.equalsIgnoreCase("false")) {
             p.setEstado(mestado.equalsIgnoreCase("true"));
         }else{
-            JOptionPane.showMessageDialog(this, "Error el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -594,7 +594,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         try {
             int codigo = Integer.parseInt(mcodigo);
             if (codigo<1) {
-                JOptionPane.showMessageDialog(this, "Error el código no puede ser menor a uno", "Error de tipo código", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el código no puede ser menor a uno", "Error de tipo código", JOptionPane.ERROR_MESSAGE);
                 return;
             }else
             if (pdata.buscar(codigo)==null) {
@@ -604,12 +604,12 @@ public class VProducto extends javax.swing.JInternalFrame {
                 if (mcodigo.equals(codigog)) {
                     p.setCodigo(codigo);
                 }else{
-                    JOptionPane.showMessageDialog(this, "Error el código ingresado ya existe en la base de datos", "Error código existente", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, el código ingresado ya existe en la base de datos", "Error código existente", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el código ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el código ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -617,35 +617,35 @@ public class VProducto extends javax.swing.JInternalFrame {
             p.setNombre(mnombre);
             cambios += ",nombre";
         }else{
-            JOptionPane.showMessageDialog(this, "Error el nombre esta vacío", "Error nombre vacío", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el nombre esta vacío", "Error nombre vacío", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         try {
             double precio = Double.parseDouble(mprecio);
             if (precio<=0) {
-                JOptionPane.showMessageDialog(this, "Error el precio no puede ser 0 o negativo", "Error de precio invalido", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el precio no puede ser 0 o negativo", "Error de precio inválido", JOptionPane.ERROR_MESSAGE);
                 return;
             }else{
                 p.setPrecio(precio);
                 cambios += ",precio";
             }
         }catch(NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error el precio ingresado no es un número: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el precio ingresado no es un número: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         try {
             int stock = Integer.parseInt(mstock);
             if (stock<0) {
-                JOptionPane.showMessageDialog(this, "Error el stock no puede ser inferior a 0", "Error stock inferior a 0", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el stock no puede ser inferior a 0", "Error stock inferior a 0", JOptionPane.ERROR_MESSAGE);
                 return;
             }else{
                 p.setStock(stock);
                 cambios += ",stock";
             }
         }catch(NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error el stock ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el stock ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -675,7 +675,7 @@ public class VProducto extends javax.swing.JInternalFrame {
             }
             cambios += ",categoria";
         }else{
-            JOptionPane.showMessageDialog(this, "Error la categoría solo puede ser:(1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas)", "Error nombre vacio", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, la categoría solo puede ser:(1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas)", "Error nombre vacio", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -683,7 +683,7 @@ public class VProducto extends javax.swing.JInternalFrame {
             p.setEstado(mestado.equalsIgnoreCase("true"));
             cambios += ",estado";
         }else{
-            JOptionPane.showMessageDialog(this, "Error en el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, en el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         

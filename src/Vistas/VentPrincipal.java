@@ -293,10 +293,19 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jDetPedidoMouseExited
 
     private void jSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSalirMouseClicked
-        int rta=JOptionPane.showConfirmDialog(this,"¿Desea salir del sistema?","Advertencia", JOptionPane.YES_NO_OPTION);
-        if(rta==JOptionPane.YES_OPTION){
+       int rta = JOptionPane.showOptionDialog(this, 
+        "¿Desea salir del sistema?", 
+        "Advertencia", 
+        JOptionPane.YES_NO_OPTION, 
+        JOptionPane.WARNING_MESSAGE, 
+        null, 
+        new Object[] { "Sí", "No" }, 
+        "No");
+
+        if (rta == JOptionPane.YES_OPTION) {
             System.exit(0);
-        }
+                }
+
     }//GEN-LAST:event_jSalirMouseClicked
 
     private void jMeseroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMeseroMouseClicked

@@ -28,7 +28,7 @@ public class ProductosData {
 
             int filas = s.executeUpdate();
             if (filas>0) {
-                System.out.println("El producto fue registrado con exito");
+                System.out.println("El producto fue registrado con éxito");
             }
         }else{
             String sql = "Insert into productos(codigo,nombre,precio,stock,categoria,estado) values(?,?,?,?,?,?);";
@@ -43,7 +43,7 @@ public class ProductosData {
 
             int filas = s.executeUpdate();
             if (filas>0) {
-                System.out.println("El producto fue registrado con exito");
+                System.out.println("El producto fue registrado con éxito");
             }
         }
     }
@@ -111,7 +111,7 @@ public class ProductosData {
         int filas = s.executeUpdate();
         if (filas>0) {
             String palabra = (estado)? "habilitado":"inhabilitado";
-            System.out.println("\nEl estado de producto "+numero+" fue actualizado a "+palabra+"\n");
+            System.out.println("\nEl estado del producto "+numero+" fue actualizado a "+palabra+"\n");
         }
     }
     
@@ -192,7 +192,7 @@ public class ProductosData {
 
                     filas = st.executeUpdate();
                 }else
-                    System.err.println("No se actualizo el nombre del producto ("+p.getCodigo()+") porque es nulo");
+                    System.err.println("No se actualizó el nombre del producto ("+p.getCodigo()+") porque es nulo");
             }
             if (cambiar.contains("precio")) {
                 if (p.getPrecio()!=0) {
@@ -204,7 +204,7 @@ public class ProductosData {
 
                     filas = st.executeUpdate();
                 }else
-                    System.err.println("No se actualizo el precio del producto ("+p.getCodigo()+") porque es 0");
+                    System.err.println("No se actualizó el precio del producto ("+p.getCodigo()+") porque es 0");
             }
             if (cambiar.contains("stock")) {
                 if (p.getStock()!=0) {
@@ -216,7 +216,7 @@ public class ProductosData {
 
                     filas = st.executeUpdate();
                 }else
-                    System.err.println("No se actualizo el stock del producto ("+p.getCodigo()+") porque es 0");
+                    System.err.println("No se actualizó el stock del producto ("+p.getCodigo()+") porque es 0");
             }
             if (cambiar.contains("categoria")) {
                 if (p.getCategoria()!=null) {
@@ -228,7 +228,7 @@ public class ProductosData {
 
                     filas = st.executeUpdate();
                 }else
-                    System.err.println("No se actualizo la categoria del producto ("+p.getCodigo()+") porque es null");
+                    System.err.println("No se actualizó la categoria del producto ("+p.getCodigo()+") porque es null");
             }
             if (cambiar.contains("estado")) {
                 String sql = "update productos set estado=? where codigo=?";
@@ -242,7 +242,7 @@ public class ProductosData {
             if (filas>0) {
                 System.out.println("\n//// Actualizado con exito");
             }else
-                System.err.println("No se encontra el codigo del producto");
+                System.err.println("No se encuentra el código del producto");
         }catch(SQLException e) {
             System.err.println("Error SQL");
         }
@@ -261,7 +261,7 @@ public class ProductosData {
 
                     filas = st.executeUpdate();
                 }else
-                    System.err.println("No se actualizo el nombre del producto ("+codigo+") porque es nulo");
+                    System.err.println("No se actualizó el nombre del producto ("+codigo+") porque es nulo");
             }
             if (cambiar.contains("precio")) {
                 if (p.getPrecio()!=0) {
@@ -273,7 +273,7 @@ public class ProductosData {
 
                     filas = st.executeUpdate();
                 }else
-                    System.err.println("No se actualizo el precio del producto ("+codigo+") porque es 0");
+                    System.err.println("No se actualizó el precio del producto ("+codigo+") porque es 0");
             }
             if (cambiar.contains("stock")) {
                 if (p.getStock()!=0) {
@@ -285,7 +285,7 @@ public class ProductosData {
 
                     filas = st.executeUpdate();
                 }else
-                    System.err.println("No se actualizo el stock del producto ("+codigo+") porque es 0");
+                    System.err.println("No se actualizó el stock del producto ("+codigo+") porque es 0");
             }
             if (cambiar.contains("categoria")) {
                 if (p.getCategoria()!=null) {
@@ -297,7 +297,7 @@ public class ProductosData {
 
                     filas = st.executeUpdate();
                 }else
-                    System.err.println("No se actualizo la categoria del producto ("+codigo+") porque es null");
+                    System.err.println("No se actualizó la categoria del producto ("+codigo+") porque es null");
             }
             if (cambiar.contains("estado")) {
                 String sql = "update productos set estado=? where codigo=?";
@@ -318,12 +318,12 @@ public class ProductosData {
 
                     filas = st.executeUpdate();
                 }else
-                    System.err.println("No se actualizo el stock del producto ("+codigo+") porque es 0");
+                    System.err.println("No se actualizó el stock del producto ("+codigo+") porque es 0");
             }
             if (filas>0) {
-                System.out.println("\n//// Actualizado con exito");
+                System.out.println("\n//// Actualizado con éxito");
             }else
-                System.err.println("No se encontra el codigo del producto");
+                System.err.println("No se encuentra el código del producto");
         }catch(SQLException e) {
             System.err.println("Error SQL");
         }

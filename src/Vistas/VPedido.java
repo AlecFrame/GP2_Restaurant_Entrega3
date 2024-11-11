@@ -402,12 +402,12 @@ public class VPedido extends javax.swing.JInternalFrame {
                     if (!pdata.buscarPorMesayDNI(numero).isEmpty()) {
                         lista = pdata.buscarPorMesayDNI(numero);
                     }else {
-                        JOptionPane.showMessageDialog(this, "El Numero de mesa o DNI de mesero ingresados no existen","ID/DNI inexistente",JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "El Número de mesa o DNI de mesero ingresados no existen","ID/DNI inexistente",JOptionPane.WARNING_MESSAGE);
                         lista = pdata.listarPedidos();
                         cargarTabla();
                     }
                 } catch(NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "El campo buscar solo admite enteros pa ID y DNI","revisar tipos de datos",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "El campo buscar solo admite enteros para ID y DNI","revisar tipos de datos",JOptionPane.WARNING_MESSAGE);
                     lista = pdata.listarPedidos();
                     cargarTabla();
                 }
@@ -467,41 +467,41 @@ public class VPedido extends javax.swing.JInternalFrame {
         try {
             int id = Integer.parseInt(cidPedido);
             if (id<1) {
-                JOptionPane.showMessageDialog(this, "Error el ID no puede ser menor a uno", "Error de tipo ID", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el ID no puede ser menor a uno", "Error de tipo ID", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (pdata.buscarPedido(id)==null) {
                 p.setIdPedido(id);
             }else{
-                JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
             int dnimesero = Integer.parseInt(cdni_mesero);
             if (dnimesero<1) {
-                JOptionPane.showMessageDialog(this, "Error el DNI del mesero no puede ser menor a uno", "Error de DNI mesero", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el DNI del mesero no puede ser menor a uno", "Error de DNI mesero", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (msdata.buscar(String.valueOf(dnimesero))!=null) {
                 p.setMesero(msdata.buscar(String.valueOf(dnimesero)));
             }else{
-                JOptionPane.showMessageDialog(this, "Error el DNI del mesero ingresado no existe", "Error mesero inexistente", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el DNI del mesero ingresado no existe", "Error mesero inexistente", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el DNI del mesero ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el DNI del mesero ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
             int mesa = Integer.parseInt(cnumero_mesa);
             if (mesa<1) {
-                JOptionPane.showMessageDialog(this, "Error el Numero de mesa no puede ser menor a uno", "Error de numero de mesa", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el Número de mesa no puede ser menor a uno", "Error de número de mesa", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (mdata.buscar(mesa)!=null) {
@@ -516,7 +516,7 @@ public class VPedido extends javax.swing.JInternalFrame {
                 return;
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el número de mesa ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -524,7 +524,7 @@ public class VPedido extends javax.swing.JInternalFrame {
             LocalDate fech = LocalDate.parse(cfecha);
             p.setFecha(fech);
         } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Error formato de fecha incorrecto, el formato es el siguiente (yyyy-MM-dd)", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, formato de fecha incorrecto, el formato es el siguiente (yyyy-MM-dd)", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -532,7 +532,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         try {
             p.setHora(LocalTime.parse(chora, formato));
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Error formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -546,7 +546,7 @@ public class VPedido extends javax.swing.JInternalFrame {
                 break;
             }
             default : {
-                JOptionPane.showMessageDialog(this, "Error cobro invalido, debe ser (cobrado o no_cobrado)", "Error cobro incorrecto", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, cobro inválido, debe ser (cobrado o no_cobrado)", "Error cobro incorrecto", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }
@@ -554,7 +554,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         if (cestado.equalsIgnoreCase("true")|cestado.equalsIgnoreCase("false")) {
             p.setEstado(cestado.equalsIgnoreCase("true"));
         }else{
-            JOptionPane.showMessageDialog(this, "Error el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -610,7 +610,7 @@ public class VPedido extends javax.swing.JInternalFrame {
                 cargarFiltro();
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error de numeracion: "+ex, "Error entero", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error de numeración: "+ex, "Error entero", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -699,7 +699,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         try {
             int id = Integer.parseInt(cidPedido);
             if (id<1) {
-                JOptionPane.showMessageDialog(this, "Error el ID no puede ser menor a uno", "Error de tipo ID", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el ID no puede ser menor a uno", "Error de tipo ID", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (pdata.buscarPedido(id)==null) {
@@ -708,36 +708,36 @@ public class VPedido extends javax.swing.JInternalFrame {
                 if (idPedidog.equals(cidPedido)) {
                     p.setIdPedido(id);
                 }else{
-                    JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
             int dnimesero = Integer.parseInt(cdni_mesero);
             if (dnimesero<1) {
-                JOptionPane.showMessageDialog(this, "Error el DNI del mesero no puede ser menor a uno", "Error de DNI mesero", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el DNI del mesero no puede ser menor a uno", "Error de DNI mesero", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (msdata.buscar(String.valueOf(dnimesero))!=null) {
                 p.setMesero(msdata.buscar(String.valueOf(dnimesero)));
             }else{
-                JOptionPane.showMessageDialog(this, "Error el DNI del mesero ingresado no existe", "Error mesero inexistente", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el DNI del mesero ingresado no existe", "Error mesero inexistente", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el DNI del mesero ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el DNI del mesero ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
             int mesa = Integer.parseInt(cnumero_mesa);
             if (mesa<1) {
-                JOptionPane.showMessageDialog(this, "Error el Numero de mesa no puede ser menor a uno", "Error de numero de mesa", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el Número de mesa no puede ser menor a uno", "Error de número de mesa", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
             if (mdata.buscar(mesa)!=null) {
@@ -748,23 +748,23 @@ public class VPedido extends javax.swing.JInternalFrame {
                     return; 
                 }
             }else{
-                JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no existe", "Error mesa inexistente", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el número de mesa ingresado no existe", "Error mesa inexistente", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }catch(NumberFormatException | SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error el numero de mesa ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el número de mesa ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
             double importe = Double.parseDouble(cimporte);
             if (importe<1) {
-                JOptionPane.showMessageDialog(this, "Error el Importe puede ser menor a uno", "Error de valor menor a 1", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el Importe no puede ser menor a uno", "Error de valor menor a 1", JOptionPane.WARNING_MESSAGE);
                 return;
             }else
                 p.setImporte(importe);
         }catch(NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error el Importe ingresado no es un double: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el Importe ingresado no es un double: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -772,7 +772,7 @@ public class VPedido extends javax.swing.JInternalFrame {
             LocalDate fech = LocalDate.parse(cfecha);
             p.setFecha(fech);
         } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "Error formato de fecha incorrecto, el formato es el siguiente (yyyy-MM-dd)", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, formato de fecha incorrecto, el formato es el siguiente (yyyy-MM-dd)", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -780,7 +780,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         try {
             p.setHora(LocalTime.parse(chora, formato));
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Error formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, formato de la hora incorrecto, el formato es el siguiente (HH:mm)", "Error Hora incorrecta", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -794,7 +794,7 @@ public class VPedido extends javax.swing.JInternalFrame {
                 break;
             }
             default : {
-                JOptionPane.showMessageDialog(this, "Error cobro invalido, debe ser (cobrado o no_cobrado)", "Error cobro incorrecto", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, cobro inválido, debe ser (cobrado o no_cobrado)", "Error cobro incorrecto", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }
@@ -802,7 +802,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         if (cestado.equalsIgnoreCase("true")|cestado.equalsIgnoreCase("false")) {
             p.setEstado(cestado.equalsIgnoreCase("true"));
         }else{
-            JOptionPane.showMessageDialog(this, "Error el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         

@@ -120,11 +120,11 @@ public class main {
             } catch (InterruptedException e) {}
             System.out.println("/// Bienvenido a la consola para gestionar la base de datos de los productos del Restaurante Entre Amigos ///");
             System.out.println("//                 (1/listar) Lista los productos de la base de datos");
-            System.out.println("//                 (2/buscar) Busca un producto en la base de datos por codigo del producto");
+            System.out.println("//                 (2/buscar) Busca un producto en la base de datos por código del producto");
             System.out.println("//                 (3/guardar) Inserta un nuevo producto a la base de datos");
             System.out.println("//                 (4/inhabilitar) Cambia el Estado de un producto de la base de datos para deshabilitarlo");
-            System.out.println("//                 (5/actualizar) Actualiza los datos de un producto por codigo del producto");
-            System.out.println("//                 (6/filtrar) filtra los productos que quieras ver por categoria");
+            System.out.println("//                 (5/actualizar) Actualiza los datos de un producto por código del producto");
+            System.out.println("//                 (6/filtrar) filtra los productos que quieras ver por categoría");
             System.out.println("//                 (7/salir) Volver\n//");
 
             accion = "";
@@ -133,7 +133,7 @@ public class main {
             do {
                 accion = leerString.nextLine();
                 if (!accionesValidas.contains(accion.toLowerCase())) {
-                    System.err.println("//// Accion invalida intentelo de nuevo");
+                    System.err.println("//// Accion inválida intentelo de nuevo");
                     System.out.print("//// : ");
                 }
             } while (!accionesValidas.contains(accion.toLowerCase()));
@@ -163,12 +163,12 @@ public class main {
                         } catch (SQLException ex) {
                             System.err.println("Error de SQL");
                         } catch (Exception ex) {
-                            System.err.println("El valor ingresado es invalido, tiene que ser un entero");
+                            System.err.println("El valor ingresado es inválido, tiene que ser un entero");
                             valido = false;
                         }
                         if (!valido) {
                             leerInt.next();
-                            System.out.print("//// Código invalido, Intentelo nuevamente\n//// : ");
+                            System.out.print("//// Código inválido, intentelo nuevamente\n//// : ");
                         }
                     } while (!valido);
                     if (p==null) {
@@ -197,7 +197,7 @@ public class main {
                         try {
                             p.setPrecio(leerInt.nextDouble());
                         } catch (InputMismatchException e) {
-                            System.err.print("//// valor invalido, tiene que ser un numero, intentelo nuevamente\n//// : ");
+                            System.err.print("//// valor inválido, tiene que ser un número, intentelo nuevamente\n//// : ");
                             leerInt.nextLine();
                             valido = false;
                         }
@@ -214,7 +214,7 @@ public class main {
                                 p.setEstado(false);break;
                             }
                             default : {
-                                System.err.print("//// Invalido debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
+                                System.err.print("//// Inválido, debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
                                 valido = false;
                                 break;
                             }
@@ -226,12 +226,12 @@ public class main {
                         try {
                             p.setStock(leerInt.nextInt());
                         } catch (InputMismatchException e) {
-                            System.err.print("//// valor invalido, tiene que ser un entero, intentelo nuevamente\n//// : ");
+                            System.err.print("//// valor inválido, tiene que ser un entero, intentelo nuevamente\n//// : ");
                             leerInt.nextLine();
                             valido = false;
                         }
                     } while (!valido);
-                    System.out.print("//// Ingrese la categoria (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas) del nuevo producto\n//// : ");
+                    System.out.print("//// Ingrese la categoría (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas) del nuevo producto\n//// : ");
                     do {
                         valido = true;
                         String opcion = leerString.nextLine();
@@ -258,7 +258,7 @@ public class main {
                                 p.setCategoria("bebidas gaseosas");break;
                             }
                             default : {
-                                System.err.print("//// Invalido debe ingresar una de estas opciones (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas), intentelo nuevamente\n//// : ");
+                                System.err.print("//// Inválido, debe ingresar una de estas opciones (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas), intentelo nuevamente\n//// : ");
                                 valido = false;
                                 break;
                             }
@@ -284,12 +284,12 @@ public class main {
                         } catch (SQLException ex) {
                             System.err.println("Error de SQL");
                         } catch (Exception ex) {
-                            System.err.println("El valor ingresado es invalido, tiene que ser un entero");
+                            System.err.println("El valor ingresado es inválido, tiene que ser un entero");
                             valido = false;
                         }
                         if (!valido) {
                             leerInt.next();
-                            System.out.print("//// Código invalido, Intentelo nuevamente\n//// : ");
+                            System.out.print("//// Código inválido, intentelo nuevamente\n//// : ");
                         }
                     } while (!valido);
                     break;
@@ -303,13 +303,13 @@ public class main {
                         valido = true;
                         opcions = String.valueOf(leerInt.nextInt());
                         if ("0".equals(opcions)) {
-                            System.out.println("///// Operacion cancelada /////\n");
+                            System.out.println("///// Operación cancelada /////\n");
                             break;
                         }else{
                             try {
                                 p.setCodigo(Integer.parseInt(opcions));
                             } catch (NumberFormatException ex) {
-                                System.out.print("//// Código invalido, Intentelo nuevamente o ingrese 0 para cancelar\n//// : ");
+                                System.out.print("//// Código inválido, Intentelo nuevamente o ingrese 0 para cancelar\n//// : ");
                                 leerInt.next();
                                 valido = false;
                             }
@@ -317,7 +317,7 @@ public class main {
                     } while (!valido);
                 try {
                     if (pdata.buscar(p.getCodigo())!=null) {
-                        System.out.print("//// Ingrese que atributos del producto desea actualizar: (nombre, precio, stock, categoria, estado) puede ponerlo asi para todos o solo algunos\n//// : ");
+                        System.out.print("//// Ingrese qué atributos del producto desea actualizar: (nombre, precio, stock, categoria, estado) puede ponerlo así para todos o solo algunos\n//// : ");
                         String filtros = leerString.nextLine().toLowerCase();
                         if (filtros.contains("nombre")) {
                             System.out.print("//// Ingrese el nuevo nombre del produto\n//// : ");
@@ -337,7 +337,7 @@ public class main {
                                 try {
                                     p.setPrecio(leerInt.nextDouble());
                                 } catch (InputMismatchException e) {
-                                    System.err.print("//// valor invalido, tiene que ser un numero, intentelo nuevamente\n//// : ");
+                                    System.err.print("//// valor inválido, tiene que ser un número, intentelo nuevamente\n//// : ");
                                     leerInt.nextLine();
                                     valido = false;
                                 }
@@ -356,7 +356,7 @@ public class main {
                                         p.setEstado(false);break;
                                     }
                                     default : {
-                                        System.err.print("//// Invalido debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
+                                        System.err.print("//// Inválido, debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
                                         valido = false;
                                         break;
                                     }
@@ -370,14 +370,14 @@ public class main {
                                 try {
                                     p.setStock(leerInt.nextInt());
                                 } catch (InputMismatchException e) {
-                                    System.err.print("//// valor invalido, tiene que ser un entero, intentelo nuevamente\n//// : ");
+                                    System.err.print("//// valor inválido, tiene que ser un entero, intentelo nuevamente\n//// : ");
                                     leerInt.nextLine();
                                     valido = false;
                                 }
                             } while (!valido);
                         }
                         if (filtros.contains("categoria")) {
-                            System.out.print("//// Ingrese la nueva categoria (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas) del producto\n//// : ");
+                            System.out.print("//// Ingrese la nueva categoría (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas) del producto\n//// : ");
                             do {
                                 valido = true;
                                 String opcion = leerString.nextLine();
@@ -404,7 +404,7 @@ public class main {
                                         p.setCategoria("bebidas gaseosas");break;
                                     }
                                     default : {
-                                        System.err.print("//// Invalido debe ingresar una de estas opciones (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas), intentelo nuevamente\n//// : ");
+                                        System.err.print("//// Inválido, debe ingresar una de estas opciones (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas), intentelo nuevamente\n//// : ");
                                         valido = false;
                                         break;
                                     }
@@ -426,12 +426,12 @@ public class main {
                 case ("6") : case ("filtrar") : { //////////////////  UN CASE  ///////////////////
                     boolean valido = true;
                     String filtro = null;
-                    System.out.print("//// Ingrese la nueva categoria (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas) del producto\n//// : ");
+                    System.out.print("//// Ingrese la nueva categoría (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas) del producto\n//// : ");
                     do {
                         valido = true;
                         filtro = leerString.nextLine();
                         if (!categorias.contains(filtro)) {
-                            System.err.print("//// Invalido debe ingresar una de estas opciones (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas), intentelo nuevamente\n//// : ");
+                            System.err.print("//// Inválido, debe ingresar una de estas opciones (1:pizzas|2:lomos|3:hamburguesas|4:tacos|5:bebidas con alcohol|6:bebidas sin alcohol|7:bebidas gaseosas), intentelo nuevamente\n//// : ");
                             valido = false;
                         }else {
                             switch (filtro) {
@@ -447,7 +447,7 @@ public class main {
                     } while (!valido);
                     try {
                         ArrayList<Producto> lista = pdata.filtrarCategoria(filtro);
-                        System.out.println("\n///// Lista de productos de la categoria "+filtro+" /////");
+                        System.out.println("\n///// Lista de productos de la categoría "+filtro+" /////");
                         for (Producto p : lista) {
                             System.out.println(" - "+p);
                         }
@@ -464,7 +464,7 @@ public class main {
             
         } while (seguir);
         
-        System.out.println("\nFin de la ejecucion\n");
+        System.out.println("\nFin de la ejecución\n");
         
     }
     }
@@ -535,12 +535,12 @@ public class main {
                         try {
                             nuevoMesero.setDniMesero((int)leerInt.nextInt());
                             if (msdata.buscar(String.valueOf(nuevoMesero.getDniMesero()))!=null) {
-                                System.err.print("//// valor invalido, el DNI ingresado ya existe, intentelo nuevamente\n//// : ");
+                                System.err.print("//// valor inválido, el DNI ingresado ya existe, intentelo nuevamente\n//// : ");
                                 leerInt.nextLine();
                                 valido = false;
                             }
                         } catch (SQLException | InputMismatchException e) {
-                            System.err.print("//// valor invalido, tiene que ser un numero, intentelo nuevamente\n//// : ");
+                            System.err.print("//// valor inválido, tiene que ser un número, intentelo nuevamente\n//// : ");
                             leerInt.nextLine();
                             valido = false;
                         }
@@ -575,7 +575,7 @@ public class main {
                                 nuevoMesero.setEstado(false);break;
                             }
                             default : {
-                                System.err.print("//// Invalido debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
+                                System.err.print("//// Inválido, debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
                                 valido = false;
                                 break;
                             }
@@ -600,18 +600,18 @@ public class main {
                         valido = true;
                         opcions = String.valueOf(leerInt.nextInt());
                         if ("0".equals(opcions)) {
-                            System.out.println("///// Operacion cancelada /////\n");
+                            System.out.println("///// Operación cancelada /////\n");
                             break;
                         }else{
                             try {
                                 m.setDniMesero(Integer.parseInt(opcions));
                                 if (msdata.buscar(opcions)!=null) {
-                                    System.err.print("//// valor invalido, el DNI ingresado ya existe, intentelo nuevamente\n//// : ");
+                                    System.err.print("//// valor inválido, el DNI ingresado ya existe, intentelo nuevamente\n//// : ");
                                     leerInt.nextLine();
                                     valido = false;
                                 }
                             } catch (SQLException | NumberFormatException ex) {
-                                System.out.print("//// DNI invalido, Intentelo nuevamente o ingrese 0 para cancelar\n//// : ");
+                                System.out.print("//// DNI inválido, intentelo nuevamente o ingrese 0 para cancelar\n//// : ");
                                 leerInt.next();
                                 valido = false;
                             }
@@ -619,7 +619,7 @@ public class main {
                     } while (!valido);
                 try {
                     if (msdata.buscar(String.valueOf(m.getDniMesero()))!=null) {
-                        System.out.print("//// Ingrese que atributos del producto desea actualizar: (apellido, nombre, estado) puede ponerlo asi para todos o solo algunos\n//// : ");
+                        System.out.print("//// Ingrese los atributos del producto desea actualizar: (apellido, nombre, estado) puede ponerlo así para todos o solo algunos\n//// : ");
                         String filtros = leerString.nextLine().toLowerCase();
                         
                         if (filtros.contains("apellido")) {
@@ -657,7 +657,7 @@ public class main {
                                         m.setEstado(false);break;
                                     }
                                     default : {
-                                        System.err.print("//// Invalido debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
+                                        System.err.print("//// Inválido, debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
                                         valido = false;
                                         break;
                                     }
@@ -750,7 +750,7 @@ public class main {
                     try {
                         nuevaMesa.setCapacidad((int)leerInt.nextInt());
                     } catch (InputMismatchException e) {
-                         System.err.print("//// valor invalido, tiene que ser un numero, intentelo nuevamente\n//// : ");
+                         System.err.print("//// valor inválido, tiene que ser un número, intentelo nuevamente\n//// : ");
                         leerInt.nextLine();
                         valido = false;
                     }
@@ -770,7 +770,7 @@ public class main {
                             nuevaMesa.setOcupada("atendida");break;
                         }
                         default : {
-                            System.err.print("//// Invalido debe ingresar una de estas opciones (1:libre | 2:ocupada | 3:atendida), intentelo nuevamente\n//// : ");
+                            System.err.print("//// Inválido, debe ingresar una de estas opciones (1:libre | 2:ocupada | 3:atendida), intentelo nuevamente\n//// : ");
                             valido = false;
                             break;
                         }
@@ -788,7 +788,7 @@ public class main {
                             nuevaMesa.setEstado(false);break;
                         }
                         default : {
-                            System.err.print("//// Invalido debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
+                            System.err.print("//// Inválido, debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
                             valido = false;
                             break;
                         }
@@ -835,7 +835,7 @@ public class main {
                             try {
                                 mesaActualizar.setCapacidad((int)leerInt.nextInt());
                             } catch (InputMismatchException e) {
-                                 System.err.print("//// valor invalido, tiene que ser un numero, intentelo nuevamente\n//// : ");
+                                 System.err.print("//// valor inválido, tiene que ser un número, intentelo nuevamente\n//// : ");
                                 leerInt.nextLine();
                                 valido = false;
                             }
@@ -855,7 +855,7 @@ public class main {
                                     mesaActualizar.setOcupada("atendida");break;
                                 }
                                 default : {
-                                    System.err.print("//// Invalido debe ingresar una de estas opciones (1:libre | 2:ocupada | 3:atendida), intentelo nuevamente\n//// : ");
+                                    System.err.print("//// Inválido, debe ingresar una de estas opciones (1:libre | 2:ocupada | 3:atendida), intentelo nuevamente\n//// : ");
                                     valido = false;
                                     break;
                                 }
@@ -873,7 +873,7 @@ public class main {
                                     mesaActualizar.setEstado(false);break;
                                 }
                                 default : {
-                                    System.err.print("//// Invalido debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
+                                    System.err.print("//// Inválido, debe ingresar una de estas opciones (1|habilitado o 2|inhabilitado), intentelo nuevamente\n//// : ");
                                     valido = false;
                                     break;
                                 }

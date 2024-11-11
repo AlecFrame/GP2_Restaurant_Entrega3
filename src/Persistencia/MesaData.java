@@ -27,7 +27,7 @@ public class MesaData {
 
             int filas = s.executeUpdate();
             if (filas>0) {
-                System.out.println("Mesa registrada con exito");
+                System.out.println("Mesa registrada con éxito");
             }
         }else{
             String sql = "Insert into mesa(numero_mesa,capacidad,ocupada,dni_mesero,estado) values(?,?,?,?,?);";
@@ -44,7 +44,7 @@ public class MesaData {
 
             int filas = s.executeUpdate();
             if (filas>0) {
-                System.out.println("Mesa registrada con exito");
+                System.out.println("Mesa registrada con éxito");
             }
         }
     }

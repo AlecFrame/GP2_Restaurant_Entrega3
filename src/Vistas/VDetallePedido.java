@@ -414,7 +414,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             try {
                 int id = Integer.parseInt(mid);
                 if (id<1) {
-                    JOptionPane.showMessageDialog(this, "Invalido el ID no puede ser menor a uno", "Error ID menor a 1", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Inválido, el ID no puede ser menor a uno", "Error ID menor a 1", JOptionPane.WARNING_MESSAGE);
                     return;
                 }else
                 if (ddata.buscar(id)==null) {
@@ -423,16 +423,16 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                     if (mid.equals(idg)) {
                         dt.setIdDetalle(id);
                     }else{
-                        JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Error, el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 }
             }catch(NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error el ID del detalle_pedido esta vacío", "Error ID vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el ID del detalle_pedido está vacío", "Error ID vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -443,15 +443,15 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                 if (ppdata.buscarPedido(idpedido)!=null) {
                     dt.setPedido(ppdata.buscarPedido(idpedido));
                 }else{
-                    JOptionPane.showMessageDialog(this, "Error el ID del Pedido ingresado no existe en la base de datos", "Error ID Pedido inexistente", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, el ID del Pedido ingresado no existe en la base de datos", "Error ID Pedido inexistente", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             }catch(NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error el ID del pedido ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el ID del pedido ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error el ID del pedido esta vacío", "Error ID Pedido vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el ID del pedido esta vacío", "Error ID Pedido vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -462,15 +462,15 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                 if (pdata.buscar(codigo)!=null) {
                     dt.setProducto(pdata.buscar(codigo));
                 }else{
-                    JOptionPane.showMessageDialog(this, "Error el Codigo del Producto ingresado no existe en la base de datos", "Error Codigo Producto inexistente", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, el Código del Producto ingresado no existe en la base de datos", "Error Código Producto inexistente", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             }catch(NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error el Codigo del producto ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el Código del producto ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error el Codigo del producto esta vacío", "Error Codigo Producto vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el Código del producto esta vacío", "Error Código Producto vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -483,18 +483,18 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                 }else
                     dt.setCantidad(cantidad);
             }catch(NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Error la Cantidad ingresada no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, la Cantidad ingresada no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error la Cantidad esta vacía", "Error Cantidad vacía", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, la Cantidad esta vacía", "Error Cantidad vacía", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if (mestado.equalsIgnoreCase("true")|mestado.equalsIgnoreCase("false")) {
             dt.setEstado(mestado.equalsIgnoreCase("true"));
         }else{
-            JOptionPane.showMessageDialog(this, "Error el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -544,21 +544,21 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             try {
                 int id = Integer.parseInt(mid);
                 if (id<1) {
-                    JOptionPane.showMessageDialog(this, "Invalido el ID no puede ser menor a uno", "Error ID menor a 1", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Inválido, el ID no puede ser menor a uno", "Error ID menor a 1", JOptionPane.WARNING_MESSAGE);
                     return;
                 }else
                 if (ddata.buscar(id)==null) {
                     dt.setIdDetalle(id);
                 }else{
-                    JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             }catch(NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el ID ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error el ID del detalle_pedido esta vacío", "Error ID vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el ID del detalle_pedido esta vacío", "Error ID vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -569,15 +569,15 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                 if (ppdata.buscarPedido(idpedido)!=null) {
                     dt.setPedido(ppdata.buscarPedido(idpedido));
                 }else{
-                    JOptionPane.showMessageDialog(this, "Error el ID del Pedido ingresado no existe en la base de datos", "Error ID Pedido inexistente", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, el ID del Pedido ingresado no existe en la base de datos", "Error ID Pedido inexistente", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             }catch(NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error el ID del pedido ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el ID del pedido ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error el ID del pedido esta vacío", "Error ID Pedido vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el ID del pedido esta vacío", "Error ID Pedido vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -588,15 +588,15 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                 if (pdata.buscar(codigo)!=null) {
                     dt.setProducto(pdata.buscar(codigo));
                 }else{
-                    JOptionPane.showMessageDialog(this, "Error el Codigo del Producto ingresado no existe en la base de datos", "Error Codigo Producto inexistente", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, el Código del Producto ingresado no existe en la base de datos", "Error Código Producto inexistente", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             }catch(NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error el Codigo del producto ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el Código del producto ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error el Codigo del producto esta vacío", "Error Codigo Producto vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el Código del producto esta vacío", "Error Código Producto vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -609,18 +609,18 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                 }else
                     dt.setCantidad(cantidad);
             }catch(NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Error la Cantidad ingresada no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, la Cantidad ingresada no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error la Cantidad esta vacía", "Error Cantidad vacía", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, la Cantidad esta vacía", "Error Cantidad vacía", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if (mestado.equalsIgnoreCase("true")|mestado.equalsIgnoreCase("false")) {
             dt.setEstado(mestado.equalsIgnoreCase("true"));
         }else{
-            JOptionPane.showMessageDialog(this, "Error el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -660,7 +660,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                         cargarFiltro();
                     }
                 } catch(NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "El ID de los pedidos solo pueden ser numeros","Error tipos de datos",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "El ID de los pedidos solo pueden ser números","Error tipos de datos",JOptionPane.WARNING_MESSAGE);
                 }
                 cargarTabla();
             }else{
@@ -696,7 +696,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         modelos.addColumn("ID_Pedido");
         modelos.addColumn("Codigo_Producto");
         modelos.addColumn("Descripción");
-        modelos.addColumn("Cántidad");
+        modelos.addColumn("Cantidad");
         modelos.addColumn("Total");
         modelos.addColumn("Estado");
     }

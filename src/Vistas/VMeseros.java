@@ -369,11 +369,11 @@ public class VMeseros extends javax.swing.JInternalFrame {
             try {
                 int dni = Integer.parseInt(mdni);
                 if (dni<1) {
-                    JOptionPane.showMessageDialog(this, "Invalido el DNI no puede ser menor a uno", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Inválido, el DNI no puede ser menor a uno", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
                     return;
                 }else
                 if (mdni.length()>8) {
-                    JOptionPane.showMessageDialog(this, "Invalido el numero de caracteres del DNI es mayor a 8", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Inválido, el número de caracteres del DNI es mayor a 8", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
                     return;
                 }else
                 if (msdata.buscar(mdni)==null) {
@@ -382,37 +382,37 @@ public class VMeseros extends javax.swing.JInternalFrame {
                     if (mdni.equals(dnig)) {
                         ms.setDniMesero(dni);
                     }else {
-                        JOptionPane.showMessageDialog(this, "Error el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Error, el ID ingresado ya existe en la base de datos", "Error ID existente", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 }
             }catch(NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error el DNI ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el DNI ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error el DNI del mesero esta vacío", "Error DNI vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el DNI del mesero está vacío", "Error DNI vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if (!mapellido.trim().equalsIgnoreCase("")) {
             ms.setApellido(mapellido);
         }else{
-            JOptionPane.showMessageDialog(this, "Error el Apellido del mesero esta vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el Apellido del mesero está vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if (!mnombre.trim().equalsIgnoreCase("")) {
             ms.setNombre(mnombre);
         }else{
-            JOptionPane.showMessageDialog(this, "Error el Nombre del mesero esta vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el Nombre del mesero está vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if (mestado.equalsIgnoreCase("true")|mestado.equalsIgnoreCase("false")) {
             ms.setEstado(mestado.equalsIgnoreCase("true"));
         }else{
-            JOptionPane.showMessageDialog(this, "Error el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -441,7 +441,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
                 cargarTabla();
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error de numeracion: "+ex, "Error entero", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error de numeración: "+ex, "Error entero", JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -460,46 +460,46 @@ public class VMeseros extends javax.swing.JInternalFrame {
             try {
                 int dni = Integer.parseInt(mdni);
                 if (dni<1) {
-                    JOptionPane.showMessageDialog(this, "Invalido el DNI no puede ser menor a uno", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Inválido, el DNI no puede ser menor a uno", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
                     return;
                 }else
                 if (mdni.length()>8) {
-                    JOptionPane.showMessageDialog(this, "Invalido el numero de caracteres del DNI es mayor a 8", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Inválido, el número de caracteres del DNI es mayor a 8", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
                     return;
                 }else
                 if (msdata.buscar(mdni)==null) {
                     ms.setDniMesero(dni);
                 }else{
-                    JOptionPane.showMessageDialog(this, "Error el DNI ingresado ya existe en la base de datos", "Error DNI existente", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error, el DNI ingresado ya existe en la base de datos", "Error DNI existente", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             }catch(NumberFormatException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error el DNI ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error, el DNI ingresado no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Error el DNI del mesero esta vacío", "Error DNI vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el DNI del mesero está vacío", "Error DNI vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if (!mapellido.trim().equalsIgnoreCase("")) {
             ms.setApellido(mapellido);
         }else{
-            JOptionPane.showMessageDialog(this, "Error el Apellido del mesero esta vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el Apellido del mesero está vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if (!mnombre.trim().equalsIgnoreCase("")) {
             ms.setNombre(mnombre);
         }else{
-            JOptionPane.showMessageDialog(this, "Error el Nombre del mesero esta vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el Nombre del mesero esta vacío", "Error Apellido vacío", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         if (mestado.equalsIgnoreCase("true")|mestado.equalsIgnoreCase("false")) {
             ms.setEstado(mestado.equalsIgnoreCase("true"));
         }else{
-            JOptionPane.showMessageDialog(this, "Error el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
         

@@ -17,7 +17,7 @@ public class Conexion {
                 Class.forName("org.mariadb.jdbc.Driver");
                 conexion=DriverManager.getConnection(URL+BD,USUARIO,PASSWORD);
             }catch(SQLException|ClassNotFoundException e) {
-                System.err.println("No se cargo la base de datos, (puede que no tenga el XAMPP abierto)");
+                System.err.println("No se cargó la base de datos, (puede que no tenga el XAMPP abierto)");
             }
         }
         return conexion;
