@@ -18,7 +18,7 @@ public class VMesa extends javax.swing.JInternalFrame {
     private MesaData mdata = new MesaData();
     private MeseroData msdata = new MeseroData();
     private String boton_buscar = "ninguno";
-    private int capacidad_filtro = 0;
+    private int buscarg = 0;
     private String condicion_filtro = "todas";
     private int rowSelected = -1;
     private int rowSelecteda = -1;
@@ -345,37 +345,40 @@ public class VMesa extends javax.swing.JInternalFrame {
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         String mbuscar = jtfBuscar.getText();
         
-        try {
-            int numero = Integer.parseInt(mbuscar);
+        if (!mbuscar.trim().equals("")) {
             try {
-                switch (boton_buscar) {
-                    case "numero":
-                        jcCategoria.setSelectedIndex(0);
-                        lista.clear();
-                        lista.add(mdata.buscar(numero));
-                        condicion_filtro = "todas";
-                        capacidad_filtro = 0;
-                        break;
-                    case "capacidad":
-                        capacidad_filtro = numero;
-                        cargarFiltro();
-                        break;
-                    case "dni":
-                        capacidad_filtro = numero;
-                        cargarFiltro();
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(this, "No se encontró a ninguno", "número inexistente", JOptionPane.INFORMATION_MESSAGE);
-                        capacidad_filtro = 0;
-                        break;
+                int numero = Integer.parseInt(mbuscar);
+                try {
+                    switch (boton_buscar) {
+                        case "numero":
+                            jcCategoria.setSelectedIndex(0);
+                            lista.clear();
+                            lista.add(mdata.buscar(numero));
+                            condicion_filtro = "todas";
+                            buscarg = 0;
+                            break;
+                        case "capacidad":
+                            buscarg = numero;
+                            cargarFiltro();
+                            break;
+                        case "dni":
+                            buscarg = numero;
+                            cargarFiltro();
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(this, "No se encontró a ninguno", "número inexistente", JOptionPane.INFORMATION_MESSAGE);
+                            buscarg = 0;
+                            break;
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Error de SQL al buscar por código: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error de SQL al buscar por código: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
+            }catch(NumberFormatException e) {
+                cargarFiltro();
             }
-        }catch(NumberFormatException e) {
+            cargarTabla();
+        }else
             cargarFiltro();
-        }
-        cargarTabla();
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarActionPerformed
@@ -541,7 +544,7 @@ public class VMesa extends javax.swing.JInternalFrame {
                 jTable.getCellEditor().stopCellEditing();
             }
             rowSelecteda = jTable.getSelectedRow();
-            //System.out.println("srow:"+rowSelecteda);
+            System.out.println("ID_guardado: "+numerog);
         }
         if (!cambiando) {
             jbEliminar.setEnabled(true);
@@ -619,13 +622,13 @@ public class VMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTablePropertyChange
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        String mnumero = modelo_editable.getValueAt(rowSelecteda, 0).toString();
-        String mcapacidad = modelo_editable.getValueAt(rowSelecteda, 1).toString();
-        String mcondicion = modelo_editable.getValueAt(rowSelecteda, 2).toString();
-        String mestado = modelo_editable.getValueAt(rowSelecteda, 3).toString();
+        String mnumero = modelo_editable.getValueAt(rowSelectedg, 0).toString();
+        String mcapacidad = modelo_editable.getValueAt(rowSelectedg, 1).toString();
+        String mcondicion = modelo_editable.getValueAt(rowSelectedg, 2).toString();
+        String mestado = modelo_editable.getValueAt(rowSelectedg, 3).toString();
         String mmesero = "ninguno";
-        if (modelo_editable.getValueAt(rowSelecteda, 4)!="ninguno") {
-            mmesero = modelo_editable.getValueAt(rowSelecteda, 4).toString();
+        if (modelo_editable.getValueAt(rowSelectedg, 4)!="ninguno") {
+            mmesero = modelo_editable.getValueAt(rowSelectedg, 4).toString();
         }
         Mesa m = new Mesa();
         
@@ -718,6 +721,7 @@ public class VMesa extends javax.swing.JInternalFrame {
         }
         
         try {
+            System.out.println(m);
             mdata.Actualizar(m, Integer.parseInt(numerog));
             cargando = false;
             jbCargar.setEnabled(true);
@@ -730,6 +734,8 @@ public class VMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jBotonMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonMesaActionPerformed
+        jtfBuscar.setText("");
+        buscarg = 0;
         if (jBotonMesa.isSelected()) {
             jtfBuscar.setEnabled(true);
             jbBuscar.setEnabled(true);
@@ -739,6 +745,8 @@ public class VMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBotonMesaActionPerformed
 
     private void jBotonCapacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonCapacidadActionPerformed
+        jtfBuscar.setText("");
+        buscarg = 0;
         if (jBotonCapacidad.isSelected()) {
             jtfBuscar.setEnabled(true);
             jbBuscar.setEnabled(true);
@@ -748,6 +756,8 @@ public class VMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBotonCapacidadActionPerformed
 
     private void jBotonMeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonMeseroActionPerformed
+        jtfBuscar.setText("");
+        buscarg = 0;
         if (jBotonMesero.isSelected()) {
             jtfBuscar.setEnabled(true);
             jbBuscar.setEnabled(true);
@@ -866,7 +876,7 @@ public class VMesa extends javax.swing.JInternalFrame {
         }
         
         try {
-            lista = mdata.filtrarCondicionNumeroMesero(condicion_filtro,boton_buscar,capacidad_filtro);
+            lista = mdata.filtrarCondicionNumeroMesero(condicion_filtro,boton_buscar,buscarg);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla con filtro: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }

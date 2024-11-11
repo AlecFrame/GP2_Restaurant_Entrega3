@@ -227,17 +227,17 @@ public class MesaData {
             parameters.add(condicion);
         }
         
-        if (filtro.equals("numero")) {
+        if (filtro.equals("numero")&numero>0) {
             sql.append(" AND numero_mesa = ?");
             parameters.add(numero);
         }
         
-        if (filtro.equals("capacidad")) {
+        if (filtro.equals("capacidad")&numero>0) {
             sql.append(" AND capacidad = ?");
             parameters.add(numero);
         }
 
-        if (filtro.equals("dni")) {
+        if (filtro.equals("dni")&numero>0) {
             sql.append(" AND dni_mesero = ?");
             parameters.add(numero);
         }
@@ -247,7 +247,7 @@ public class MesaData {
         for (int i = 0; i < parameters.size(); i++) {
             ps.setObject(i + 1, parameters.get(i));
         }
-
+        
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
