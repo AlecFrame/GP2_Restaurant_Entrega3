@@ -48,7 +48,8 @@ public class VentPrincipal extends javax.swing.JFrame {
         jSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Menú");
+        setTitle("Bienvenido a Entre Amigos Restaurant");
+        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 204));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -206,6 +207,8 @@ public class VentPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        getAccessibleContext().setAccessibleName("Bienvenido a Entre Amigos Restaurant");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
