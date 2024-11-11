@@ -775,7 +775,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         String filtro;
         String idPedido = jtfBuscar.getText();
         switch (jProductos.getSelectedItem().toString()) {
-            case ("0-todos") : {filtro="todos";break;}
+            case ("0-todos") : {filtro=null;break;}
             case ("1-pizzas") : {filtro="pizzas";break;}
             case ("2-hamburguesas") : {filtro="hamburguesas";break;}
             case ("3-lomos") : {filtro="lomos";break;}
@@ -783,7 +783,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             case ("5-bebidas/a") : {filtro="bebidas sin alcohol";break;}
             case ("6-bebidasc/a") : {filtro="bebidas con alcohol";break;}
             case ("7-gaseosas") : {filtro="bebidas gaseosas";break;}
-            default : {filtro="ninguna";break;}
+            default : {filtro=null;break;}
         }
         
         try {
@@ -796,19 +796,14 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             try {
                 int numero = Integer.parseInt(idPedido);
                 Pedido p = ppdata.buscarPedido(numero);
-
-                if ("todos".equals(filtro)) {
-                    lista = ddata.listar();
-                }else if (p==null) {
+                
+                if (p==null) {
                     lista = ddata.filtrarCategoriayPedido(0, filtro);
                 }else{
                     lista = ddata.filtrarCategoriayPedido(p.getIdPedido(), filtro);
                 }
             }catch(NumberFormatException e) {
-                if ("todos".equals(filtro)) {
-                    lista = ddata.listar();
-                }else
-                    lista = ddata.filtrarCategoriayPedido(0, filtro);
+                lista = ddata.filtrarCategoriayPedido(0, filtro);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla con filtro: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);

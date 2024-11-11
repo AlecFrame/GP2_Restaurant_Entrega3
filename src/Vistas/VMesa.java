@@ -381,18 +381,29 @@ public class VMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarActionPerformed
-        String capacidad="";
-        
-        if (!"".equals(jtfBuscar.getText())) {
-            try {
-                int cap = Integer.parseInt(jtfBuscar.getText());
-                if (cap>0)
-                    capacidad = String.valueOf(cap);
-            }catch(NumberFormatException e) {}
-        }
-        
-        
         if (!cargando) {
+            String capacidad="";
+            String dni ="";
+            String condicion = "";
+
+            if (!"".equals(jtfBuscar.getText())) {
+                try {
+                    int cap = Integer.parseInt(jtfBuscar.getText());
+                    if (cap>0) {
+                        if (jBotonMesero.isSelected()) {
+                            dni = String.valueOf(cap);
+                        }
+                        if (jBotonCapacidad.isSelected()) {
+                            capacidad = String.valueOf(cap);
+                        }
+                    }
+                }catch(NumberFormatException e) {}
+            }
+
+            if (condicion_filtro.equals("todas")) {
+                condicion = "";
+            }
+            
             cargando = true;
             jbActualizar.setEnabled(false);
             jbCargar.setEnabled(false);
@@ -401,9 +412,9 @@ public class VMesa extends javax.swing.JInternalFrame {
                 modelo_cargar.addRow(new Object[] {
                     Enumerar(),
                     capacidad,
-                    condicion_filtro,
-                    "",
-                    "ninguno",
+                    condicion,
+                    "true",
+                    dni,
                 });
                 jTable.setModel(modelo_cargar);
             } catch (SQLException ex) {

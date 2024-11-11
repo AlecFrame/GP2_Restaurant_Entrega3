@@ -580,7 +580,6 @@ public class VPedido extends javax.swing.JInternalFrame {
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
         rowSelected = jTable.getSelectedRow();
-        System.out.println("rSelected: "+rowSelected);
         
         if (jTable.getModel()==modelo_editable) {
             if (jTable.isEditing()) {

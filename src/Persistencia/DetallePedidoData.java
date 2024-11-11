@@ -255,7 +255,7 @@ public class DetallePedidoData {
             parameters.add(idPedido);
         }
 
-        if (categoria != null && !categoria.isEmpty()) {
+        if (categoria != null) {
             ArrayList<Producto> lista = pdata.filtrarCategoria(categoria);
 
             if (lista != null && !lista.isEmpty()) {

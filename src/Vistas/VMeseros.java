@@ -352,7 +352,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
                 "",
                 "",
                 "",
-                ""
+                "true"
             });
             jTable.setModel(modelo_cargar);
         }
