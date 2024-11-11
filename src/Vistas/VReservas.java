@@ -236,7 +236,6 @@ public class VReservas extends javax.swing.JInternalFrame {
         });
 
         jrVigencia.setBackground(new java.awt.Color(204, 187, 165));
-        GrupoBotVigencia.add(jrVigencia);
         jrVigencia.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jrVigencia.setText("Vigencia");
         jrVigencia.addActionListener(new java.awt.event.ActionListener() {
@@ -246,7 +245,6 @@ public class VReservas extends javax.swing.JInternalFrame {
         });
 
         jrNoVigencia.setBackground(new java.awt.Color(204, 187, 165));
-        GrupoBotVigencia.add(jrNoVigencia);
         jrNoVigencia.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jrNoVigencia.setText("No Vigencia");
         jrNoVigencia.addActionListener(new java.awt.event.ActionListener() {
@@ -368,6 +366,9 @@ public class VReservas extends javax.swing.JInternalFrame {
         String texto = jtfBuscar.getText();
         try {
             if (!"".equals(texto)) {
+                jrVigencia.setSelected(false);
+                jrNoVigencia.setSelected(false);
+                vigencia="null";
                 try {
                     int id = Integer.parseInt(texto);
                     if (rdata.buscarInt(id)!=null) {
@@ -406,7 +407,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                     fecha,
                     hora,
                     "",
-                    (!"null".equals(vigencia))? vigencia:"",
+                    (!"null".equals(vigencia))? vigencia:"vigente",
                 });
                 jTable.setModel(modelo_cargar);
             } catch (SQLException ex) {
@@ -494,7 +495,12 @@ public class VReservas extends javax.swing.JInternalFrame {
         
         try {
             LocalDate fech = LocalDate.parse(mfecha);
-            r.setFecha(fech);
+            if (fech.isBefore(LocalDate.now())) {
+                JOptionPane.showMessageDialog(this, "Error, no es logico hacer una reserva a una fecha anterior a la actual", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
+                return;
+            }else {
+                r.setFecha(fech);
+            }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Error, formato de fecha incorrecto, el formato es el siguiente (yyyy-MM-dd)", "Error Fecha incorrecta", JOptionPane.WARNING_MESSAGE);
             return;
@@ -568,6 +574,7 @@ public class VReservas extends javax.swing.JInternalFrame {
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
         rowSelected = jTable.getSelectedRow();
+        
         if (jTable.getModel()==modelo_editable) {
             if (jTable.isEditing()) {
                 jTable.getCellEditor().stopCellEditing();
@@ -579,6 +586,25 @@ public class VReservas extends javax.swing.JInternalFrame {
             jbEliminar.setEnabled(true);
             if (cargando==false) {
                 jTable.setModel(modelo_editable);
+            }
+        }
+        
+        if (cargando) {
+            int row = modelo_cargar.getRowCount()-1;
+            
+            if (modelo_cargar.getValueAt(row, 5)!=null) {
+                String mhora_desde = modelo_cargar.getValueAt(row, 5).toString();
+                String mhora_hasta = modelo_cargar.getValueAt(row, 6).toString();
+                
+                try {
+                    DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm");
+                    LocalTime hora_hasta = LocalTime.parse(mhora_desde, formato);
+                    hora_hasta = hora_hasta.plusMinutes(20);
+
+                    if ("".equals(mhora_hasta)) {
+                        modelo_cargar.setValueAt(hora_hasta, row, 6);
+                    }
+                }catch (Exception e) {}
             }
         }
     }//GEN-LAST:event_jTableMouseClicked
@@ -813,16 +839,22 @@ public class VReservas extends javax.swing.JInternalFrame {
 
     private void jrVigenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrVigenciaActionPerformed
         if (jrVigencia.isSelected()) {
+            jrNoVigencia.setSelected(false);
             vigencia = "vigente";
-            cargarFiltro();
+        }else {
+            vigencia = "null";
         }
+        cargarFiltro();
     }//GEN-LAST:event_jrVigenciaActionPerformed
 
     private void jrNoVigenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrNoVigenciaActionPerformed
         if (jrNoVigencia.isSelected()) {
+            jrVigencia.setSelected(false);
             vigencia = "no_vigente";
-            cargarFiltro();
+        }else {
+            vigencia = "null";
         }
+        cargarFiltro();
     }//GEN-LAST:event_jrNoVigenciaActionPerformed
 
     private void jcbHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHoraActionPerformed

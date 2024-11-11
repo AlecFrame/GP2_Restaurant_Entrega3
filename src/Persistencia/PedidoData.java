@@ -149,7 +149,7 @@ public class PedidoData {
         ps.setInt(1, numero);
         
         ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
+        while (rs.next()) {
             seguir = false;
             lista.add(new Pedido(rs.getInt("idPedido"),
                                 mesero.buscar(rs.getString("dni_mesero")),
@@ -169,7 +169,7 @@ public class PedidoData {
             ps.setInt(1, numero);
 
             rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 lista.add(new Pedido(rs.getInt("idPedido"),
                                     mesero.buscar(rs.getString("dni_mesero")),
                                     mesa.buscar(rs.getInt("numero_mesa")),
@@ -181,7 +181,6 @@ public class PedidoData {
                 );
             }
         }
-        
         return lista;
     }
 

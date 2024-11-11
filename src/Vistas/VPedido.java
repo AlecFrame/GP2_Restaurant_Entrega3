@@ -242,7 +242,6 @@ public class VPedido extends javax.swing.JInternalFrame {
         });
 
         jrCobrado.setBackground(new java.awt.Color(204, 187, 165));
-        GrupoBotVigencia.add(jrCobrado);
         jrCobrado.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jrCobrado.setText("Cobrado");
         jrCobrado.addActionListener(new java.awt.event.ActionListener() {
@@ -252,7 +251,6 @@ public class VPedido extends javax.swing.JInternalFrame {
         });
 
         jrNoCobrado.setBackground(new java.awt.Color(204, 187, 165));
-        GrupoBotVigencia.add(jrNoCobrado);
         jrNoCobrado.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
         jrNoCobrado.setText("No cobrado");
         jrNoCobrado.addActionListener(new java.awt.event.ActionListener() {
@@ -832,16 +830,22 @@ public class VPedido extends javax.swing.JInternalFrame {
 
     private void jrCobradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrCobradoActionPerformed
         if (jrCobrado.isSelected()) {
+            jrNoCobrado.setSelected(false);
             cobrado = "cobrado";
-            cargarFiltro();
+        }else {
+            cobrado = "null";
         }
+        cargarFiltro();
     }//GEN-LAST:event_jrCobradoActionPerformed
 
     private void jrNoCobradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrNoCobradoActionPerformed
         if (jrNoCobrado.isSelected()) {
+            jrCobrado.setSelected(false);
             cobrado = "no_cobrado";
-            cargarFiltro();
+        }else {
+            cobrado = "null";
         }
+        cargarFiltro();
     }//GEN-LAST:event_jrNoCobradoActionPerformed
 
     private void jcbHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHoraActionPerformed

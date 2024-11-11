@@ -310,6 +310,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                 jTable.setModel(modelo_editable);
             }
         }
+        
         if (cargando) {
             int row = modelo_cargar.getRowCount()-1;
             String mproducto = modelo_cargar.getValueAt(row, 2).toString();

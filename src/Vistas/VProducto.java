@@ -357,7 +357,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         String mnombre = modelo_cargar.getValueAt(row, 1).toString();
         String mprecio = modelo_cargar.getValueAt(row, 2).toString();
         String mstock = modelo_cargar.getValueAt(row, 3).toString();
-        String mcategoria = modelo_cargar.getValueAt(row, 4).toString();
+        String mcategoria = modelo_cargar.getValueAt(row, 4).toString().trim();
         String mestado = modelo_cargar.getValueAt(row, 5).toString();
         Producto p = new Producto();
         
@@ -373,9 +373,9 @@ public class VProducto extends javax.swing.JInternalFrame {
         categorias.add("lomos");
         categorias.add("hamburguesas");
         categorias.add("tacos");
-        categorias.add("bebidas con alcohol");
-        categorias.add("bebidas sin alcohol");
-        categorias.add("bebidas gaseosas");
+        categorias.add("bebidasconalcohol");
+        categorias.add("bebidassinalcohol");
+        categorias.add("bebidasgaseosas");
         
         try {
             int codigo = Integer.parseInt(mcodigo);
@@ -439,13 +439,13 @@ public class VProducto extends javax.swing.JInternalFrame {
                 case ("4") : case ("tacos") : {
                     p.setCategoria("tacos");break;
                 }
-                case ("5") : case ("bebidas con alcohol") : {
+                case ("5") : case ("bebidasconalcohol") : {
                     p.setCategoria("bebidas con alcohol");break;
                 }
-                case ("6") : case ("bebidas sin alcohol") : {
+                case ("6") : case ("bebidassinalcohol") : {
                     p.setCategoria("bebidas sin alcohol");break;
                 }
-                case ("7") : case ("bebidas gaseosas") : {
+                case ("7") : case ("bebidasgaseosas") : {
                     p.setCategoria("bebidas gaseosas");break;
                 }
             }
@@ -570,7 +570,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         String mnombre = modelo_editable.getValueAt(rowSelectedg, 1).toString();
         String mprecio = modelo_editable.getValueAt(rowSelectedg, 2).toString();
         String mstock = modelo_editable.getValueAt(rowSelectedg, 3).toString();
-        String mcategoria = modelo_editable.getValueAt(rowSelectedg, 4).toString();
+        String mcategoria = modelo_editable.getValueAt(rowSelectedg, 4).toString().trim();
         String mestado = modelo_editable.getValueAt(rowSelectedg, 5).toString();
         Producto p = new Producto();
         
@@ -586,9 +586,9 @@ public class VProducto extends javax.swing.JInternalFrame {
         categorias.add("lomos");
         categorias.add("hamburguesas");
         categorias.add("tacos");
-        categorias.add("bebidas con alcohol");
-        categorias.add("bebidas sin alcohol");
-        categorias.add("bebidas gaseosas");
+        categorias.add("bebidasconalcohol");
+        categorias.add("bebidassinalcohol");
+        categorias.add("bebidasgaseosas");
         String cambios = "";
         
         try {
@@ -663,13 +663,13 @@ public class VProducto extends javax.swing.JInternalFrame {
                 case ("4") : case ("tacos") : {
                     p.setCategoria("tacos");break;
                 }
-                case ("5") : case ("bebidas con alcohol") : {
+                case ("5") : case ("bebidasconalcohol") : {
                     p.setCategoria("bebidas con alcohol");break;
                 }
-                case ("6") : case ("bebidas sin alcohol") : {
+                case ("6") : case ("bebidassinalcohol") : {
                     p.setCategoria("bebidas sin alcohol");break;
                 }
-                case ("7") : case ("bebidas gaseosas") : {
+                case ("7") : case ("bebidasgaseosas") : {
                     p.setCategoria("bebidas gaseosas");break;
                 }
             }
