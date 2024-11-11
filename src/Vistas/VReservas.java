@@ -663,20 +663,20 @@ public class VReservas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTablePropertyChange
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        String mid = modelo_editable.getValueAt(rowSelecteda, 0).toString();
-        String mmesa = modelo_editable.getValueAt(rowSelecteda, 1).toString();
-        String mdni = modelo_editable.getValueAt(rowSelecteda, 2).toString();
-        String mapellido = modelo_editable.getValueAt(rowSelecteda, 3).toString();
+        String mid = modelo_editable.getValueAt(rowSelectedg, 0).toString();
+        String mmesa = modelo_editable.getValueAt(rowSelectedg, 1).toString();
+        String mdni = modelo_editable.getValueAt(rowSelectedg, 2).toString();
+        String mapellido = modelo_editable.getValueAt(rowSelectedg, 3).toString();
         String mfecha = "";
-        if (modelo_editable.getValueAt(rowSelecteda, 4)!=null) {
-            mfecha = modelo_editable.getValueAt(rowSelecteda, 4).toString();
+        if (modelo_editable.getValueAt(rowSelectedg, 4)!=null) {
+            mfecha = modelo_editable.getValueAt(rowSelectedg, 4).toString();
         }
         String mhora_desde = "";
-        if (modelo_editable.getValueAt(rowSelecteda, 5)!=null) {
-            mhora_desde = modelo_editable.getValueAt(rowSelecteda, 5).toString();
+        if (modelo_editable.getValueAt(rowSelectedg, 5)!=null) {
+            mhora_desde = modelo_editable.getValueAt(rowSelectedg, 5).toString();
         }
-        String mhora_hasta = modelo_editable.getValueAt(rowSelecteda, 6).toString();
-        String mvigencia = modelo_editable.getValueAt(rowSelecteda, 7).toString();
+        String mhora_hasta = modelo_editable.getValueAt(rowSelectedg, 6).toString();
+        String mvigencia = modelo_editable.getValueAt(rowSelectedg, 7).toString();
         Reserva r = new Reserva();
         
         try {

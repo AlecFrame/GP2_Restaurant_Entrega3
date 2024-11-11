@@ -680,20 +680,20 @@ public class VPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTablePropertyChange
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        String cidPedido = modelo_editable.getValueAt(rowSelecteda, 0).toString();
-        String cdni_mesero = modelo_editable.getValueAt(rowSelecteda, 1).toString();
-        String cnumero_mesa = modelo_editable.getValueAt(rowSelecteda, 2).toString();
-        String cimporte = modelo_editable.getValueAt(rowSelecteda, 3).toString();
+        String cidPedido = modelo_editable.getValueAt(rowSelectedg, 0).toString();
+        String cdni_mesero = modelo_editable.getValueAt(rowSelectedg, 1).toString();
+        String cnumero_mesa = modelo_editable.getValueAt(rowSelectedg, 2).toString();
+        String cimporte = modelo_editable.getValueAt(rowSelectedg, 3).toString();
         String cfecha = "";
-        if (modelo_editable.getValueAt(rowSelecteda, 4)!=null) {
-            cfecha = modelo_editable.getValueAt(rowSelecteda, 4).toString();
+        if (modelo_editable.getValueAt(rowSelectedg, 4)!=null) {
+            cfecha = modelo_editable.getValueAt(rowSelectedg, 4).toString();
         }
         String chora = "";
-        if (modelo_editable.getValueAt(rowSelecteda, 5)!=null) {
-            chora = modelo_editable.getValueAt(rowSelecteda, 5).toString();
+        if (modelo_editable.getValueAt(rowSelectedg, 5)!=null) {
+            chora = modelo_editable.getValueAt(rowSelectedg, 5).toString();
         }
-        String ccobrado = modelo_editable.getValueAt(rowSelecteda, 6).toString();
-        String cestado = modelo_editable.getValueAt(rowSelecteda, 7).toString();
+        String ccobrado = modelo_editable.getValueAt(rowSelectedg, 6).toString();
+        String cestado = modelo_editable.getValueAt(rowSelectedg, 7).toString();
         Pedido p = new Pedido();
         
         try {

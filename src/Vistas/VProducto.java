@@ -566,12 +566,12 @@ public class VProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTablePropertyChange
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        String mcodigo = modelo_editable.getValueAt(rowSelecteda, 0).toString();
-        String mnombre = modelo_editable.getValueAt(rowSelecteda, 1).toString();
-        String mprecio = modelo_editable.getValueAt(rowSelecteda, 2).toString();
-        String mstock = modelo_editable.getValueAt(rowSelecteda, 3).toString();
-        String mcategoria = modelo_editable.getValueAt(rowSelecteda, 4).toString();
-        String mestado = modelo_editable.getValueAt(rowSelecteda, 5).toString();
+        String mcodigo = modelo_editable.getValueAt(rowSelectedg, 0).toString();
+        String mnombre = modelo_editable.getValueAt(rowSelectedg, 1).toString();
+        String mprecio = modelo_editable.getValueAt(rowSelectedg, 2).toString();
+        String mstock = modelo_editable.getValueAt(rowSelectedg, 3).toString();
+        String mcategoria = modelo_editable.getValueAt(rowSelectedg, 4).toString();
+        String mestado = modelo_editable.getValueAt(rowSelectedg, 5).toString();
         Producto p = new Producto();
         
         Set<String> categorias = new HashSet<>();

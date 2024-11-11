@@ -403,11 +403,11 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbCargarActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        String mid = modelo_editable.getValueAt(rowSelecteda, 0).toString();
-        String mpedido = modelo_editable.getValueAt(rowSelecteda, 1).toString();
-        String mproducto = modelo_editable.getValueAt(rowSelecteda, 2).toString();
-        String mcantidad = modelo_editable.getValueAt(rowSelecteda, 4).toString();
-        String mestado = modelo_editable.getValueAt(rowSelecteda, 6).toString();
+        String mid = modelo_editable.getValueAt(rowSelectedg, 0).toString();
+        String mpedido = modelo_editable.getValueAt(rowSelectedg, 1).toString();
+        String mproducto = modelo_editable.getValueAt(rowSelectedg, 2).toString();
+        String mcantidad = modelo_editable.getValueAt(rowSelectedg, 4).toString();
+        String mestado = modelo_editable.getValueAt(rowSelectedg, 6).toString();
         DetallePedido dt = new DetallePedido();
         
         if (!mid.trim().equalsIgnoreCase("")) {

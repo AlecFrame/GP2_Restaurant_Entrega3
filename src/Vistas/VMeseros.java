@@ -359,10 +359,10 @@ public class VMeseros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbCargarActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        String mdni = modelo_editable.getValueAt(rowSelecteda, 0).toString();
-        String mapellido = modelo_editable.getValueAt(rowSelecteda, 1).toString();
-        String mnombre = modelo_editable.getValueAt(rowSelecteda, 2).toString();
-        String mestado = modelo_editable.getValueAt(rowSelecteda, 3).toString();
+        String mdni = modelo_editable.getValueAt(rowSelectedg, 0).toString();
+        String mapellido = modelo_editable.getValueAt(rowSelectedg, 1).toString();
+        String mnombre = modelo_editable.getValueAt(rowSelectedg, 2).toString();
+        String mestado = modelo_editable.getValueAt(rowSelectedg, 3).toString();
         Mesero ms = new Mesero();
         
         if (!mdni.trim().equalsIgnoreCase("")) {
