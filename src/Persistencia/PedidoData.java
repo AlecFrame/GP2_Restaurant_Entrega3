@@ -21,9 +21,9 @@ public class PedidoData {
     public double calcularImporte(int idPedido) throws SQLException {
         DetallePedidoData ddata = new DetallePedidoData();
         double importe = 0;
-        DetallePedido Detalle = ddata.buscarPorPedido(idPedido);
+        ArrayList<DetallePedido> Detallelist = ddata.buscarPorPedido(idPedido);
         
-        if (Detalle!=null) {
+        if (!Detallelist.isEmpty()) {
             String sql = "SELECT SUM(total) AS importe FROM detalle_pedido WHERE idPedido = ?";
 
             try (PreparedStatement s = con.prepareStatement(sql)) {
@@ -71,7 +71,6 @@ public class PedidoData {
             int filas = s.executeUpdate();
             if (filas > 0) {
                 System.out.println("Pedido registrado con éxito");
-                JOptionPane.showMessageDialog(null, "Pedido registrado con éxito");
             } else {
                 System.out.println("Error al registrar el pedido");
             }
@@ -107,7 +106,6 @@ public class PedidoData {
         int filas = s.executeUpdate();
         if (filas > 0) {
             System.out.println("El pedido " + idPedido + " fue eliminado con éxito");
-            JOptionPane.showMessageDialog(null, "El pedido fue eliminado con éxito");
         } else {
             System.out.println("Error al eliminar el pedido");
         }
@@ -201,7 +199,6 @@ public class PedidoData {
             int filas = s.executeUpdate();
             if (filas > 0) {
                 System.out.println("Pedido actualizado con éxito");
-                JOptionPane.showMessageDialog(null, "Pedido actualizado con éxito");
             } else {
                 System.out.println("Error al actualizar el pedido");
             }
@@ -222,7 +219,6 @@ public class PedidoData {
             int filas = s.executeUpdate();
             if (filas > 0) {
                 System.out.println("Pedido actualizado con éxito");
-                JOptionPane.showMessageDialog(null, "Pedido actualizado con éxito");
             } else {
                 System.out.println("Error al actualizar el pedido");
             }
@@ -239,63 +235,72 @@ public class PedidoData {
         int filas = s.executeUpdate();
         if (filas > 0) {
             System.out.println("El pedido " + idPedido + " fue eliminado con éxito");
-            JOptionPane.showMessageDialog(null, "El estado del pedido fue actualizado con éxito");
         } else {
             System.out.println("Error al cambiar el estado de pedido");
         }
     }
     
-    public ArrayList<Pedido> listarPedidos() throws SQLException {
+    public void cambiarCobro(String cobrado, int idPedido) throws SQLException {
+        String sql = "UPDATE pedido SET cobrado = ? WHERE idPedido = ?";
+        
+        PreparedStatement s = con.prepareStatement(sql);
+        s.setBoolean(1, (cobrado.equalsIgnoreCase("cobrado")));
+        s.setInt(2, idPedido);
+        s.executeUpdate();
+    }
+    
+    public ArrayList<Pedido> listarPedidos(boolean estado) throws SQLException {
         MesaData mesa = new MesaData();
-        MeseroData mesero = new MeseroData();
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-        String sql = "SELECT * FROM pedido";
-        
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        
-        while (rs.next()) {
-            Pedido pedido = new Pedido(rs.getInt("idPedido"),
-                                mesero.buscar(rs.getString("dni_mesero")),
-                                mesa.buscar(rs.getInt("numero_mesa")),
-                                rs.getDouble("importe"),
-                                rs.getDate("fecha").toLocalDate(),
-                                rs.getTime("hora").toLocalTime(),
-                                rs.getBoolean("cobrado"),
-                                rs.getBoolean("estado"));
-            pedidos.add(pedido);
+            MeseroData mesero = new MeseroData();
+            ArrayList<Pedido> pedidos = new ArrayList<>();
+        if (!estado) {
+            String sql = "SELECT * FROM pedido";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Pedido pedido = new Pedido(rs.getInt("idPedido"),
+                                    mesero.buscar(rs.getString("dni_mesero")),
+                                    mesa.buscar(rs.getInt("numero_mesa")),
+                                    rs.getDouble("importe"),
+                                    rs.getDate("fecha").toLocalDate(),
+                                    rs.getTime("hora").toLocalTime(),
+                                    rs.getBoolean("cobrado"),
+                                    rs.getBoolean("estado"));
+                pedidos.add(pedido);
+            }
+        }else {
+            String sql = "SELECT * FROM pedido WHERE estado = true";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Pedido pedido = new Pedido(rs.getInt("idPedido"),
+                                    mesero.buscar(rs.getString("dni_mesero")),
+                                    mesa.buscar(rs.getInt("numero_mesa")),
+                                    rs.getDouble("importe"),
+                                    rs.getDate("fecha").toLocalDate(),
+                                    rs.getTime("hora").toLocalTime(),
+                                    rs.getBoolean("cobrado"),
+                                    rs.getBoolean("estado"));
+                pedidos.add(pedido);
+            }
         }
         return pedidos;
     }
 
-    public ArrayList<Pedido> listarPedidosCobrados() throws SQLException {
-        MesaData mesa = new MesaData();
-        MeseroData mesero = new MeseroData();
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-        String sql = "SELECT * FROM pedido WHERE cobrado = 1";
-        
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        
-        while (rs.next()) {
-            Pedido pedido = new Pedido(rs.getInt("idPedido"),
-                                mesero.buscar(rs.getString("dni_mesero")),
-                                mesa.buscar(rs.getInt("numero_mesa")),
-                                rs.getDouble("importe"),
-                                rs.getDate("fecha").toLocalDate(),
-                                rs.getTime("hora").toLocalTime(),
-                                rs.getBoolean("cobrado"),
-                                rs.getBoolean("estado"));
-            pedidos.add(pedido);
-        }
-        return pedidos;
-    }
-
-    public ArrayList<Pedido> buscarPedidosPorFechayHorayCobro(LocalDate fecha, LocalTime hora, String cobrado) throws SQLException {
+    public ArrayList<Pedido> buscarPedidosPorFechayHorayCobro(LocalDate fecha, LocalTime hora, String cobrado, boolean estado) throws SQLException {
         ArrayList<Pedido> pedidos = new ArrayList<>();
         MesaData mesa = new MesaData();
         MeseroData mesero = new MeseroData();
-        StringBuilder sql = new StringBuilder("SELECT * FROM pedido WHERE 1=1");
+        StringBuilder sql = null;
+        
+        if (estado) {
+            sql = new StringBuilder("SELECT * FROM pedido WHERE estado = true");
+        }else
+            sql = new StringBuilder("SELECT * FROM pedido WHERE 1=1");
 
         ArrayList<Object> parameters = new ArrayList<>();
 

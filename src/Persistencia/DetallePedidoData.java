@@ -114,26 +114,26 @@ public class DetallePedidoData {
         return detalle;
     }
     
-    public DetallePedido buscarPorPedido(int id) throws SQLException {
+    public ArrayList<DetallePedido> buscarPorPedido(int id) throws SQLException {
         PedidoData pedido = new PedidoData();
         ProductosData productos = new ProductosData();
-        DetallePedido detalle = null;
+        ArrayList<DetallePedido> detallespedidos = new ArrayList<>();
         String sql = "SELECT * FROM detalle_pedido WHERE idPedido = ?";
         
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, id);
-        
         ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            detalle = new DetallePedido(rs.getInt("idDetalle"),
+        
+        while (rs.next()) {
+            DetallePedido dpedido = new DetallePedido(rs.getInt("idDetalle"),
                                         productos.buscar(rs.getInt("codigo")),
                                         pedido.buscarPedido(rs.getInt("idPedido")),
                                         rs.getInt("cantidad"),
                                         rs.getDouble("total"),
                                         rs.getBoolean("estado"));
+            detallespedidos.add(dpedido);
         }
-        
-        return detalle;
+        return detallespedidos;
     }
     
     public void CambiarEstado(boolean estado, int numero) throws SQLException {

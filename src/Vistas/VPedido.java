@@ -1,13 +1,19 @@
 
 package Vistas;
 
+import Modelo.DetallePedido;
 import Modelo.Pedido;
 import Persistencia.DetallePedidoData;
 import java.sql.*;
 import Persistencia.MesaData;
 import Persistencia.MeseroData;
 import Persistencia.PedidoData;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -33,6 +39,7 @@ public class VPedido extends javax.swing.JInternalFrame {
     private LocalTime hora = null;
     private LocalDate fecha = null;
     private String cobrado = "null";
+    private boolean estado = true;
     
     private String idPedidog = null;
     private String dni_meserog = null;
@@ -65,7 +72,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         this.escritorio = escritorio;
         initComponents();
         try {
-            lista = pdata.listarPedidos();
+            lista = pdata.listarPedidos(estado);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -75,6 +82,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         jtfHora.setEnabled(false);
         jFecha.setEnabled(false);
         jbGuardar.setEnabled(false);
+        jbTicket.setEnabled(false);
         Botones(false);
         cargarCabecera();
         cargarTabla();
@@ -107,6 +115,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jbCobrar = new javax.swing.JButton();
         jbTicket = new javax.swing.JButton();
+        jcbEstado = new javax.swing.JCheckBox();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -316,6 +325,16 @@ public class VPedido extends javax.swing.JInternalFrame {
             }
         });
 
+        jcbEstado.setBackground(new java.awt.Color(204, 187, 165));
+        jcbEstado.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jcbEstado.setSelected(true);
+        jcbEstado.setText("Estado true");
+        jcbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbEstadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -337,41 +356,37 @@ public class VPedido extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jtfBuscar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcbEstado)
+                    .addComponent(jrNoCobrado)
+                    .addComponent(jrCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jrCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(24, 24, 24)
-                                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jrNoCobrado, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                        .addGap(19, 19, 19)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jbCargar)
-                        .addGap(14, 14, 14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbGuardar)
-                        .addGap(12, 12, 12)
-                        .addComponent(jbDetalle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(190, 190, 190)
                         .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbEliminar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jbDetalle)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbCobrar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jbTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,37 +396,41 @@ public class VPedido extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jrCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jrNoCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jcbBuscar)
                             .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(1, 1, 1)
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jcbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jcbFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jcbEstado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jrCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtfHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jcbHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jrNoCobrado, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbEliminar)
-                    .addComponent(jbActualizar)
-                    .addComponent(jbGuardar)
-                    .addComponent(jbCargar)
                     .addComponent(jbDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbCobrar)
                     .addComponent(jbTicket))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbCargar)
+                    .addComponent(jbGuardar)
+                    .addComponent(jbActualizar)
+                    .addComponent(jbEliminar))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -428,17 +447,17 @@ public class VPedido extends javax.swing.JInternalFrame {
                         lista = pdata.buscarPorMesayDNI(numero);
                     }else {
                         JOptionPane.showMessageDialog(this, "El Número de mesa o DNI de mesero ingresados no existen","ID/DNI inexistente",JOptionPane.WARNING_MESSAGE);
-                        lista = pdata.listarPedidos();
+                        lista = pdata.listarPedidos(estado);
                         cargarTabla();
                     }
                 } catch(NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, "El campo buscar solo admite enteros para ID y DNI","revisar tipos de datos",JOptionPane.WARNING_MESSAGE);
-                    lista = pdata.listarPedidos();
+                    lista = pdata.listarPedidos(estado);
                     cargarTabla();
                 }
                 cargarTabla();
             }else{
-                lista = pdata.listarPedidos();
+                lista = pdata.listarPedidos(estado);
                 cargarTabla();
             }
         } catch(SQLException e) {
@@ -453,6 +472,8 @@ public class VPedido extends javax.swing.JInternalFrame {
             jbCargar.setEnabled(false);
             jbDetalle.setEnabled(false);
             jbGuardar.setEnabled(true);
+            jbCobrar.setEnabled(false);
+            jbTicket.setEnabled(false);
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm");
             String hora_now = LocalTime.now().format(formato);
             try {
@@ -594,7 +615,7 @@ public class VPedido extends javax.swing.JInternalFrame {
             quitarFiltros();
             jTable.setModel(modelo);
             pdata.MantenerConsistenciaDatos();
-            lista = pdata.listarPedidos();
+            lista = pdata.listarPedidos(estado);
             cargarTabla();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al guardar el pedido: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
@@ -619,6 +640,18 @@ public class VPedido extends javax.swing.JInternalFrame {
             jbEliminar.setEnabled(true);
             jbDetalle.setEnabled(true);
             if (!cargando) {
+                try {
+                    Pedido p = pdata.buscarPedido(Integer.parseInt(modelo.getValueAt(rowSelected, 0).toString()));
+                    if (p!=null) {
+                        if (!p.isCobrado()) {
+                            jbCobrar.setEnabled(true);
+                        }else
+                            jbCobrar.setEnabled(false);
+                    }
+                    jbTicket.setEnabled(true);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Error de SQL: "+ex,"SQL Error",JOptionPane.ERROR_MESSAGE);
+                }
                 jTable.setModel(modelo_editable);
             }
         }
@@ -784,18 +817,6 @@ public class VPedido extends javax.swing.JInternalFrame {
         }
         
         try {
-            double importe = Double.parseDouble(cimporte);
-            if (importe<1) {
-                JOptionPane.showMessageDialog(this, "Error, el Importe no puede ser menor a uno", "Error de valor menor a 1", JOptionPane.WARNING_MESSAGE);
-                return;
-            }else
-                p.setImporte(importe);
-        }catch(NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error, el Importe ingresado no es un double: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        try {
             LocalDate fech = LocalDate.parse(cfecha);
             p.setFecha(fech);
         } catch(Exception e) {
@@ -933,12 +954,77 @@ public class VPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbDetalleActionPerformed
 
     private void jbCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCobrarActionPerformed
-    
+        try {
+            if (!cargando) {
+                int codigo = Integer.parseInt(jTable.getValueAt(rowSelected, 0).toString());
+                pdata.cambiarCobro("cobrado", codigo);
+                cargarFiltro();
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Error de numeración: "+ex, "Error entero", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbCobrarActionPerformed
 
     private void jbTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTicketActionPerformed
-        // TODO add your handling code here:
+         try {
+            Pedido pedido = pdata.buscarPedido(Integer.parseInt(modelo.getValueAt(rowSelected, 0).toString()));
+            ArrayList<DetallePedido> listadetalles = new ArrayList<>();
+            jbTicket.setEnabled(false);
+            
+            if (pedido!=null) {
+                
+                for (DetallePedido d: ddata.buscarPorPedido(pedido.getIdPedido())) {
+                    listadetalles.add(d);
+                }
+                
+                String rutaEscritorio = System.getProperty("user.home") + "/Documents/";
+                System.out.println("ruta: "+rutaEscritorio);
+                File archivo = new File(rutaEscritorio + "ticket_pedido" + pedido.getIdPedido() + ".txt");
+
+                BufferedWriter writer = new BufferedWriter(new FileWriter(archivo));
+
+                writer.write("RESTAURANTE ENTRE AMIGOS\n");
+                writer.write("Fecha: "+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "\n");
+                writer.write("Mesa: "+pedido.getMesa().getNumeroMesa()+"\n");
+                writer.write("Mesero: "+pedido.getMesero().getNombre()+", DNI: "+pedido.getMesero().getDniMesero()+"\n");
+                writer.write("-----------------------------------\n");
+                writer.write(String.format("%-20s %-10s %-10s\n", "Producto", "Cant", "Precio"));
+                writer.write("-----------------------------------\n");
+                
+                double total = 0.0;
+
+                for (DetallePedido d : listadetalles) {
+                    String nombreProducto = d.getProducto().getNombre();
+                    int cantidad = d.getCantidad();
+                    double precioUnitario = d.getProducto().getPrecio();
+                    double subtotal = cantidad * precioUnitario;
+
+                    writer.write(String.format("%-20s %-10d %-10.2f\n", nombreProducto, cantidad, subtotal));
+
+                    total += subtotal;
+                }
+
+                writer.write("-----------------------------------\n");
+                writer.write(String.format("TOTAL: %30.2f\n", total));
+                writer.write("Gracias por su visita!\n");
+
+                writer.close();
+
+                JOptionPane.showMessageDialog(this, "Tiquet creado en el escritorio","Tiquet creado",JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error al crear el tiquet: "+ex,"tiquet Error",JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error de SQL: "+ex,"SQL Error",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbTicketActionPerformed
+
+    private void jcbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEstadoActionPerformed
+        estado = jcbEstado.isSelected();
+        cargarFiltro();
+    }//GEN-LAST:event_jcbEstadoActionPerformed
     
     public void quitarFiltros() {
         jcbHora.setSelected(false);
@@ -959,6 +1045,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         Botones(false);
         jbCargar.setEnabled(true);
         jbGuardar.setEnabled(false);
+        jbTicket.setEnabled(false);
         cambiando = false;
         idPedidog = null;
         dni_meserog = null;
@@ -1039,10 +1126,11 @@ public class VPedido extends javax.swing.JInternalFrame {
     private void Botones(boolean b) {
         jbActualizar.setEnabled(b);
         jbEliminar.setEnabled(b);
+        jbCobrar.setEnabled(b);
     }
     
     private int Enumerar() throws SQLException {
-        int size = pdata.listarPedidos().size();
+        int size = pdata.listarPedidos(estado).size();
         int numero=0;
         for (int i=1; i<size+10; i++) {
             if (pdata.buscarPedido(i)==null) {
@@ -1061,9 +1149,9 @@ public class VPedido extends javax.swing.JInternalFrame {
         }
         try {
             if (hora!=null|fecha!=null|!"null".equals(cobrado)) {
-                lista = pdata.buscarPedidosPorFechayHorayCobro(fecha, hora, cobrado);
+                lista = pdata.buscarPedidosPorFechayHorayCobro(fecha, hora, cobrado, estado);
             }else {
-                lista = pdata.listarPedidos();
+                lista = pdata.listarPedidos(estado);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error de SQL: "+e,"SQL Error",JOptionPane.ERROR_MESSAGE);
@@ -1089,6 +1177,7 @@ public class VPedido extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbSalir;
     private javax.swing.JButton jbTicket;
     private javax.swing.JCheckBox jcbBuscar;
+    private javax.swing.JCheckBox jcbEstado;
     private javax.swing.JCheckBox jcbFecha;
     private javax.swing.JCheckBox jcbHora;
     private javax.swing.JRadioButton jrCobrado;
