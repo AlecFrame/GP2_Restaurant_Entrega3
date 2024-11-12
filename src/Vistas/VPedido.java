@@ -105,6 +105,8 @@ public class VPedido extends javax.swing.JInternalFrame {
         jtfHora = new javax.swing.JTextField();
         jbDetalle = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jbCobrar = new javax.swing.JButton();
+        jbTicket = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -294,6 +296,26 @@ public class VPedido extends javax.swing.JInternalFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/pedido1.jpg"))); // NOI18N
 
+        jbCobrar.setBackground(new java.awt.Color(153, 102, 0));
+        jbCobrar.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
+        jbCobrar.setForeground(new java.awt.Color(255, 255, 204));
+        jbCobrar.setText("Cobrar");
+        jbCobrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCobrarActionPerformed(evt);
+            }
+        });
+
+        jbTicket.setBackground(new java.awt.Color(153, 102, 0));
+        jbTicket.setFont(new java.awt.Font("Calibri", 3, 14)); // NOI18N
+        jbTicket.setForeground(new java.awt.Color(255, 255, 204));
+        jbTicket.setText("Generar Ticket");
+        jbTicket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbTicketActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -301,17 +323,6 @@ public class VPedido extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbCargar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbGuardar)
-                        .addGap(42, 42, 42)
-                        .addComponent(jbDetalle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbEliminar)
-                        .addGap(16, 16, 16))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -344,8 +355,22 @@ public class VPedido extends javax.swing.JInternalFrame {
                                                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addComponent(jrNoCobrado, javax.swing.GroupLayout.Alignment.TRAILING)))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 15, Short.MAX_VALUE)))
-                .addGap(29, 29, 29))
+                        .addGap(0, 44, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbCargar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbDetalle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbEliminar)
+                        .addContainerGap())))
             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -383,7 +408,9 @@ public class VPedido extends javax.swing.JInternalFrame {
                     .addComponent(jbActualizar)
                     .addComponent(jbGuardar)
                     .addComponent(jbCargar)
-                    .addComponent(jbDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbCobrar)
+                    .addComponent(jbTicket))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
@@ -904,6 +931,14 @@ public class VPedido extends javax.swing.JInternalFrame {
         escritorio.add(v);
         escritorio.moveToFront(v);
     }//GEN-LAST:event_jbDetalleActionPerformed
+
+    private void jbCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCobrarActionPerformed
+    
+    }//GEN-LAST:event_jbCobrarActionPerformed
+
+    private void jbTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTicketActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbTicketActionPerformed
     
     public void quitarFiltros() {
         jcbHora.setSelected(false);
@@ -1047,10 +1082,12 @@ public class VPedido extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbActualizar;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbCargar;
+    private javax.swing.JButton jbCobrar;
     private javax.swing.JButton jbDetalle;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;
+    private javax.swing.JButton jbTicket;
     private javax.swing.JCheckBox jcbBuscar;
     private javax.swing.JCheckBox jcbFecha;
     private javax.swing.JCheckBox jcbHora;
