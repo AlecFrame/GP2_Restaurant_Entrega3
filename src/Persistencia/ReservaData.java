@@ -176,15 +176,12 @@ public class ReservaData {
 
         PreparedStatement s = con.prepareStatement(sql);
         s.setString(1, vigencia);
-        s.setBoolean(2, (vigencia.equals("vigencia")));
+        s.setBoolean(2, (vigencia.equals("vigente")));
         s.setInt(3, id);
         
         int filas = s.executeUpdate();
         if (filas > 0) {
             System.out.println("Reserva actualizada con éxito");
-            JOptionPane.showMessageDialog(null, "Reserva actualizada con éxito");
-        } else {
-            System.out.println("Error al actualizar la reserva");
         }
     }
     

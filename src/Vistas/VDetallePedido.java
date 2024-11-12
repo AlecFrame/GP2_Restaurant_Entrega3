@@ -3,6 +3,7 @@ package Vistas;
 
 import Modelo.DetallePedido;
 import Modelo.Pedido;
+import Modelo.Producto;
 import Persistencia.DetallePedidoData;
 import Persistencia.PedidoData;
 import Persistencia.ProductosData;
@@ -314,11 +315,23 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         if (cargando) {
             int row = modelo_cargar.getRowCount()-1;
             String mproducto = modelo_cargar.getValueAt(row, 2).toString();
+            String mcantidad = modelo_cargar.getValueAt(row, 4).toString();
             try {
                 int codigo = Integer.parseInt(mproducto);
                 if (!"".equals(mproducto)) {
                     try {
-                        modelo_cargar.setValueAt(pdata.buscar(codigo).getNombre(), row, 3);
+                        Producto p = pdata.buscar(codigo);
+                        if (p!=null) {
+                            modelo_cargar.setValueAt(p.getNombre(), row, 3);
+
+                            if (!"".equals(mcantidad)) {
+                                int cantidad = Integer.parseInt(mcantidad);
+                                modelo_cargar.setValueAt(p.getPrecio()*cantidad, row, 5);
+                            }
+                        }else {
+                            modelo_cargar.setValueAt("No existe", row, 3);
+                            modelo_cargar.setValueAt("Automático", row, 5);
+                        }
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(this, "Error SQL: "+ex,"Error SQL",JOptionPane.ERROR_MESSAGE);
                     }

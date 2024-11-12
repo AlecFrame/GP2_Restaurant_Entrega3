@@ -357,7 +357,8 @@ public class VProducto extends javax.swing.JInternalFrame {
         String mnombre = modelo_cargar.getValueAt(row, 1).toString();
         String mprecio = modelo_cargar.getValueAt(row, 2).toString();
         String mstock = modelo_cargar.getValueAt(row, 3).toString();
-        String mcategoria = modelo_cargar.getValueAt(row, 4).toString().trim();
+        String mcategoria = modelo_cargar.getValueAt(row, 4).toString();
+        mcategoria = mcategoria.replaceAll("\\s+", "");
         String mestado = modelo_cargar.getValueAt(row, 5).toString();
         Producto p = new Producto();
         
@@ -570,7 +571,8 @@ public class VProducto extends javax.swing.JInternalFrame {
         String mnombre = modelo_editable.getValueAt(rowSelectedg, 1).toString();
         String mprecio = modelo_editable.getValueAt(rowSelectedg, 2).toString();
         String mstock = modelo_editable.getValueAt(rowSelectedg, 3).toString();
-        String mcategoria = modelo_editable.getValueAt(rowSelectedg, 4).toString().trim();
+        String mcategoria = modelo_editable.getValueAt(rowSelectedg, 4).toString();
+        mcategoria = mcategoria.replaceAll("\\s+", "");
         String mestado = modelo_editable.getValueAt(rowSelectedg, 5).toString();
         Producto p = new Producto();
         

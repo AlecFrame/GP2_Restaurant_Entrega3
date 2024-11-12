@@ -426,15 +426,17 @@ public class VPedido extends javax.swing.JInternalFrame {
             jbCargar.setEnabled(false);
             jbDetalle.setEnabled(false);
             jbGuardar.setEnabled(true);
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm");
+            String hora_now = LocalTime.now().format(formato);
             try {
                 modelo_cargar.addRow(new Object[] {
                     Enumerar(),
                     "",
                     "",
                     "Automático",
-                    fecha,
-                    hora,
-                    (!"null".equals(cobrado))? cobrado:"",
+                    LocalDate.now(),
+                    hora_now,
+                    "no_cobrado",
                     "true"
                 });
                 jTable.setModel(modelo_cargar);

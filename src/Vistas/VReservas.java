@@ -58,6 +58,15 @@ public class VReservas extends javax.swing.JInternalFrame {
         initComponents();
         try {
             lista = rdata.listarReservas();
+            
+            for (Reserva r: lista) {
+                if (r.getFecha().isBefore(LocalDate.now())) {
+                    rdata.cambiarVigencia("no_vigente", r.getIdReserva());
+                }
+            }
+            
+            lista = rdata.listarReservas();
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
