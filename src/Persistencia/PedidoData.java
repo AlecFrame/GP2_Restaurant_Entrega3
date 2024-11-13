@@ -24,7 +24,7 @@ public class PedidoData {
         ArrayList<DetallePedido> Detallelist = ddata.buscarPorPedido(idPedido);
         
         if (!Detallelist.isEmpty()) {
-            String sql = "SELECT SUM(total) AS importe FROM detalle_pedido WHERE idPedido = ?";
+            String sql = "SELECT SUM(total) AS importe FROM detalle_pedido WHERE idPedido = ? AND estado = true";
 
             try (PreparedStatement s = con.prepareStatement(sql)) {
                 s.setInt(1, idPedido);

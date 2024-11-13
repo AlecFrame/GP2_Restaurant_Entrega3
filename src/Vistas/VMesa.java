@@ -19,6 +19,7 @@ public class VMesa extends javax.swing.JInternalFrame {
     private MeseroData msdata = new MeseroData();
     private String boton_buscar = "ninguno";
     private int buscarg = 0;
+    private boolean estado = true;
     private String condicion_filtro = "todas";
     private int rowSelected = -1;
     private int rowSelecteda = -1;
@@ -53,7 +54,7 @@ public class VMesa extends javax.swing.JInternalFrame {
     public VMesa() {
         initComponents();
         try {
-            lista = mdata.listarMesas();
+            lista = mdata.listarMesas(estado);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -88,6 +89,7 @@ public class VMesa extends javax.swing.JInternalFrame {
         jBotonCapacidad = new javax.swing.JRadioButton();
         jbBuscaPor = new javax.swing.JLabel();
         jBotonMesero = new javax.swing.JRadioButton();
+        jcbEstado = new javax.swing.JCheckBox();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -250,6 +252,16 @@ public class VMesa extends javax.swing.JInternalFrame {
             }
         });
 
+        jcbEstado.setBackground(new java.awt.Color(204, 187, 165));
+        jcbEstado.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jcbEstado.setSelected(true);
+        jcbEstado.setText("Estado true");
+        jcbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbEstadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,12 +279,14 @@ public class VMesa extends javax.swing.JInternalFrame {
                         .addComponent(jbEliminar)
                         .addGap(33, 33, 33))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbBuscaPor)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jcbEstado)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jbBuscaPor)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,10 +328,11 @@ public class VMesa extends javax.swing.JInternalFrame {
                 .addComponent(jBotonCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jBotonMesero, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbCondicion)
-                    .addComponent(jcCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbEstado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -522,7 +537,7 @@ public class VMesa extends javax.swing.JInternalFrame {
             condicion_filtro = "todas";
             jtfBuscar.setText("");
             jTable.setModel(modelo);
-            lista = mdata.listarMesas();
+            lista = mdata.listarMesas(estado);
             cargarTabla();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al guardar el producto: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
@@ -761,6 +776,11 @@ public class VMesa extends javax.swing.JInternalFrame {
             jcCategoria.setEnabled(true);
         }
     }//GEN-LAST:event_jBotonMeseroActionPerformed
+
+    private void jcbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEstadoActionPerformed
+        estado = jcbEstado.isSelected();
+        cargarFiltro();
+    }//GEN-LAST:event_jcbEstadoActionPerformed
     
     public void limpiarAcciones() {
         jTable.setModel(modelo);
@@ -836,7 +856,7 @@ public class VMesa extends javax.swing.JInternalFrame {
     }
     
     private int Enumerar() throws SQLException {
-        int size = mdata.listarMesas().size();
+        int size = mdata.listarMesas(false).size();
         int numero=0;
         for (int i=1; i<size+10; i++) {
             if (mdata.buscar(i)==null) {
@@ -872,7 +892,7 @@ public class VMesa extends javax.swing.JInternalFrame {
         }
         
         try {
-            lista = mdata.filtrarCondicionNumeroMesero(condicion_filtro,boton_buscar,buscarg);
+            lista = mdata.filtrarCondicionNumeroMesero(condicion_filtro,boton_buscar,buscarg,estado);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla con filtro: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -897,6 +917,7 @@ public class VMesa extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcCategoria;
+    private javax.swing.JCheckBox jcbEstado;
     private javax.swing.JTextField jtfBuscar;
     // End of variables declaration//GEN-END:variables
 }

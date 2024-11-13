@@ -953,7 +953,7 @@ public class VPedido extends javax.swing.JInternalFrame {
             }
         }
         
-        VDetallePedido v = new VDetallePedido(buscar,this);
+        VDetallePedido v = new VDetallePedido(buscar, escritorio);
         v.setVisible(true);
         escritorio.add(v);
         escritorio.moveToFront(v);
@@ -1136,7 +1136,7 @@ public class VPedido extends javax.swing.JInternalFrame {
     }
     
     private int Enumerar() throws SQLException {
-        int size = pdata.listarPedidos(estado).size();
+        int size = pdata.listarPedidos(false).size();
         int numero=0;
         for (int i=1; i<size+10; i++) {
             if (pdata.buscarPedido(i)==null) {

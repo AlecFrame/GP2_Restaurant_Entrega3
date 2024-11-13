@@ -9,10 +9,14 @@ public class MeseroData {
     
     public MeseroData() {}
     
-    public ArrayList<Mesero> listarMeseros() throws SQLException {
+    public ArrayList<Mesero> listarMeseros(boolean estado) throws SQLException {
         ArrayList<Mesero> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM mesero"; 
+        String sql = "SELECT * FROM mesero";
+        
+        if (estado) {
+            sql += " WHERE estado = true";
+        }
 
         Statement s = con.createStatement();
         ResultSet r = s.executeQuery(sql);
@@ -126,9 +130,13 @@ public class MeseroData {
         }
     }
 
-    public ArrayList<Mesero> buscarPorDniOApellido(String criterio) throws SQLException {
+    public ArrayList<Mesero> buscarPorDniOApellido(String criterio, boolean estado) throws SQLException {
     ArrayList<Mesero> lista = new ArrayList<>();
-    String sql = "SELECT * FROM mesero WHERE dni_mesero = ? OR apellido LIKE ?";
+    String sql = "SELECT * FROM mesero WHERE (dni_mesero = ? OR apellido LIKE ?)";
+    
+    if (estado) {
+        sql += " AND estado = true";
+    }
     
     PreparedStatement ps = con.prepareStatement(sql);
     ps.setString(1, criterio);
@@ -145,22 +153,7 @@ public class MeseroData {
     
     return lista;
 }
-
-    public double listarIngresosPorFecha(Date fecha) throws SQLException {
-        double totalIngresos = 0;
-        String sql = "SELECT SUM(importe) AS ingresos FROM pedido WHERE fecha = ?";
-        
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setDate(1, fecha);
-        ResultSet rs = ps.executeQuery();
-        
-        if (rs.next()) {
-            totalIngresos = rs.getDouble("ingresos");
-        }
-        
-        return totalIngresos;
-    }
-
+    
     public void anularPedido(int idPedido) throws SQLException {
         String sql = "UPDATE pedido SET estado = false WHERE idPedido = ?";
         

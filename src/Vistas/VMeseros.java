@@ -4,6 +4,8 @@ import java.sql.*;
 import Modelo.Mesero;
 import Persistencia.MeseroData;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -11,6 +13,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
 
     private ArrayList<Mesero> lista = new ArrayList<>();
     private MeseroData msdata = new MeseroData();
+    private boolean estado = true;
     private int rowSelected = -1;
     private int rowSelecteda = -1;
     private int rowSelectedg = -1;
@@ -44,7 +47,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         initComponents();
         
         try { 
-            lista = msdata.listarMeseros();
+            lista = msdata.listarMeseros(estado);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de tipo SQL: "+ex,"Error SQL",JOptionPane.ERROR_MESSAGE);
         }
@@ -71,6 +74,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
         jLfondo = new javax.swing.JLabel();
         jbBuscaPor = new javax.swing.JLabel();
         jLdni = new javax.swing.JLabel();
+        jcbEstado = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(204, 187, 165));
         setBorder(null);
@@ -184,37 +188,52 @@ public class VMeseros extends javax.swing.JInternalFrame {
         jLdni.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         jLdni.setText(" DNI/Apellido");
 
+        jcbEstado.setBackground(new java.awt.Color(204, 187, 165));
+        jcbEstado.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jcbEstado.setSelected(true);
+        jcbEstado.setText("Estado true");
+        jcbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbEstadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLfondo, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jcbEstado))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbBuscaPor)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLdni)
+                                .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbActualizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jbEliminar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jbBuscaPor)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLdni)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)))
-                        .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbActualizar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbEliminar)))
+                                .addGap(34, 34, 34)
+                                .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
@@ -227,14 +246,20 @@ public class VMeseros extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jbBuscaPor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(jcbEstado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLdni))
-                        .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLdni))
+                                .addGap(34, 34, 34)))))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -245,7 +270,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
                 .addGap(38, 38, 38))
         );
 
-        setBounds(0, 0, 574, 418);
+        setBounds(0, 0, 574, 435);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
@@ -260,15 +285,15 @@ public class VMeseros extends javax.swing.JInternalFrame {
                         lista.add(msdata.buscar(texto));
                     }else {
                         JOptionPane.showMessageDialog(this, "El DNI ingresado no existe","DNI inexistente",JOptionPane.WARNING_MESSAGE);
-                        lista = msdata.listarMeseros();
+                        lista = msdata.listarMeseros(estado);
                         cargarTabla();
                     }
                 } catch(NumberFormatException e) {
-                    lista = msdata.buscarPorDniOApellido(texto);
+                    lista = msdata.buscarPorDniOApellido(texto, estado);
                 }
                 cargarTabla();
             }else{
-                lista = msdata.listarMeseros();
+                lista = msdata.listarMeseros(estado);
                 cargarTabla();
             }
         } catch(SQLException e) {
@@ -422,7 +447,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
             jbCargar.setEnabled(true);
             jbGuardar.setEnabled(false);
             jTable.setModel(modelo);
-            lista = msdata.listarMeseros();
+            lista = msdata.listarMeseros(estado);
             cargarTabla();
         } catch(SQLException e) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+e, "Error SQL", JOptionPane.ERROR_MESSAGE);
@@ -432,12 +457,12 @@ public class VMeseros extends javax.swing.JInternalFrame {
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         try {
             if (cargando) {
-                lista = msdata.listarMeseros();
+                lista = msdata.listarMeseros(estado);
                 cargarTabla();
             }else{
                 int dni = Integer.parseInt(jTable.getValueAt(rowSelected, 0).toString());
                 msdata.cambiarEstado(dni);
-                lista = msdata.listarMeseros();
+                lista = msdata.listarMeseros(estado);
                 cargarTabla();
             }
         } catch (NumberFormatException ex) {
@@ -510,7 +535,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
             jbGuardar.setEnabled(false);
             jtfBuscar.setText("");
             jTable.setModel(modelo);
-            lista = msdata.listarMeseros();
+            lista = msdata.listarMeseros(estado);
             cargarTabla();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al guardar el mesero: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
@@ -520,6 +545,16 @@ public class VMeseros extends javax.swing.JInternalFrame {
     private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jSalirActionPerformed
+
+    private void jcbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEstadoActionPerformed
+        estado = jcbEstado.isSelected();
+        try {
+            lista = msdata.listarMeseros(estado);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error de SQL al guardar el mesero: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
+        }
+        cargarTabla();
+    }//GEN-LAST:event_jcbEstadoActionPerformed
 
     public void limpiarAcciones() {
         jTable.setModel(modelo);
@@ -599,6 +634,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbCargar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
+    private javax.swing.JCheckBox jcbEstado;
     private javax.swing.JTextField jtfBuscar;
     // End of variables declaration//GEN-END:variables
 }

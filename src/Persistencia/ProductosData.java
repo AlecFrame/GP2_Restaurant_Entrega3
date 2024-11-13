@@ -81,9 +81,13 @@ public class ProductosData {
         return producto;
     }
     
-    public ArrayList<Producto> buscarPorNombre(String nombre) throws SQLException {
+    public ArrayList<Producto> buscarPorNombre(String nombre, boolean estado) throws SQLException {
         ArrayList<Producto> lista = new ArrayList<>();
         String sql = "Select * From productos Where nombre LIKE CONCAT(\"%\",?,\"%\")";
+        
+        if (estado) {
+            sql += " AND estado = true";
+        }
         
         PreparedStatement s = con.prepareStatement(sql);
         s.setString(1, nombre);
@@ -115,10 +119,14 @@ public class ProductosData {
         }
     }
     
-    public ArrayList<Producto> filtrarCategoria(String filtro) throws SQLException {
+    public ArrayList<Producto> filtrarCategoria(String filtro, boolean estado) throws SQLException {
         ArrayList<Producto> lista = new ArrayList<>();
         
         String sql = "SELECT * FROM productos WHERE categoria = ?";
+        
+        if (estado) {
+            sql += " AND estado = true";
+        }
         
         PreparedStatement s = con.prepareStatement(sql);
         s.setString(1, filtro);
@@ -136,14 +144,36 @@ public class ProductosData {
         return lista;
     }
     
-    public ArrayList<Producto> filtrarCategoriaYNombre(String filtro,String nombre) throws SQLException {
+    public ArrayList<Producto> filtrarCategoriaYNombre(String filtro, String nombre, boolean estado) throws SQLException {
         ArrayList<Producto> lista = new ArrayList<>();
         
-        String sql = "SELECT * FROM productos WHERE categoria = ? AND nombre LIKE CONCAT(\"%\",?,\"%\")";
+        String sql = "SELECT * FROM productos WHERE";
+        
+        try {
+            int id = Integer.parseInt(nombre);
+            sql += " codigo = ?";
+        }catch (NumberFormatException e) {
+            sql += " nombre LIKE CONCAT(\"%\",?,\"%\")";
+        }
+        
+        if (!"".equals(filtro)) {
+            sql += " AND categoria = ?";
+        }
+        
+        if (estado) {
+            sql += " AND estado = true";
+        }
         
         PreparedStatement s = con.prepareStatement(sql);
-        s.setString(1, filtro);
-        s.setString(2,nombre);
+        try {
+            int id = Integer.parseInt(nombre);
+            s.setInt(1, id);
+        }catch (NumberFormatException e) {
+            s.setString(1, nombre);
+        }
+        if (!"".equals(filtro)) {
+            s.setString(2,filtro);
+        }
         ResultSet r = s.executeQuery();
         
         while (r.next()) {
@@ -159,10 +189,15 @@ public class ProductosData {
         return lista;
     }
     
-    public ArrayList<Producto> listar() throws SQLException {
+    public ArrayList<Producto> listar(boolean estado) throws SQLException {
         ArrayList<Producto> lista = new ArrayList<>();
         
-        String sql = "SELECT * FROM productos ORDER BY codigo";
+        String sql = "SELECT * FROM productos";
+        
+        if (estado) {
+            sql += " WHERE estado = true";
+        }
+        sql += " ORDER BY codigo";
         
         Statement s = con.createStatement();
         ResultSet r = s.executeQuery(sql);

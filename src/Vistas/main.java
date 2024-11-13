@@ -141,7 +141,7 @@ public class main {
             switch (accion.toLowerCase()) {
                 case ("1") : case ("listar") : {
                     try {
-                        ArrayList<Producto> lista = pdata.listar();
+                        ArrayList<Producto> lista = pdata.listar(false);
                         System.out.println("\n///// Lista de productos /////");
                         for (Producto p : lista) {
                             System.out.println(" - "+p);
@@ -267,7 +267,7 @@ public class main {
                     System.out.print("\n//// ");
                     try {
                         pdata.guardarProducto(p);
-                        p.setCodigo(pdata.listar().size());
+                        p.setCodigo(pdata.listar(false).size());
                     } catch (SQLException ex) {
                         System.err.println("Error SQL al mostrar el producto guardado");
                     }
@@ -446,7 +446,7 @@ public class main {
                         }
                     } while (!valido);
                     try {
-                        ArrayList<Producto> lista = pdata.filtrarCategoria(filtro);
+                        ArrayList<Producto> lista = pdata.filtrarCategoria(filtro, false);
                         System.out.println("\n///// Lista de productos de la categoría "+filtro+" /////");
                         for (Producto p : lista) {
                             System.out.println(" - "+p);
@@ -495,7 +495,7 @@ public class main {
             switch (accionMesero) {
                 case "1": 
                     try {
-                        ArrayList<Mesero> listaMeseros = meseroData.listarMeseros();
+                        ArrayList<Mesero> listaMeseros = meseroData.listarMeseros(false);
                         System.out.println("\n///// Lista de meseros /////");
                         for (Mesero m : listaMeseros) {
                             System.out.println(" - " + m);
@@ -712,7 +712,7 @@ public class main {
         switch (accionMesa) {
             case "1":
                 try {
-                    ArrayList<Mesa> listaMesas = mesaData.listarMesas();
+                    ArrayList<Mesa> listaMesas = mesaData.listarMesas(false);
                     System.out.println("\n///// Lista de mesas /////");
                     for (Mesa m : listaMesas) {
                         System.out.println(" - Mesa " + m.getNumeroMesa() + ": Capacidad " + m.getCapacidad() + ", Estado " + (m.isEstado() ? "Disponible" : "Ocupada") + ", Ocupada: " + m.getOcupada());

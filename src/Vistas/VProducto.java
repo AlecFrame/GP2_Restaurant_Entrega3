@@ -21,6 +21,7 @@ public class VProducto extends javax.swing.JInternalFrame {
     private ProductosData pdata = new ProductosData();
     private DetallePedidoData ddata = new DetallePedidoData();
     private JDesktopPane escritorio = null;
+    private boolean estado = true;
     private int rowSelected = -1;
     private int rowSelecteda = -1;
     private int rowSelectedg = -1;
@@ -56,7 +57,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         this.escritorio = escritorio;
         initComponents();
         try {
-            lista = pdata.listar();
+            lista = pdata.listar(estado);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -86,6 +87,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jLfondo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jcbEstado = new javax.swing.JCheckBox();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -221,6 +223,16 @@ public class VProducto extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         jLabel3.setText("Código/nombre");
 
+        jcbEstado.setBackground(new java.awt.Color(204, 187, 165));
+        jcbEstado.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jcbEstado.setSelected(true);
+        jcbEstado.setText("Estado true");
+        jcbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbEstadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -251,7 +263,10 @@ public class VProducto extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel3))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jcCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jcCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jcbEstado))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
@@ -275,7 +290,8 @@ public class VProducto extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jcbEstado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -303,12 +319,14 @@ public class VProducto extends javax.swing.JInternalFrame {
             lista.clear();
             try {
                 lista.add(pdata.buscar(codigo));
+                jcbEstado.setSelected(false);
+                estado = false;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Error de SQL al buscar por código: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
             }
         }catch(NumberFormatException e) {
             try {
-                lista = pdata.buscarPorNombre(buscar);
+                lista = pdata.buscarPorNombre(buscar, estado);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Error de SQL al buscar por nombre: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
             }
@@ -471,7 +489,7 @@ public class VProducto extends javax.swing.JInternalFrame {
             jcCategoria.setSelectedIndex(0);
             jtfBuscar.setText("");
             jTable.setModel(modelo);
-            lista = pdata.listar();
+            lista = pdata.listar(estado);
             cargarTabla();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al guardar el producto: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
@@ -708,6 +726,11 @@ public class VProducto extends javax.swing.JInternalFrame {
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jcbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEstadoActionPerformed
+        estado = jcbEstado.isSelected();
+        cargarFiltro();
+    }//GEN-LAST:event_jcbEstadoActionPerformed
     
     public void limpiarAcciones() {
         jTable.setModel(modelo);
@@ -785,8 +808,8 @@ public class VProducto extends javax.swing.JInternalFrame {
         jbEliminar.setEnabled(b);
     }
     
-    private int Enumerar() throws SQLException {
-        int size = pdata.listar().size();
+    public int Enumerar() throws SQLException {
+        int size = pdata.listar(false).size();
         int numero=0;
         for (int i=1; i<size+10; i++) {
             if (pdata.buscar(i)==null) {
@@ -797,11 +820,11 @@ public class VProducto extends javax.swing.JInternalFrame {
         return numero;
     }
     
-    private void cargarFiltro() {
+    public void cargarFiltro() {
         String filtro;
         String nombre = jtfBuscar.getText();
         switch (jcCategoria.getSelectedItem().toString()) {
-            case ("0-todas") : {filtro="todas";break;}
+            case ("0-todas") : {filtro="";break;}
             case ("1-pizzas") : {filtro="pizzas";break;}
             case ("2-hamburguesas") : {filtro="hamburguesas";break;}
             case ("3-lomos") : {filtro="lomos";break;}
@@ -809,21 +832,11 @@ public class VProducto extends javax.swing.JInternalFrame {
             case ("5-bebidas/a") : {filtro="bebidas sin alcohol";break;}
             case ("6-bebidasc/a") : {filtro="bebidas con alcohol";break;}
             case ("7-gaseosas") : {filtro="bebidas gaseosas";break;}
-            default : {filtro="ninguna";break;}
+            default : {filtro="";break;}
         }
         
         try {
-            if (nombre.trim().isEmpty()) {
-                if ("todas".equals(filtro)) {
-                    lista = pdata.listar();
-                }else
-                    lista = pdata.filtrarCategoria(filtro);
-            }else{
-                if ("todas".equals(filtro)) {
-                    lista = pdata.listar();
-                }else
-                    lista = pdata.filtrarCategoriaYNombre(filtro,nombre);
-            }
+            lista = pdata.filtrarCategoriaYNombre(filtro,nombre,estado);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla con filtro: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -881,6 +894,7 @@ public class VProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<String> jcCategoria;
+    private javax.swing.JCheckBox jcbEstado;
     private javax.swing.JTextField jtfBuscar;
     // End of variables declaration//GEN-END:variables
 }

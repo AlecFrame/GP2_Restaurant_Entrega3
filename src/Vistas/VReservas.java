@@ -18,6 +18,7 @@ public class VReservas extends javax.swing.JInternalFrame {
     private ArrayList<Reserva> lista = new ArrayList<>();
     private ReservaData rdata = new ReservaData();
     private MesaData mdata = new MesaData();
+    private boolean estado = true;
     private int rowSelected = -1;
     private int rowSelecteda = -1;
     private int rowSelectedg = -1;
@@ -57,7 +58,7 @@ public class VReservas extends javax.swing.JInternalFrame {
     public VReservas() {
         initComponents();
         try {
-            lista = rdata.listarReservas();
+            lista = rdata.listarReservas(estado);
             
             for (Reserva r: lista) {
                 if (r.getFecha().isBefore(LocalDate.now())) {
@@ -65,8 +66,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                 }
             }
             
-            lista = rdata.listarReservas();
-            
+            lista = rdata.listarReservas(estado);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
@@ -105,6 +105,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         jcbBuscar = new javax.swing.JCheckBox();
         jFecha = new com.toedter.calendar.JDateChooser();
         jtfHora = new javax.swing.JTextField();
+        jcbEstado = new javax.swing.JCheckBox();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -285,6 +286,16 @@ public class VReservas extends javax.swing.JInternalFrame {
             }
         });
 
+        jcbEstado.setBackground(new java.awt.Color(204, 187, 165));
+        jcbEstado.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jcbEstado.setSelected(true);
+        jcbEstado.setText("Estado true");
+        jcbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbEstadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -322,7 +333,9 @@ public class VReservas extends javax.swing.JInternalFrame {
                                 .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jtfHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jcbEstado)))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -335,11 +348,14 @@ public class VReservas extends javax.swing.JInternalFrame {
                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jrVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(22, 22, 22)
-                            .addComponent(jrNoVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jcbEstado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jrVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jrNoVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -385,7 +401,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                         lista.add(rdata.buscarInt(id));
                     }else {
                         JOptionPane.showMessageDialog(this, "La ID ingresada no existe","ID inexistente",JOptionPane.WARNING_MESSAGE);
-                        lista = rdata.listarReservas();
+                        lista = rdata.listarReservas(estado);
                         cargarTabla();
                     }
                 } catch(NumberFormatException e) {
@@ -393,7 +409,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                 }
                 cargarTabla();
             }else{
-                lista = rdata.listarReservas();
+                lista = rdata.listarReservas(estado);
                 cargarTabla();
             }
         } catch(SQLException e) {
@@ -569,7 +585,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                 jtfBuscar.setText("");
                 quitarFiltros();
                 jTable.setModel(modelo);
-                lista = rdata.listarReservas();
+                lista = rdata.listarReservas(estado);
                 cargarTabla();
             }
         } catch (SQLException ex) {
@@ -905,6 +921,11 @@ public class VReservas extends javax.swing.JInternalFrame {
             cargarFiltro();
         }
     }//GEN-LAST:event_jcbBuscarActionPerformed
+
+    private void jcbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEstadoActionPerformed
+        estado = jcbEstado.isSelected();
+        cargarFiltro();
+    }//GEN-LAST:event_jcbEstadoActionPerformed
     
     public void quitarFiltros() {
         jcbHora.setSelected(false);
@@ -1006,7 +1027,7 @@ public class VReservas extends javax.swing.JInternalFrame {
     }
     
     private int Enumerar() throws SQLException {
-        int size = rdata.listarReservas().size();
+        int size = rdata.listarReservas(false).size();
         int numero=0;
         for (int i=1; i<size+10; i++) {
             if (rdata.buscarInt(i)==null) {
@@ -1020,9 +1041,9 @@ public class VReservas extends javax.swing.JInternalFrame {
     private void cargarFiltro() {
         try {
             if (hora!=null|fecha!=null|!"null".equals(vigencia)) {
-                lista = rdata.buscarReservasPorFechayHorayVigencia(fecha, hora, vigencia);
+                lista = rdata.buscarReservasPorFechayHorayVigencia(fecha, hora, vigencia, estado);
             }else {
-                lista = rdata.listarReservas();
+                lista = rdata.listarReservas(estado);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error de SQL: "+e,"SQL Error",JOptionPane.ERROR_MESSAGE);
@@ -1045,6 +1066,7 @@ public class VReservas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JCheckBox jcbBuscar;
+    private javax.swing.JCheckBox jcbEstado;
     private javax.swing.JCheckBox jcbFecha;
     private javax.swing.JCheckBox jcbHora;
     private javax.swing.JRadioButton jrNoVigencia;

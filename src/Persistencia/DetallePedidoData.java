@@ -27,12 +27,14 @@ public class DetallePedidoData {
         
         while (rs.next()) {
             Producto p = pdata.buscar(rs.getInt("codigo"));
-            String sql2 = "UPDATE detalle_pedido SET total = ? WHERE idDetalle = ?;";
-            
-            PreparedStatement s2 = con.prepareStatement(sql2);
-            s2.setDouble(1, p.getPrecio()*rs.getInt("cantidad"));
-            s2.setInt(2, rs.getInt("idDetalle"));
-            s2.executeUpdate();
+            if (p.isEstado()) {
+                String sql2 = "UPDATE detalle_pedido SET total = ? WHERE idDetalle = ?;";
+
+                PreparedStatement s2 = con.prepareStatement(sql2);
+                s2.setDouble(1, p.getPrecio()*rs.getInt("cantidad"));
+                s2.setInt(2, rs.getInt("idDetalle"));
+                s2.executeUpdate();
+            }
         }
         
         ppdata.MantenerConsistenciaDatos();
@@ -221,11 +223,14 @@ public class DetallePedidoData {
         ps.close();
     }
     
-    public ArrayList<DetallePedido> listar() throws SQLException {
+    public ArrayList<DetallePedido> listar(boolean estado) throws SQLException {
         PedidoData pedido = new PedidoData();
         ProductosData productos = new ProductosData();
         ArrayList<DetallePedido> detallespedidos = new ArrayList<>();
         String sql = "SELECT * FROM detalle_pedido";
+        if (estado) {
+            sql += " WHERE estado = true";
+        }
         
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -242,11 +247,16 @@ public class DetallePedidoData {
         return detallespedidos;
     }
     
-    public ArrayList<DetallePedido> filtrarCategoriayPedido(int idPedido, String categoria) throws SQLException { 
+    public ArrayList<DetallePedido> filtrarCategoriayPedido(int idPedido, String categoria, boolean estado) throws SQLException { 
         ArrayList<DetallePedido> listaDetalle = new ArrayList<>();
         ProductosData pdata = new ProductosData();
         PedidoData ppdata = new PedidoData();
-        StringBuilder sql = new StringBuilder("SELECT * FROM detalle_pedido WHERE 1=1");
+        StringBuilder sql = null;
+        
+        if (estado) {
+            sql = new StringBuilder("SELECT * FROM detalle_pedido WHERE estado = true");
+        }else
+            sql = new StringBuilder("SELECT * FROM detalle_pedido WHERE 1=1");
 
         ArrayList<Object> parameters = new ArrayList<>();
 
@@ -256,7 +266,7 @@ public class DetallePedidoData {
         }
 
         if (categoria != null) {
-            ArrayList<Producto> lista = pdata.filtrarCategoria(categoria);
+            ArrayList<Producto> lista = pdata.filtrarCategoria(categoria, false);
 
             if (lista != null && !lista.isEmpty()) {
                 sql.append(" AND codigo IN (");

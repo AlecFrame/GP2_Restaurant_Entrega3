@@ -153,53 +153,15 @@ public class MesaData {
         }
     }
     
-    public ArrayList<Mesa> filtrarMesasOcupacion(String filtro) throws SQLException {
-        MeseroData mdata = new MeseroData();
-        ArrayList<Mesa> lista = new ArrayList<>();
-        
-        String sql = "SELECT * FROM mesa WHERE ocupada = ?";
-        
-        PreparedStatement s = con.prepareStatement(sql);
-        s.setString(1, filtro);
-        ResultSet r = s.executeQuery();
-        
-        while (r.next()) {
-            lista.add(new Mesa(r.getInt("numero_mesa"),
-                    r.getInt("capacidad"),
-                    r.getBoolean("estado"),
-                    r.getString("ocupada"),
-                    mdata.buscar(r.getString("dni_mesero"))));
-        }
-        
-        return lista;
-    }
-    
-    public ArrayList<Mesa> filtrarMesasCapacidad(int filtro) throws SQLException {
-        MeseroData mdata = new MeseroData();
-        ArrayList<Mesa> lista = new ArrayList<>();
-        
-        String sql = "SELECT * FROM mesa WHERE capacidad = ?";
-        
-        PreparedStatement s = con.prepareStatement(sql);
-        s.setInt(1, filtro);
-        ResultSet r = s.executeQuery();
-        
-        while (r.next()) {
-            lista.add(new Mesa(r.getInt("numero_mesa"),
-                    r.getInt("capacidad"),
-                    r.getBoolean("estado"),
-                    r.getString("ocupada"),
-                    mdata.buscar(r.getString("dni_mesero"))));
-        }
-        
-        return lista;
-    }
-    
-    public ArrayList<Mesa> listarMesas() throws SQLException {
+    public ArrayList<Mesa> listarMesas(boolean estado) throws SQLException {
         MeseroData mdata = new MeseroData();
         ArrayList<Mesa> lista = new ArrayList<>();
         
         String sql = "SELECT * FROM mesa";
+        
+        if (estado) {
+            sql += " WHERE estado = true";
+        }
         
         Statement s = con.createStatement();
         ResultSet r = s.executeQuery(sql);
@@ -215,10 +177,15 @@ public class MesaData {
         return lista;
     }
     
-    public ArrayList<Mesa> filtrarCondicionNumeroMesero(String condicion, String filtro, int numero) throws SQLException { 
+    public ArrayList<Mesa> filtrarCondicionNumeroMesero(String condicion, String filtro, int numero, boolean estado) throws SQLException { 
         ArrayList<Mesa> lista = new ArrayList<>();
         MeseroData mdata = new MeseroData();
-        StringBuilder sql = new StringBuilder("SELECT * FROM mesa WHERE 1=1");
+        StringBuilder sql = null;
+        
+        if (estado) {
+            sql = new StringBuilder("SELECT * FROM mesa WHERE estado = true");
+        }else
+            sql = new StringBuilder("SELECT * FROM mesa WHERE 1=1");
 
         ArrayList<Object> parameters = new ArrayList<>();
         

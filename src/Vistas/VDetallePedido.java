@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,7 +22,8 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     private ProductosData pdata = new ProductosData();
     private DetallePedidoData ddata = new DetallePedidoData();
     private PedidoData ppdata = new PedidoData();
-    private VPedido venPedido = null;
+    private JDesktopPane escritorio = null;
+    private boolean estado = true;
     private int rowSelected = -1;
     private int rowSelecteda = -1;
     private int rowSelectedg = -1;
@@ -51,8 +54,8 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         }
     };
     
-    public VDetallePedido(int buscar, VPedido venPedido) {
-        this.venPedido = venPedido;
+    public VDetallePedido(int buscar, JDesktopPane escritorio) {
+        this.escritorio = escritorio;
         initComponents();
         
         jbGuardar.setEnabled(false);
@@ -83,7 +86,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
              }
         }else{
             try {
-                lista = ddata.listar();
+                lista = ddata.listar(estado);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
             }
@@ -109,6 +112,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         jProductos = new javax.swing.JComboBox<>();
         jLid = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jcbEstado = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(204, 187, 165));
         setBorder(null);
@@ -229,6 +233,16 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Detallepedido.png"))); // NOI18N
 
+        jcbEstado.setBackground(new java.awt.Color(204, 187, 165));
+        jcbEstado.setFont(new java.awt.Font("Calibri", 2, 14)); // NOI18N
+        jcbEstado.setSelected(true);
+        jcbEstado.setText("Estado true");
+        jcbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbEstadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -258,10 +272,16 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jtfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jcbEstado)
+                                .addGap(2, 2, 2)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -281,7 +301,8 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLproductos)
-                            .addComponent(jProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbEstado))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
@@ -491,11 +512,26 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         if (!mcantidad.trim().equalsIgnoreCase("")) {
             try {
                 int cantidad = Integer.parseInt(mcantidad);
-                if (cantidad<1) {
-                    JOptionPane.showMessageDialog(this, "La Cantidad de productos no debe ser inferior a 1", "Error cantidad inferior a 1", JOptionPane.WARNING_MESSAGE);
+                Producto producto = dt.getProducto();
+                
+                if (producto!=null) {
+                    int calculo = producto.getStock()-(cantidad-Integer.parseInt(cantidadg));
+                    
+                    if (cantidad<0) {
+                        JOptionPane.showMessageDialog(this, "La Cantidad de productos no debe ser inferior a 0", "Error cantidad inferior a 0", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }else{
+                        if (calculo<0) {
+                            dt.setCantidad(cantidad);
+                        }else {
+                            JOptionPane.showMessageDialog(this, "Atención, la cantidad del producto ingresado para el pedido es superior al stock del mismo", "Stock insuficiente", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(this, "Error, No se encontro el producto para verificar su stock", "Error producto no encontrado", JOptionPane.WARNING_MESSAGE);
                     return;
-                }else
-                    dt.setCantidad(cantidad);
+                }
             }catch(NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Error, la Cantidad ingresada no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
@@ -514,6 +550,13 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         
         try {
             ddata.actualizar(dt, Integer.parseInt(idg));
+            Producto producto = dt.getProducto();
+            int calculo = producto.getStock()-(Integer.parseInt(mcantidad)-Integer.parseInt(cantidadg));
+            if (producto.getStock()!=calculo) {
+                producto.setStock(calculo);
+                pdata.actualizar(producto, "stock");
+            }
+            
             ddata.ConsistenciaDeDatos();
             ppdata.MantenerConsistenciaDatos();
             actualizarVentanas();
@@ -522,7 +565,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             jbGuardar.setEnabled(false);
             jTable.setModel(modelo);
             jProductos.setSelectedIndex(0);
-            lista = ddata.listar();
+            lista = ddata.listar(estado);
             cargarTabla();
         } catch(SQLException e) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+e, "Error SQL", JOptionPane.ERROR_MESSAGE);
@@ -579,9 +622,15 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         if (!mpedido.trim().equalsIgnoreCase("")) {
             try {
                 int idpedido = Integer.parseInt(mpedido);
+                Pedido pedido = ppdata.buscarPedido(idpedido);
                 
-                if (ppdata.buscarPedido(idpedido)!=null) {
-                    dt.setPedido(ppdata.buscarPedido(idpedido));
+                if (pedido!=null) {
+                    if (pedido.isEstado()) {
+                        dt.setPedido(pedido);
+                    }else {
+                        JOptionPane.showMessageDialog(this, "Atención el Pedido ingresado esta borrado (indicado con estado false) de la base de datos", "Atención Pedido borrado", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
                 }else{
                     JOptionPane.showMessageDialog(this, "Error, el ID del Pedido ingresado no existe en la base de datos", "Error ID Pedido inexistente", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -598,9 +647,15 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         if (!mproducto.trim().equalsIgnoreCase("")) {
             try {
                 int codigo = Integer.parseInt(mproducto);
+                Producto producto = pdata.buscar(codigo);
                 
-                if (pdata.buscar(codigo)!=null) {
-                    dt.setProducto(pdata.buscar(codigo));
+                if (producto!=null) {
+                    if (producto.isEstado()) {
+                        dt.setProducto(producto);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Atención, el producto ingresado esta borrado (indicado con estado falso) de la base de datos", "Atención Producto borrado", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
                 }else{
                     JOptionPane.showMessageDialog(this, "Error, el Código del Producto ingresado no existe en la base de datos", "Error Código Producto inexistente", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -617,11 +672,24 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         if (!mcantidad.trim().equalsIgnoreCase("")) {
             try {
                 int cantidad = Integer.parseInt(mcantidad);
-                if (cantidad<1) {
-                    JOptionPane.showMessageDialog(this, "La Cantidad de productos no debe ser inferior a 1", "Error cantidad inferior a 1", JOptionPane.WARNING_MESSAGE);
+                Producto producto = dt.getProducto();
+                
+                if (producto!=null) {
+                    if (cantidad<1) {
+                        JOptionPane.showMessageDialog(this, "La Cantidad de productos no debe ser inferior a 1", "Error cantidad inferior a 1", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }else{
+                        if (cantidad>producto.getStock()) {
+                            dt.setCantidad(cantidad);
+                        }else {
+                            JOptionPane.showMessageDialog(this, "Atención, la cantidad del producto ingresado para el pedido es superior al stock del mismo", "Stock insuficiente", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(this, "Error, No se encontro el producto para verificar su stock", "Error producto no encontrado", JOptionPane.WARNING_MESSAGE);
                     return;
-                }else
-                    dt.setCantidad(cantidad);
+                }
             }catch(NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Error, la Cantidad ingresada no es un número entero: "+ex, "Error por tipo de datos", JOptionPane.WARNING_MESSAGE);
                 return;
@@ -640,6 +708,11 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         
         try {
             ddata.guardar(dt);
+            Producto producto = dt.getProducto();
+            int calculo = producto.getStock()-Integer.parseInt(mcantidad);
+            producto.setStock(calculo);
+            pdata.actualizar(producto, "stock");
+            
             ddata.ConsistenciaDeDatos();
             ppdata.MantenerConsistenciaDatos();
             actualizarVentanas();
@@ -649,7 +722,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             jtfBuscar.setText("");
             jTable.setModel(modelo);
             jProductos.setSelectedIndex(0);
-            lista = ddata.listar();
+            lista = ddata.listar(estado);
             cargarTabla();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al guardar el DetallePedido: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
@@ -688,6 +761,11 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     private void jProductosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jProductosItemStateChanged
         cargarFiltro();
     }//GEN-LAST:event_jProductosItemStateChanged
+
+    private void jcbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEstadoActionPerformed
+        estado = jcbEstado.isSelected();
+        cargarFiltro();
+    }//GEN-LAST:event_jcbEstadoActionPerformed
     
     public void limpiarAcciones() {
         jTable.setModel(modelo);
@@ -769,7 +847,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     }
     
     private int Enumerar() throws SQLException {
-        int size = ddata.listar().size();
+        int size = ddata.listar(false).size();
         int numero=0;
         for (int i=1; i<size+10; i++) {
             if (ddata.buscar(i)==null) {
@@ -812,12 +890,12 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                 Pedido p = ppdata.buscarPedido(numero);
                 
                 if (p==null) {
-                    lista = ddata.filtrarCategoriayPedido(0, filtro);
+                    lista = ddata.filtrarCategoriayPedido(0, filtro, estado);
                 }else{
-                    lista = ddata.filtrarCategoriayPedido(p.getIdPedido(), filtro);
+                    lista = ddata.filtrarCategoriayPedido(p.getIdPedido(), filtro, estado);
                 }
             }catch(NumberFormatException e) {
-                lista = ddata.filtrarCategoriayPedido(0, filtro);
+                lista = ddata.filtrarCategoriayPedido(0, filtro, estado);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cargar la tabla con filtro: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
@@ -826,10 +904,30 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     }
     
     private void actualizarVentanas() {
+        VPedido venPedido = null;
+        VProducto venProducto = null;
+        
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VPedido) {
+                venPedido = (VPedido)frame;
+                break;
+            }
+        }
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VProducto) {
+                venProducto = (VProducto)frame;
+                break;
+            }
+        }
+        
         if (venPedido!=null) {
             venPedido.quitarFiltros();
             venPedido.limpiarAcciones();
             venPedido.cargarFiltro();
+        }
+        if (venProducto!=null) {
+            venProducto.limpiarAcciones();
+            venProducto.cargarFiltro();
         }
     }
 
@@ -847,6 +945,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;
+    private javax.swing.JCheckBox jcbEstado;
     private javax.swing.JTextField jtfBuscar;
     // End of variables declaration//GEN-END:variables
 }

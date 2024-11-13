@@ -185,9 +185,13 @@ public class ReservaData {
         }
     }
     
-    public ArrayList<Reserva> listarReservas() throws SQLException {
+    public ArrayList<Reserva> listarReservas(boolean estado) throws SQLException {
         ArrayList<Reserva> reservas = new ArrayList<>();
         String sql = "SELECT * FROM reserva";
+        
+        if (estado) {
+            sql += " WHERE estado = true";
+        }
         
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -207,28 +211,6 @@ public class ReservaData {
         return reservas;
     }
 
-    public ArrayList<Reserva> listarReservasActivas() throws SQLException {
-        ArrayList<Reserva> reservas = new ArrayList<>();
-        String sql = "SELECT * FROM reserva WHERE estado = 1";
-        
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        
-        while (rs.next()) {
-            Reserva reserva = new Reserva(rs.getInt("idReserva"),
-                                          mesaData.buscar(rs.getInt("numero_mesa")),
-                                          rs.getString("dni_cliente"),
-                                          rs.getString("apellido"),
-                                            rs.getDate("fecha").toLocalDate(),
-                                            rs.getTime("hora_desde").toLocalTime(),
-                                            rs.getTime("hora_hasta").toLocalTime(),
-                                          rs.getString("vigencia"),
-                                          rs.getBoolean("estado"));
-            reservas.add(reserva);
-        }
-        return reservas;
-    }
-    
     public boolean validarReservaConflicto(LocalDate fecha, LocalTime hora_desde, LocalTime hora_hasta, int numero, int idReserva) throws SQLException {
         boolean conflicto = false;
         
@@ -251,10 +233,15 @@ public class ReservaData {
         return conflicto;
     }
     
-    public ArrayList<Reserva> buscarReservasPorFechayHorayVigencia(LocalDate fecha, LocalTime hora, String vigencia) throws SQLException {
+    public ArrayList<Reserva> buscarReservasPorFechayHorayVigencia(LocalDate fecha, LocalTime hora, String vigencia, boolean estado) throws SQLException {
         ArrayList<Reserva> reservas = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM (SELECT *, FIELD(vigencia, 'vigente', 'no_vigente') AS vindex FROM reserva) AS subreserva WHERE 1=1");
-
+        StringBuilder sql = new StringBuilder("SELECT * FROM (SELECT *, FIELD(vigencia, 'vigente', 'no_vigente') AS vindex FROM reserva) AS subreserva WHERE");
+        
+        if (estado) {
+            sql.append(" estado = true");
+        }else
+            sql.append(" 1=1");
+        
         ArrayList<Object> parameters = new ArrayList<>();
 
         if (fecha != null) {

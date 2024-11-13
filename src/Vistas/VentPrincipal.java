@@ -340,7 +340,7 @@ public class VentPrincipal extends javax.swing.JFrame {
             }
         }
         
-        VDetallePedido v = new VDetallePedido(0,pedido);
+        VDetallePedido v = new VDetallePedido(0, escritorio);
         v.setVisible(true);
         escritorio.add(v);
         escritorio.moveToFront(v);
