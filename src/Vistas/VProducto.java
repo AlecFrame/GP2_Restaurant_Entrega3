@@ -710,7 +710,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         pdata.actualizar(p,cambios,Integer.parseInt(codigog));
         if (!p.isEstado()) {
             try {
-                ddata.ConsistenciaDeDatos();
+                ddata.ConsistenciaDeDatosEstado();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Error SQL: "+ex,"Error SQL",JOptionPane.ERROR_MESSAGE);
             }
@@ -861,7 +861,7 @@ public class VProducto extends javax.swing.JInternalFrame {
         }
         
         try {
-            ddata.MantenerConsistenciaDatos();
+            ddata.MantenerConsistenciaDatosCalculos();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }

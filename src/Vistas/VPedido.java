@@ -863,7 +863,7 @@ public class VPedido extends javax.swing.JInternalFrame {
         try {
             pdata.actualizarPedido(p,Integer.parseInt(idPedidog));
             if (!p.isEstado()) {
-                ddata.ConsistenciaDeDatos();
+                ddata.ConsistenciaDeDatosEstado();
             }
             cargando = false;
             jbCargar.setEnabled(true);
@@ -986,7 +986,6 @@ public class VPedido extends javax.swing.JInternalFrame {
                 }
                 
                 String rutaEscritorio = System.getProperty("user.home") + "/Documents/";
-                System.out.println("ruta: "+rutaEscritorio);
                 File archivo = new File(rutaEscritorio + "ticket_pedido" + pedido.getIdPedido() + ".txt");
 
                 BufferedWriter writer = new BufferedWriter(new FileWriter(archivo));

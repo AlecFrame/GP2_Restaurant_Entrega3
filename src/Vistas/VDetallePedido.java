@@ -557,7 +557,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                 pdata.actualizar(producto, "stock");
             }
             
-            ddata.ConsistenciaDeDatos();
+            ddata.ConsistenciaDeDatosEstado();
             ppdata.MantenerConsistenciaDatos();
             actualizarVentanas();
             cargando = false;
@@ -713,7 +713,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             producto.setStock(calculo);
             pdata.actualizar(producto, "stock");
             
-            ddata.ConsistenciaDeDatos();
+            ddata.ConsistenciaDeDatosEstado();
             ppdata.MantenerConsistenciaDatos();
             actualizarVentanas();
             cargando = false;
@@ -735,6 +735,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         String texto = jtfBuscar.getText();
+        
         try {
             if (!"".equals(texto)) {
                 try {
@@ -879,7 +880,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
         }
         
         try {
-            ddata.MantenerConsistenciaDatos();
+            ddata.MantenerConsistenciaDatosCalculos();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }

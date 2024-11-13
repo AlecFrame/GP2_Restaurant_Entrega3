@@ -17,7 +17,7 @@ public class DetallePedidoData {
 
     public DetallePedidoData() {}
     
-    public void MantenerConsistenciaDatos() throws SQLException {
+    public void MantenerConsistenciaDatosCalculos() throws SQLException {
         ProductosData pdata = new ProductosData();
         PedidoData ppdata = new PedidoData();
         String sql = "SELECT idDetalle, codigo, cantidad, total FROM detalle_pedido;";
@@ -38,6 +38,36 @@ public class DetallePedidoData {
         }
         
         ppdata.MantenerConsistenciaDatos();
+    }
+    
+    public void ConsistenciaDeDatosEstado() throws SQLException {
+        PedidoData ppdata = new PedidoData();
+        ProductosData pdata = new ProductosData();
+        String sql = "SELECT idDetalle, idPedido, codigo, estado FROM detalle_pedido";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int idDetalle = rs.getInt("idDetalle");
+            int idPedido = rs.getInt("idPedido");
+            int codigo = rs.getInt("codigo");
+            Pedido pedido = ppdata.buscarPedido(idPedido);
+            Producto producto = pdata.buscar(codigo);
+            
+            boolean estadoDetalle = rs.getBoolean("estado");
+
+            boolean estadoPedido = pedido.isEstado();
+
+            boolean estadoProducto = producto.isEstado();
+
+            if (!estadoPedido || !estadoProducto) {
+                if (estadoDetalle) {
+                    CambiarEstado(false, idDetalle);
+                }
+            }
+        }
+
+        ps.close();
     }
     
     public void guardar(DetallePedido p) throws SQLException {
@@ -193,36 +223,6 @@ public class DetallePedidoData {
         }
     }
     
-    public void ConsistenciaDeDatos() throws SQLException {
-        PedidoData ppdata = new PedidoData();
-        ProductosData pdata = new ProductosData();
-        String sql = "SELECT idDetalle, idPedido, codigo, estado FROM detalle_pedido";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            int idDetalle = rs.getInt("idDetalle");
-            int idPedido = rs.getInt("idPedido");
-            int codigo = rs.getInt("codigo");
-            Pedido pedido = ppdata.buscarPedido(idPedido);
-            Producto producto = pdata.buscar(codigo);
-            
-            boolean estadoDetalle = rs.getBoolean("estado");
-
-            boolean estadoPedido = pedido.isEstado();
-
-            boolean estadoProducto = producto.isEstado();
-
-            if (!estadoPedido || !estadoProducto) {
-                if (estadoDetalle) {
-                    CambiarEstado(false, idDetalle);
-                }
-            }
-        }
-
-        ps.close();
-    }
-    
     public ArrayList<DetallePedido> listar(boolean estado) throws SQLException {
         PedidoData pedido = new PedidoData();
         ProductosData productos = new ProductosData();
@@ -282,7 +282,7 @@ public class DetallePedidoData {
         }
 
         PreparedStatement ps = con.prepareStatement(sql.toString());
-
+        
         for (int i = 0; i < parameters.size(); i++) {
             ps.setObject(i + 1, parameters.get(i));
         }
