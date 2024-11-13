@@ -36,6 +36,7 @@ public class VReservas extends javax.swing.JInternalFrame {
     private String hora_desdeg = null;
     private String hora_hastag = null;
     private String vigenciag = null;
+    private String estadog = null;
     
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int col) { 
@@ -433,6 +434,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                     hora,
                     "",
                     (!"null".equals(vigencia))? vigencia:"vigente",
+                    "true"
                 });
                 jTable.setModel(modelo_cargar);
             } catch (SQLException ex) {
@@ -457,6 +459,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         }
         String mhora_hasta = modelo_cargar.getValueAt(row, 6).toString();
         String mvigencia = modelo_cargar.getValueAt(row, 7).toString();
+        String mestado = modelo_cargar.getValueAt(row, 8).toString();
         Reserva r = new Reserva();
         
         try {
@@ -554,18 +557,23 @@ public class VReservas extends javax.swing.JInternalFrame {
         switch (mvigencia) {
             case ("vigente") : {
                 r.setVigencia(mvigencia);
-                r.setEstado(true);
                 break;
             }
             case ("no_vigente") : {
                 r.setVigencia(mvigencia);
-                r.setEstado(false);
                 break;
             }
             default : {
                 JOptionPane.showMessageDialog(this, "Error, vigencia inválida, debe ser (vigente o no_vigente)", "Error vigencia incorrecta", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+        }
+        
+        if (mestado.equalsIgnoreCase("true")|mestado.equalsIgnoreCase("false")) {
+            r.setEstado(mestado.equalsIgnoreCase("true"));
+        }else{
+            JOptionPane.showMessageDialog(this, "Error, el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
         try {
@@ -640,7 +648,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                 cargarFiltro();
             }else{
                 int codigo = Integer.parseInt(jTable.getValueAt(rowSelected, 0).toString());
-                rdata.cambiarVigencia("no_vigente", codigo);
+                rdata.cambiarEstado(false, codigo);
                 cargarFiltro();
             }
         } catch (NumberFormatException ex) {
@@ -671,11 +679,12 @@ public class VReservas extends javax.swing.JInternalFrame {
                     String mhora_desde = modelo_editable.getValueAt(rowSelectedg, 5).toString();
                     String mhora_hasta = modelo_editable.getValueAt(rowSelectedg, 6).toString();
                     String mvigencia = modelo_editable.getValueAt(rowSelectedg, 7).toString();
+                    String mestado = modelo_editable.getValueAt(rowSelectedg, 8).toString();
                     
                     if (mid.equals(idg)&mmesa.equals(mesag)&
                         mdni.equals(dnig)&mapellido.equals(apellidog)&
                         mfecha.equals(fechag)&mhora_desde.equals(hora_desdeg)&mhora_hasta.equals(hora_hastag)&
-                        mvigencia.equals(vigenciag)) {
+                        mvigencia.equals(vigenciag)&mestado.equals(estadog)) {
                         cambiovalido = false;
                     }
                 }
@@ -694,6 +703,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                     modelo_editable.setValueAt(hora_desdeg, rowSelectedg, 5);
                     modelo_editable.setValueAt(hora_hastag, rowSelectedg, 6);
                     modelo_editable.setValueAt(vigenciag, rowSelectedg, 7);
+                    modelo_editable.setValueAt(estadog, rowSelectedg, 8);
                 }
                 rowSelectedg = rowSelecteda;
                 idg = modelo.getValueAt(rowSelectedg, 0).toString();
@@ -704,6 +714,7 @@ public class VReservas extends javax.swing.JInternalFrame {
                 hora_desdeg = modelo.getValueAt(rowSelectedg, 5).toString();
                 hora_hastag = modelo.getValueAt(rowSelectedg, 6).toString();
                 vigenciag = modelo.getValueAt(rowSelectedg, 7).toString();
+                estadog = modelo.getValueAt(rowSelectedg, 8).toString();
                 if (rowSelecteda!=-1) {
                     cambiando = false;
                     jbActualizar.setEnabled(false);
@@ -728,6 +739,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         }
         String mhora_hasta = modelo_editable.getValueAt(rowSelectedg, 6).toString();
         String mvigencia = modelo_editable.getValueAt(rowSelectedg, 7).toString();
+        String mestado = modelo_editable.getValueAt(rowSelectedg, 8).toString();
         Reserva r = new Reserva();
         
         try {
@@ -817,18 +829,23 @@ public class VReservas extends javax.swing.JInternalFrame {
         switch (mvigencia) {
             case ("vigente") : {
                 r.setVigencia(mvigencia);
-                r.setEstado(true);
                 break;
             }
             case ("no_vigente") : {
                 r.setVigencia(mvigencia);
-                r.setEstado(false);
                 break;
             }
             default : {
                 JOptionPane.showMessageDialog(this, "Error, vigencia inválida, debe ser (vigente o no_vigente)", "Error vigencia incorrecta", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+        }
+        
+        if (mestado.equalsIgnoreCase("true")|mestado.equalsIgnoreCase("false")) {
+            r.setEstado(mestado.equalsIgnoreCase("true"));
+        }else{
+            JOptionPane.showMessageDialog(this, "Error, el estado debe ser True o False", "Error de tipos de datos", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
         try {
@@ -968,6 +985,7 @@ public class VReservas extends javax.swing.JInternalFrame {
         modelos.addColumn("Desde Hora");
         modelos.addColumn("Hasta Hora");
         modelos.addColumn("Vigencia");
+        modelos.addColumn("Estado");
     }
     
     public void cargarCabecera() {
@@ -997,7 +1015,8 @@ public class VReservas extends javax.swing.JInternalFrame {
             r.getFecha(),
             r.getHora_desde(),
             r.getHora_hasta(),
-            r.getVigencia()
+            r.getVigencia(),
+            r.isEstado()
         });
         modelo_cargar.addRow(new Object[] {
             r.getIdReserva(),
@@ -1007,7 +1026,8 @@ public class VReservas extends javax.swing.JInternalFrame {
             r.getFecha(),
             r.getHora_desde(),
             r.getHora_hasta(),
-            r.getVigencia()
+            r.getVigencia(),
+            r.isEstado()
         });
         modelo_editable.addRow(new Object[] {
             r.getIdReserva(),
@@ -1017,7 +1037,8 @@ public class VReservas extends javax.swing.JInternalFrame {
             r.getFecha(),
             r.getHora_desde(),
             r.getHora_hasta(),
-            r.getVigencia()
+            r.getVigencia(),
+            r.isEstado()
         });
     }
     

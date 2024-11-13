@@ -30,7 +30,7 @@ public class ReservaData {
             s.setTime(5, java.sql.Time.valueOf(r.getHora_desde()));
             s.setTime(6, java.sql.Time.valueOf(r.getHora_hasta()));
             s.setString(7, r.getVigencia());
-            s.setBoolean(8, (r.getVigencia().equals("vigencia")));
+            s.setBoolean(8, r.isEstado());
 
             int filas = s.executeUpdate();
             if (filas > 0) {
@@ -51,7 +51,7 @@ public class ReservaData {
             s.setTime(6, java.sql.Time.valueOf(r.getHora_desde()));
             s.setTime(7, java.sql.Time.valueOf(r.getHora_hasta()));
             s.setString(8, r.getVigencia());
-            s.setBoolean(9, (r.getVigencia().equals("vigencia")));
+            s.setBoolean(9, r.isEstado());
 
             int filas = s.executeUpdate();
             if (filas > 0) {
@@ -136,7 +136,7 @@ public class ReservaData {
             s.setTime(5, java.sql.Time.valueOf(r.getHora_desde()));
             s.setTime(6, java.sql.Time.valueOf(r.getHora_hasta()));
             s.setString(7, r.getVigencia());
-            s.setBoolean(8, (r.getVigencia().equals("vigencia")));
+            s.setBoolean(8, r.isEstado());
             s.setInt(9, id);
 
             int filas = s.executeUpdate();
@@ -158,7 +158,7 @@ public class ReservaData {
             s.setTime(6, java.sql.Time.valueOf(r.getHora_desde()));
             s.setTime(7, java.sql.Time.valueOf(r.getHora_hasta()));
             s.setString(8, r.getVigencia());
-            s.setBoolean(9, (r.getVigencia().equals("vigencia")));
+            s.setBoolean(9, r.isEstado());
             s.setInt(10, id);
 
             int filas = s.executeUpdate();
@@ -172,12 +172,24 @@ public class ReservaData {
     }
 
     public void cambiarVigencia(String vigencia, int id) throws SQLException {
-        String sql = "UPDATE reserva SET vigencia = ?, estado = ? WHERE idReserva = ?";
+        String sql = "UPDATE reserva SET vigencia = ? WHERE idReserva = ?";
 
         PreparedStatement s = con.prepareStatement(sql);
         s.setString(1, vigencia);
-        s.setBoolean(2, (vigencia.equals("vigente")));
-        s.setInt(3, id);
+        s.setInt(2, id);
+        
+        int filas = s.executeUpdate();
+        if (filas > 0) {
+            System.out.println("Reserva actualizada con éxito");
+        }
+    }
+    
+    public void cambiarEstado(boolean estado, int id) throws SQLException {
+        String sql = "UPDATE reserva SET estado = ? WHERE idReserva = ?";
+
+        PreparedStatement s = con.prepareStatement(sql);
+        s.setBoolean(1, estado);
+        s.setInt(2, id);
         
         int filas = s.executeUpdate();
         if (filas > 0) {
