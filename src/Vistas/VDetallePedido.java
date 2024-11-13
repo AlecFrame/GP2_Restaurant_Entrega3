@@ -521,7 +521,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(this, "La Cantidad de productos no debe ser inferior a 0", "Error cantidad inferior a 0", JOptionPane.WARNING_MESSAGE);
                         return;
                     }else{
-                        if (calculo<0) {
+                        if (calculo>=0) {
                             dt.setCantidad(cantidad);
                         }else {
                             JOptionPane.showMessageDialog(this, "Atención, la cantidad del producto ingresado para el pedido es superior al stock del mismo", "Stock insuficiente", JOptionPane.WARNING_MESSAGE);
@@ -679,7 +679,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(this, "La Cantidad de productos no debe ser inferior a 1", "Error cantidad inferior a 1", JOptionPane.WARNING_MESSAGE);
                         return;
                     }else{
-                        if (cantidad>producto.getStock()) {
+                        if (cantidad<=producto.getStock()) {
                             dt.setCantidad(cantidad);
                         }else {
                             JOptionPane.showMessageDialog(this, "Atención, la cantidad del producto ingresado para el pedido es superior al stock del mismo", "Stock insuficiente", JOptionPane.WARNING_MESSAGE);
