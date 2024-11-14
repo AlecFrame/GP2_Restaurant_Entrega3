@@ -35,7 +35,6 @@ public class ReservaData {
             int filas = s.executeUpdate();
             if (filas > 0) {
                 System.out.println("Reserva registrada con éxito");
-                JOptionPane.showMessageDialog(null, "Reserva registrada con éxito");
             } else {
                 System.out.println("Error al registrar la reserva");
             }
@@ -56,7 +55,6 @@ public class ReservaData {
             int filas = s.executeUpdate();
             if (filas > 0) {
                 System.out.println("Reserva registrada con éxito");
-                JOptionPane.showMessageDialog(null, "Reserva registrada con éxito");
             } else {
                 System.out.println("Error al registrar la reserva");
             }
@@ -142,7 +140,6 @@ public class ReservaData {
             int filas = s.executeUpdate();
             if (filas > 0) {
                 System.out.println("Reserva actualizada con éxito");
-                JOptionPane.showMessageDialog(null, "Reserva actualizada con éxito");
             } else {
                 System.out.println("Error al actualizar la reserva");
             }
@@ -164,7 +161,6 @@ public class ReservaData {
             int filas = s.executeUpdate();
             if (filas > 0) {
                 System.out.println("Reserva actualizada con éxito");
-                JOptionPane.showMessageDialog(null, "Reserva actualizada con éxito");
             } else {
                 System.out.println("Error al actualizar la reserva");
             }
@@ -177,11 +173,7 @@ public class ReservaData {
         PreparedStatement s = con.prepareStatement(sql);
         s.setString(1, vigencia);
         s.setInt(2, id);
-        
-        int filas = s.executeUpdate();
-        if (filas > 0) {
-            System.out.println("Reserva actualizada con éxito");
-        }
+        s.executeUpdate();
     }
     
     public void cambiarEstado(boolean estado, int id) throws SQLException {

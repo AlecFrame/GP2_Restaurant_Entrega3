@@ -1,6 +1,7 @@
 
 package Vistas;
 
+import Modelo.Mesa;
 import java.sql.*;
 import Modelo.Reserva;
 import Persistencia.MesaData;
@@ -62,7 +63,11 @@ public class VReservas extends javax.swing.JInternalFrame {
             lista = rdata.listarReservas(estado);
             
             for (Reserva r: lista) {
-                if (r.getFecha().isBefore(LocalDate.now())) {
+                if ((r.getFecha().isBefore(LocalDate.now())||(
+                        r.getFecha().isEqual(LocalDate.now())&
+                        r.getHora_hasta().isBefore(LocalTime.now())
+                        ))&
+                        !"no_vigente".equals(r.getVigencia())) {
                     rdata.cambiarVigencia("no_vigente", r.getIdReserva());
                 }
             }
@@ -582,19 +587,25 @@ public class VReservas extends javax.swing.JInternalFrame {
             LocalTime vhora_hasta = LocalTime.parse(mhora_hasta);
             int vnumero = Integer.parseInt(mmesa);
             int vidReserva = Integer.parseInt(mid);
+            Mesa mesa = mdata.buscar(Integer.parseInt(mmesa));
             
-            if (rdata.validarReservaConflicto( vfecha, vhora_desde, vhora_hasta, vnumero, vidReserva)) {
-                JOptionPane.showMessageDialog(this, "La reserva entra en conflicto con las horas de otra reserva que fue hecha para el mismo dia y misma mesa", "Error de conflicto de reservas", JOptionPane.WARNING_MESSAGE);
+            if (!"libre".equals(mesa.getOcupada()) & LocalDate.now().isEqual(vfecha) & (LocalTime.now().isAfter(vhora_desde) & LocalTime.now().isBefore(vhora_hasta))) {
+                JOptionPane.showMessageDialog(this, "Atención, la mesa que se desea ocupar en esta reseva ya está siendo ocupada actualmente", "Error de conflicto de mesas", JOptionPane.WARNING_MESSAGE);
             }else{
-                rdata.guardarReserva(r);
-                cargando = false;
-                jbCargar.setEnabled(true);
-                jbGuardar.setEnabled(false);
-                jtfBuscar.setText("");
-                quitarFiltros();
-                jTable.setModel(modelo);
-                lista = rdata.listarReservas(estado);
-                cargarTabla();
+                if (rdata.validarReservaConflicto( vfecha, vhora_desde, vhora_hasta, vnumero, vidReserva)) {
+                    JOptionPane.showMessageDialog(this, "La reserva entra en conflicto con las horas de otra reserva que fue hecha para el mismo dia y misma mesa", "Error de conflicto de reservas", JOptionPane.WARNING_MESSAGE);
+                }else{
+                    rdata.guardarReserva(r);
+                    cargando = false;
+                    jbCargar.setEnabled(true);
+                    jbGuardar.setEnabled(false);
+                    jtfBuscar.setText("");
+                    quitarFiltros();
+                    jTable.setModel(modelo);
+                    lista = rdata.listarReservas(estado);
+                    cargarTabla();
+                    JOptionPane.showMessageDialog(this, "Reserva guardada con exito", "Reserva guardada", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al guardar la reserva: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
@@ -854,16 +865,22 @@ public class VReservas extends javax.swing.JInternalFrame {
             LocalTime vhora_hasta = LocalTime.parse(mhora_hasta);
             int vnumero = Integer.parseInt(mmesa);
             int vidReserva = Integer.parseInt(mid);
+            Mesa mesa = mdata.buscar(Integer.parseInt(mmesa));
             
-            if (rdata.validarReservaConflicto( vfecha, vhora_desde, vhora_hasta, vnumero, vidReserva)) {
-                JOptionPane.showMessageDialog(this, "La reserva entra en conflicto con las horas de otra reserva que fue hecha para el mismo dia y misma mesa", "Error de conflicto de reservas", JOptionPane.WARNING_MESSAGE);
+            if (!"libre".equals(mesa.getOcupada()) & LocalDate.now().isEqual(vfecha) & (LocalTime.now().isAfter(vhora_desde) & LocalTime.now().isBefore(vhora_hasta))) {
+                JOptionPane.showMessageDialog(this, "Atención, la mesa que se desea ocupar en esta reseva ya está siendo ocupada actualmente", "Error de conflicto de mesas", JOptionPane.WARNING_MESSAGE);
             }else{
-                rdata.actualizarReserva(r,Integer.parseInt(idg));
-                cargando = false;
-                jbCargar.setEnabled(true);
-                jbGuardar.setEnabled(false);
-                jTable.setModel(modelo);
-                cargarFiltro();
+                if (rdata.validarReservaConflicto( vfecha, vhora_desde, vhora_hasta, vnumero, vidReserva)) {
+                    JOptionPane.showMessageDialog(this, "La reserva entra en conflicto con las horas de otra reserva que fue hecha para el mismo dia y misma mesa", "Error de conflicto de reservas", JOptionPane.WARNING_MESSAGE);
+                }else{
+                    rdata.actualizarReserva(r,Integer.parseInt(idg));
+                    cargando = false;
+                    jbCargar.setEnabled(true);
+                    jbGuardar.setEnabled(false);
+                    jTable.setModel(modelo);
+                    cargarFiltro();
+                    JOptionPane.showMessageDialog(this, "Reserva actualizada con exito", "Reserva actualizada", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         } catch(SQLException e) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+e, "Error SQL", JOptionPane.ERROR_MESSAGE);
