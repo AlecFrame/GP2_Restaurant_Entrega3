@@ -6,6 +6,8 @@ import Persistencia.MeseroData;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,6 +16,7 @@ public class VMeseros extends javax.swing.JInternalFrame {
     private ArrayList<Mesero> lista = new ArrayList<>();
     private MeseroData msdata = new MeseroData();
     private boolean estado = true;
+    private JDesktopPane escritorio = null;
     private int rowSelected = -1;
     private int rowSelecteda = -1;
     private int rowSelectedg = -1;
@@ -43,7 +46,8 @@ public class VMeseros extends javax.swing.JInternalFrame {
         }
     };
     
-    public VMeseros() {
+    public VMeseros(JDesktopPane escritorio) {
+        this.escritorio = escritorio;
         initComponents();
         
         try { 
@@ -391,14 +395,14 @@ public class VMeseros extends javax.swing.JInternalFrame {
         Mesero ms = new Mesero();
         
         if (!mdni.trim().equalsIgnoreCase("")) {
+            if (mdni.length()>8) {
+                JOptionPane.showMessageDialog(this, "Inválido, el número de caracteres del DNI es mayor a 8", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
+                return;
+            }else
             try {
                 int dni = Integer.parseInt(mdni);
                 if (dni<1) {
                     JOptionPane.showMessageDialog(this, "Inválido, el DNI no puede ser menor a uno", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }else
-                if (mdni.length()>8) {
-                    JOptionPane.showMessageDialog(this, "Inválido, el número de caracteres del DNI es mayor a 8", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
                     return;
                 }else
                 if (msdata.buscar(mdni)==null) {
@@ -442,15 +446,21 @@ public class VMeseros extends javax.swing.JInternalFrame {
         }
         
         try {
-            msdata.actualizar(ms, Integer.parseInt(dnig));
+            msdata.actualizar(ms, dnig);
+            
+            if (!mdni.equals(dnig)) {
+                actualizarVentanas();
+            }
             cargando = false;
             jbCargar.setEnabled(true);
             jbGuardar.setEnabled(false);
             jTable.setModel(modelo);
             lista = msdata.listarMeseros(estado);
+            
             cargarTabla();
+            
         } catch(SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+e, "Error SQL", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error de SQL: "+e, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbActualizarActionPerformed
 
@@ -482,14 +492,14 @@ public class VMeseros extends javax.swing.JInternalFrame {
         Mesero ms = new Mesero();
         
         if (!mdni.trim().equalsIgnoreCase("")) {
+            if (mdni.length()>8) {
+                JOptionPane.showMessageDialog(this, "Inválido, el número de caracteres del DNI es mayor a 8", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
+                return;
+            }else
             try {
                 int dni = Integer.parseInt(mdni);
                 if (dni<1) {
                     JOptionPane.showMessageDialog(this, "Inválido, el DNI no puede ser menor a uno", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }else
-                if (mdni.length()>8) {
-                    JOptionPane.showMessageDialog(this, "Inválido, el número de caracteres del DNI es mayor a 8", "Error de tipo DNI", JOptionPane.WARNING_MESSAGE);
                     return;
                 }else
                 if (msdata.buscar(mdni)==null) {
@@ -620,6 +630,35 @@ public class VMeseros extends javax.swing.JInternalFrame {
     private void Botones(boolean b) {
         jbActualizar.setEnabled(b);
         jbEliminar.setEnabled(b);
+    }
+    
+    private void actualizarVentanas() {
+        VPedido pedido = null;
+        VMesa mesa = null;
+        
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VPedido) {
+                pedido = (VPedido) frame;
+                break;
+            }
+        }
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+            if (frame instanceof VMesa) {
+                mesa = (VMesa) frame;
+                break;
+            }
+        }
+        
+        if (pedido!=null) {
+            pedido.quitarFiltros();
+            pedido.limpiarAcciones();
+            pedido.cargarFiltro();
+        }
+        
+        if (mesa!=null) {
+            mesa.limpiarAcciones();
+            mesa.cargarFiltro();
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

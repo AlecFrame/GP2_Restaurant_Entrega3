@@ -37,7 +37,7 @@ public class DetallePedidoData {
             }
         }
         
-        ppdata.MantenerConsistenciaDatos();
+        ppdata.MantenerConsistenciaDatosPrecios();
     }
     
     public void ConsistenciaDeDatosEstado() throws SQLException {

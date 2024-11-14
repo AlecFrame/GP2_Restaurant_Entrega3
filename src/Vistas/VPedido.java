@@ -620,7 +620,7 @@ public class VPedido extends javax.swing.JInternalFrame {
             jtfBuscar.setText("");
             quitarFiltros();
             jTable.setModel(modelo);
-            pdata.MantenerConsistenciaDatos();
+            pdata.MantenerConsistenciaDatosPrecios();
             lista = pdata.listarPedidos(estado);
             cargarTabla();
         } catch (SQLException ex) {
@@ -1148,7 +1148,7 @@ public class VPedido extends javax.swing.JInternalFrame {
     
     public void cargarFiltro() {
         try {
-            pdata.MantenerConsistenciaDatos();
+            pdata.MantenerConsistenciaDatosPrecios();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error de SQL al cambiar el estado: "+ex, "Error SQL", JOptionPane.ERROR_MESSAGE);
         }

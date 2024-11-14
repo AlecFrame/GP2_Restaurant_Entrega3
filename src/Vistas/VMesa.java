@@ -813,7 +813,7 @@ public class VMesa extends javax.swing.JInternalFrame {
         jTable.setModel(modelo);
     }
     
-    private void cargarTabla() {
+    public void cargarTabla() {
         limpiarAcciones();
         cargando = false;
         modelo.setRowCount(0);
@@ -867,7 +867,7 @@ public class VMesa extends javax.swing.JInternalFrame {
         return numero;
     }
     
-    private void cargarFiltro() {
+    public void cargarFiltro() {
         switch (jcCategoria.getSelectedIndex()) {
             case (0) : {
                 condicion_filtro="todas";

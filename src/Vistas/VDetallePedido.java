@@ -558,7 +558,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             }
             
             ddata.ConsistenciaDeDatosEstado();
-            ppdata.MantenerConsistenciaDatos();
+            ppdata.MantenerConsistenciaDatosPrecios();
             actualizarVentanas();
             cargando = false;
             jbCargar.setEnabled(true);
@@ -714,7 +714,7 @@ public class VDetallePedido extends javax.swing.JInternalFrame {
             pdata.actualizar(producto, "stock");
             
             ddata.ConsistenciaDeDatosEstado();
-            ppdata.MantenerConsistenciaDatos();
+            ppdata.MantenerConsistenciaDatosPrecios();
             actualizarVentanas();
             cargando = false;
             jbCargar.setEnabled(true);

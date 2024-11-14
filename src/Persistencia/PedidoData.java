@@ -39,7 +39,7 @@ public class PedidoData {
         return importe;
     }
     
-    public void MantenerConsistenciaDatos() throws SQLException {
+    public void MantenerConsistenciaDatosPrecios() throws SQLException {
         String sql = "SELECT idPedido, importe FROM pedido;";
         
         PreparedStatement s = con.prepareStatement(sql);

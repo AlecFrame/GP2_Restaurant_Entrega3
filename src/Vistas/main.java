@@ -595,21 +595,23 @@ public class main {
                     Mesero m = new Mesero(0,null,null,false);
                     boolean valido = true;
                     String opcions = null;
+                    String viejo_dni = null;
                     System.out.print("//// Ingrese el DNI del mesero que desea actualizar, ingrese 0 para cancelar\n//// : ");
                     do {
                         valido = true;
-                        opcions = String.valueOf(leerInt.nextInt());
+                        viejo_dni = String.valueOf(leerInt.nextInt());
+                        opcions = viejo_dni;
                         if ("0".equals(opcions)) {
                             System.out.println("///// Operación cancelada /////\n");
                             break;
                         }else{
                             try {
-                                m.setDniMesero(Integer.parseInt(opcions));
                                 if (msdata.buscar(opcions)!=null) {
                                     System.err.print("//// valor inválido, el DNI ingresado ya existe, intentelo nuevamente\n//// : ");
                                     leerInt.nextLine();
                                     valido = false;
-                                }
+                                }else
+                                    m.setDniMesero(Integer.parseInt(opcions));
                             } catch (SQLException | NumberFormatException ex) {
                                 System.out.print("//// DNI inválido, intentelo nuevamente o ingrese 0 para cancelar\n//// : ");
                                 leerInt.next();
@@ -665,7 +667,7 @@ public class main {
                             } while (!valido);
                         }
                         
-                        msdata.actualizar(m,m.getDniMesero());
+                        msdata.actualizar(m,viejo_dni);
                         System.out.println(" - "+msdata.buscar(String.valueOf(m.getDniMesero()))+"\n");
                         break;
                     }else {
